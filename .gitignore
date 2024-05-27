@@ -1,1 +1,5 @@
 /outputs
+/data
+/models
+*__pycache__
+/FaceGen/db.sqlite3

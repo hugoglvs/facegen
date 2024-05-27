@@ -1,0 +1,80 @@
+{% load static %}
+{% csrf_token %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceGen</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap">
+    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <style>
+        body {
+            background: linear-gradient(180deg, rgba(6,114,203,1) 0%, rgba(68,152,218,1) 16%, rgba(229,248,255,1) 30%, rgba(229,248,255,1) 100%);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="home/images/logo.png" alt="Logo" class="logo">
+        <div class="nav-buttons">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="#">Contact us</a>
+            <div class="dropdown">
+                <button>▼</button>
+                <div class="dropdown-content">
+                    <a href="#"><div class="circle c1"></div></a>
+                    <a href="#"><div class="circle c2"></div></a>
+                    <a href="#"><div class="circle c3"></div></a>
+                    <a href="#"><div class="circle c4"></div></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="title-container">
+            <h1>FaceGen</h1>
+            <span class="subtitle">Powered by the students of Paul Valéry</span>
+        </div>
+        <p>Your gateway to AI-generated faces and personas. Describe, and watch as lifelike images come to life effortlessly.</p>
+        <div class="prompt-area">
+            <div class="buttons-container">
+                <div class="buttons">
+                    <a href="#"><img src="{% static 'home/images/icon1.png' %}" alt="Advanced settings"></a>
+                    <input type="file" id="upload_file" name="upload_file"><img src="{% static 'home/images/icon2.png' %}" alt="Upload a photo"></input>
+                    <a href="#"><img src="{% static 'home/images/icon3.png' %}" alt="Take"></a>
+                </div>
+            </div>    
+            <input type="text" class="prompt-input" placeholder="Enter your prompt here...">
+            <button class="prompt-button" hx-get="/home/generate" hx-trigger="click" hx-target="#test" hx-swap-oob="outerHTML" hx-vals='{"bonjour": 1}''>
+                <img src="{% static 'home/images/sendbtn.png' %}" alt="Send">
+            </button>
+        </div>
+            
+        <div id="test" class="image-output">
+            <img src="{% static 'home/images/output.png' %}" alt="Output">
+            <button class="trash-button">
+                <img src="{% static 'home/images/trash.png' %}" alt="Trash">
+            </button>
+        </div>        
+    </div>
+    <footer>
+    {% if historique %}
+        <ul>
+        {% for image in history %}
+            <div class="historique-item-container c10">
+                <div class="historique-item">
+                    <img src= "{{ image.path }}" alt="AI-generated face">
+                    <p> {{ image.params.prompt }} </p>
+                </div>
+            </div>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
