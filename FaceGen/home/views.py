@@ -34,7 +34,7 @@ def generate(request: HttpRequest) -> HttpResponse:
     image.save(f"{settings.MEDIA_ROOT}/{filename}")
     print(f"Image saved to {settings.MEDIA_ROOT}/{filename}")
     print(f"Image URL: {settings.MEDIA_URL}/{filename}")
-    image_output = ImageOutput(path=f"{settings.MEDIA_URL}/{filename}", params=image_input)
+    image_output = ImageOutput(path=f"{settings.MEDIA_URL}{filename}", params=image_input)
     image_output.save()
 
     context = {"image_output": image_output}
