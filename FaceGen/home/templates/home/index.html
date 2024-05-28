@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap">
     <link rel="stylesheet" href="{% static 'home/styles.css' %}">
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'home/script.js' %}"></script>
     <style>
         body {
             background: linear-gradient(180deg, rgba(6,114,203,1) 0%, rgba(68,152,218,1) 16%, rgba(229,248,255,1) 30%, rgba(229,248,255,1) 100%);
@@ -40,19 +42,26 @@
             <span class="subtitle">Powered by the students of Paul Valéry</span>
         </div>
         <p>Your gateway to AI-generated faces and personas. Describe, and watch as lifelike images come to life effortlessly.</p>
-        <div class="prompt-area">
+        <form class="prompt-area" id="image-inputs" hx-get="/home/generate" hx-target="#test">
             <div class="buttons-container">
                 <div class="buttons">
-                    <a href="#"><img src="{% static 'home/images/icon1.png' %}" alt="Advanced settings"></a>
+                    <button onclick="$('#advanced-settings').toggle()"><img src="{% static 'home/images/icon1.png' %}" alt="Advanced settings"></button>
                     <input type="file" id="upload_file" name="upload_file"><img src="{% static 'home/images/icon2.png' %}" alt="Upload a photo"></input>
-                    <a href="#"><img src="{% static 'home/images/icon3.png' %}" alt="Take"></a>
+                    <button><img src="{% static 'home/images/icon3.png' %}" alt="Take a photo"></button>
                 </div>
-            </div>    
-            <input type="text" class="prompt-input" placeholder="Enter your prompt here...">
-            <button class="prompt-button" hx-get="/home/generate" hx-trigger="click" hx-target="#test" hx-swap-oob="outerHTML" hx-vals='{"bonjour": 1}''>
+            </div>
+            <input type="text" name="prompt" id="prompt" class="prompt-input" placeholder="Enter your prompt here..." required>
+            <input type="submit" class="prompt-button">
                 <img src="{% static 'home/images/sendbtn.png' %}" alt="Send">
-            </button>
-        </div>
+            </input>
+            <div id="advanced-settings" class="advanced-settings" style="display: None">
+                <input type="text" name="negative_prompt" id="negative_prompt" value="what">
+                <input type="number" name="width" id="width" value="512" min="128" max="1024">
+                <input type="number" name="height" id="height" value="512" min="128" max="1024">
+                <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10">
+                <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500">
+            </div>
+        </form>
             
         <div id="test" class="image-output">
             <img src="{% static 'home/images/output.png' %}" alt="Output">
@@ -75,6 +84,5 @@
         </ul>
     {% endif %}
     </footer>
-    <script src="script.js"></script>
 </body>
 </html>

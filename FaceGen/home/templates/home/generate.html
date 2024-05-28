@@ -1,5 +1,10 @@
-<div id="image-output">
-    <img src="{% static 'home/images/output.png' %}" alt="Output">
+{% load static %}
+<div id="test">
+    {% if image_output %}
+        <img src="{{ image_output.path }}" alt="Output">
+    {% else %}
+        <p>Error, no image generated</p>
+    {% endif %}
     <button class="trash-button">
         <img src="{% static 'home/images/trash.png' %}" alt="Trash">
     </button>

@@ -10,6 +10,8 @@ from accelerate import Accelerator
 from dataclasses import dataclass
 from datasets import load_dataset
 
+from .models import ImageInput, ImageOutput
+
 def load_pipeline():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # generator = torch.Generator(device=device).manual_seed(42)
@@ -22,8 +24,9 @@ def load_pipeline():
     pipe.to(device)
     return pipe
 
-def generate_image(pipe, prompt, negative_prompt, width=512, height=512, num_inference_steps=100, guidance_scale=7.5):
-    result = pipe(prompt, negative_prompt=negative_prompt, width=width, height=height, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale)
+def generate_image(pipe: DiffusionPipeline, image_input: ImageInput):
+    print(image_input.params())
+    result = pipe(**image_input.params())
     image = result.images[0]
     return image
     
