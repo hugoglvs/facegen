@@ -1,40 +1,27 @@
-document.addEventListener("DOMContentLoaded", function() {
-            const historiqueItems = document.querySelectorAll('.historique-item');
+$(document).ready(function() {
+    const $historiqueItems = $('.historique-item');
 
-            historiqueItems.forEach(item => {
-                const image = item.querySelector('img');
-                const description = item.querySelector('p');
-                
-                image.addEventListener('click', function() {
-                    const modalContainer = document.createElement('div');
-                    modalContainer.classList.add('modal-container');
+    $historiqueItems.each(function() {
+        const $item = $(this);
+        const $image = $item.find('img');
+        const $description = $item.find('p');
 
-                    const modalContent = document.createElement('div');
-                    modalContent.classList.add('modal-content');
+        $image.on('click', function() {
+            const $modalContainer = $('<div>').addClass('modal-container');
+            const $modalContent = $('<div>').addClass('modal-content');
+            const $exitButton = $('<div>').addClass('exit-button').text('X');
+            const $enlargedImage = $('<img>').attr('src', $image.attr('src'));
+            const $enlargedDescription = $('<p>').text($description.text());
 
-                    const exitButton = document.createElement('div');
-                    exitButton.classList.add('exit-button');
-                    exitButton.textContent = 'X';
+            $modalContent.append($exitButton, $enlargedImage, $enlargedDescription);
+            $modalContainer.append($modalContent);
+            $('body').append($modalContainer);
 
-                    const enlargedImage = document.createElement('img');
-                    enlargedImage.src = image.src;
-
-                    const enlargedDescription = document.createElement('p');
-                    enlargedDescription.textContent = description.textContent;
-
-                    modalContent.appendChild(exitButton);
-                    modalContent.appendChild(enlargedImage);
-                    modalContent.appendChild(enlargedDescription);
-
-                    modalContainer.appendChild(modalContent);
-
-                    document.body.appendChild(modalContainer);
-
-                    modalContainer.addEventListener('click', function(event) {
-                        if (event.target === modalContainer || event.target === exitButton) {
-                            modalContainer.remove();
-                        }
-                    });
-                });
+            $modalContainer.on('click', function(event) {
+                if ($(event.target).is($modalContainer) || $(event.target).is($exitButton)) {
+                    $modalContainer.remove();
+                }
             });
         });
+    });
+});

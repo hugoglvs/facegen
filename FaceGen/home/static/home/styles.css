@@ -19,22 +19,25 @@ header {
     height: 30px;
     padding-left: 20px;
 }
+.icon {
+    width: 32px;
+    height: 32px;
+}
 .nav-buttons {
     display: flex;
     gap: 50px;
+    a:hover {
+        color: #ffffff7b;
+    }
+    a, .dropdown button {
+        background: none;
+        color: #fff;
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+    }
 }
 
-.nav-buttons a:hover {
-    color: #ffffff7b;
-}
-
-.nav-buttons a, .nav-buttons .dropdown button {
-    background: none;
-    color: #fff;
-    cursor: pointer;
-    border: none;
-    text-decoration: none;
-}
 .dropdown {
     position: relative;
     display: inline-block;
@@ -50,9 +53,9 @@ header {
     height: 20px;
     border-radius: 50%;
     margin-top: 15px;
-}
-.circle:hover{
-    transform: scale(1.25);
+    &:hover{
+        transform: scale(1.25);
+    }
 }
 .c1 {
     background-color: #80C7FB;
@@ -69,11 +72,23 @@ header {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
 .content {
     text-align: center;
+    h1 {
+        text-align: left;
+    }
+    p {
+        font-size: 16px;
+        max-width: 600px;
+        margin: 0px;
+        text-align: left;
+    }
 }
-.content h1 {
-    text-align: left;
+
+h1{
+    font-size: 48px;
+    font-weight: 300;
 }
 .title-container {
     display: flex;
@@ -88,34 +103,81 @@ header {
     font-weight: 400;
     font-style: italic;
 }
-.content p {
-    font-size: 16px;
+
+.prompt-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Align items to both ends */
+    width: 100%;
     max-width: 600px;
-    margin: 0px;
-    text-align: left;
+    border-radius: 25px;
+    overflow: hidden; /* Ensure button stays inside the container */
+    background: #fff; /* Add white background */
 }
+
+.prompt-input {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    width: calc(100% - 160px); /* Adjust input width */
+}
+
+.buttons-container {
+    display: flex;
+    .buttons {
+        button {
+            background: transparent;
+            border: none;
+            gap: 5px; 
+            border: none;
+            padding: 0;
+        }
+        img {
+            width: 20px; 
+            height: auto;
+        }
+        
+    }
+}
+
+.buttons {
+    a {
+        background: #fff; /* White background */
+        border: none;
+        cursor: pointer;
+        margin: 0; 
+        padding: 0;
+    }
+    img {
+        width: 25px;
+        height: auto; 
+        border-radius: 5px;
+    }
+}
+
+
+.prompt-button {
+    padding: 0;
+    width: 60px; 
+    background: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    img {
+        width: 25px;
+        height: auto; 
+    }
+}
+
+
 .prompt-area {
+    display: flex;
     justify-content: center;
     margin-top: 30px;
     margin-bottom: 20px;
 }
-.prompt-input {
-    width: 600px;
-    padding: 15px;
-    border: none;
-    border-radius: 25px 0 0 25px;
-}
-.prompt-button {
-    background: #fff;
-    border: none;
-    padding: 0px 10px;
-    border-radius: 0 25px 25px 0;
-    cursor: pointer;
-}
-.prompt-button img{
-    width: 25px;
-    height: auto;
-}
+
 .image-output {
     position: relative; 
     width: 270px;
@@ -140,34 +202,14 @@ header {
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    img {
+        width: 20px;
+        height: auto;
+    }
 }
 
-.trash-button img {
-    width: 20px;
-    height: auto;
-}
 
-.buttons-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 30px;
-}
-
-.buttons a {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin: 0; 
-    padding: 0;
-}
-
-.buttons img {
-    width: 25px;
-    height: auto; 
-    border-radius: 5px;
-}
-
-footer {
+.footer {
     bottom: 0;
     width: 100%;
     padding: 10px 0;
@@ -177,8 +219,8 @@ footer {
 
 .historique-item-container {
     border-radius: 10px; /* Rounded corners */
-    padding: 10px; /* Padding around each item */
-    margin: 10px; /* Margin between items */
+    padding: 10px; /* Padding around each */
+    margin: 10px; /* Margin between */
     margin-left: 15px;
     text-align: center;
     width: calc(18% - 20px); /* Adjust width for 5 items per row */
@@ -207,18 +249,16 @@ footer {
 
 .historique-item {
     width: 100%;
-}
-
-.historique-item img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.historique-item p {
-    margin-top: 5px; 
-    font-size: 14px;
-    color: #000; 
-    font-weight: 400;
+    p {
+        margin-top: 5px;
+        font-size: 14px;
+        color: #000;
+        font-weight: 400;
+    }
+    img {
+        width: 100%;
+        border-radius: 10px;
+    }
 }
 
 /***************************JS style****************************/
@@ -243,19 +283,17 @@ footer {
     max-width: 90%;
     max-height: 90%;
     overflow: auto;
-}
-
-.modal-content img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-}
-
-.modal-content p {
-    margin-top: 15px;
-    font-size: 16px;
-    color: #000;
-    text-align: center;
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+    }
+    p {
+        margin-top: 15px;
+        font-size: 16px;
+        color: #000;
+        text-align: center;
+    }
 }
 
 .historique-item-container {
@@ -271,6 +309,11 @@ footer {
 }
 /*************************about style****************************/
 
+h1{
+    font-size: 48px;
+    font-weight: 300;
+}
+
 .about-container {
     text-align: center;
     margin-top: 100px;
@@ -284,22 +327,16 @@ footer {
 
 .about-content {
     max-width: 700px;
+    img {
+        max-width: 100%;
+        height: auto;
+        text-align: center;
+        border-radius: 10px;
+        margin-bottom: 50px;
+    }
+    p{
+        margin-bottom: 50px;
+        text-align: left;
+    }
 }
 
-.about-content img {
-    max-width: 100%;
-    height: auto;
-    text-align: center;
-    border-radius: 10px;
-    margin-bottom: 50px;
-}
-
-h1{
-    font-size: 48px;
-    font-weight: 300;
-}
-
-.about-content p{
-    margin-bottom: 50px;
-    text-align: left;
-}

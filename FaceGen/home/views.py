@@ -5,7 +5,7 @@ from .models import ImageOutput, ImageInput
 from django.conf import settings
 import os
 
-flag = False
+flag = True
 
 # def view(request: HttpRequest) -> HttpResponse:
 
@@ -13,7 +13,7 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, 
                   'home/index.html',
                   {
-                      'historique': ImageOutput.objects.all()[10:25]
+                      'history': ImageOutput.objects.all()[10:25]
                   })
 
 @csrf_exempt
