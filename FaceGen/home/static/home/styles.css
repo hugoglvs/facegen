@@ -53,7 +53,7 @@ header {
     height: 20px;
     border-radius: 50%;
     margin-top: 15px;
-    &:hover{
+    &:hover {
         transform: scale(1.25);
     }
 }
@@ -86,17 +86,17 @@ header {
     }
 }
 
-h1{
+h1 {
     font-size: 48px;
     font-weight: 300;
 }
 .title-container {
     display: flex;
-    align-items: center; 
+    align-items: center;
 }
 .subtitle {
     font-size: 16px;
-    color:  #ffffff7b;
+    color: #ffffff7b;
     margin-left: 10px;
     position: relative;
     top: 10px;
@@ -107,69 +107,58 @@ h1{
 .prompt-container {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Align items to both ends */
+    justify-content: space-between;
     width: 100%;
-    max-width: 600px;
+    max-width: 700px;
     border-radius: 25px;
-    overflow: hidden; /* Ensure button stays inside the container */
-    background: #fff; /* Add white background */
+    overflow: hidden;
+    background: #fff;
+    position: relative;
 }
 
 .prompt-input {
     flex: 1;
-    padding: 15px;
+    padding: 15px 15px 15px 90px;
+    margin-right: 5px;
+    margin-left: 5px;
     border: none;
-    width: calc(100% - 160px); /* Adjust input width */
+    width: calc(100% - 90px - 60px); /* Adjust input width to consider icon and button space */
+    position: relative;
+    z-index: 1;
+}
+
+.prompt-input:focus {
+    outline: none; /* Remove the default focus outline */
 }
 
 .buttons-container {
+    position: absolute;
+    left: 15px;
     display: flex;
-    .buttons {
-        button {
-            background: transparent;
-            border: none;
-            gap: 5px; 
-            border: none;
-            padding: 0;
-        }
-        img {
-            width: 20px; 
-            height: auto;
-        }
-        
-    }
+    gap: 10px;
+    z-index: 2;
+    align-items: center;
 }
 
-.buttons {
-    a {
-        background: #fff; /* White background */
-        border: none;
-        cursor: pointer;
-        margin: 0; 
-        padding: 0;
-    }
-    img {
-        width: 25px;
-        height: auto; 
-        border-radius: 5px;
-    }
+.buttons img {
+    width: 20px;
+    height: auto;
 }
-
 
 .prompt-button {
-    padding: 0;
-    width: 60px; 
+    width: 60px;
     background: #fff;
     border: none;
-    padding: 10px;
     border-radius: 0 25px 25px 0;
     cursor: pointer;
-    img {
-        width: 25px;
-        height: auto; 
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
+.prompt-button img {
+    width: 25px;
+    height: auto;
+}
 
 .prompt-area {
     display: flex;
@@ -178,17 +167,66 @@ h1{
     margin-bottom: 20px;
 }
 
+/*********************advsettings index*************************/
+
+#advanced-settings {
+    display: none;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 250px;
+    margin: 20px auto; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#advanced-settings input[type="text"],
+#advanced-settings input[type="number"] {
+    display: block;
+    width: calc(90% - 20px); 
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#advanced-settings input[type="text"]:focus,
+#advanced-settings input[type="number"]:focus {
+    outline: none;
+    border-color: #80C7FB; 
+}
+
+#advanced-settings {
+    position: relative;
+    z-index: 3;
+}
+
+@media (max-width: 768px) {
+    #advanced-settings {
+        width: 90%;
+    }
+}
+
+.prompt-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+
 .image-output {
-    position: relative; 
+    position: relative;
     width: 270px;
-    height: 320px; 
+    height: 320px;
     background-color: #fff;
     border-radius: 10px;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
 .image-output img {
@@ -202,63 +240,62 @@ h1{
     border: none;
     cursor: pointer;
     margin-top: 10px;
-    img {
-        width: 20px;
-        height: auto;
-    }
 }
-
+.trash-button img {
+    width: 20px;
+    height: auto;
+}
 
 .footer {
     bottom: 0;
     width: 100%;
     padding: 10px 0;
-    overflow-y: auto; /* Enable vertical scrolling */
-    max-height: calc(100vh - 200px); /* Limit the height to fit the viewport */
+    overflow-y: auto;
+    max-height: calc(100vh - 200px);
 }
 
 .historique-item-container {
-    border-radius: 10px; /* Rounded corners */
-    padding: 10px; /* Padding around each */
-    margin: 10px; /* Margin between */
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
     margin-left: 15px;
     text-align: center;
-    width: calc(18% - 20px); /* Adjust width for 5 items per row */
-    display: inline-block; /* Display items inline */
-    vertical-align: top; /* Align items to the top */
+    width: calc(18% - 20px);
+    display: inline-block;
+    vertical-align: top;
 }
 
-.c10{
-    background-color: #80C7FB; 
+.c10 {
+    background-color: #80C7FB;
 }
-.c20{
-    background-color: #9FFF99; 
+.c20 {
+    background-color: #9FFF99;
 }
-.c30{
-    background-color: #BEAFFF; 
+.c30 {
+    background-color: #BEAFFF;
 }
-.c40{
-    background-color: #F4BB5E; 
+.c40 {
+    background-color: #F4BB5E;
 }
 
 @media (max-width: 768px) {
     .historique-item-container {
-        width: calc(40% - 20px); /* Adjust width for smaller screens */
+        width: calc(40% - 20px);
     }
 }
 
 .historique-item {
     width: 100%;
-    p {
-        margin-top: 5px;
-        font-size: 14px;
-        color: #000;
-        font-weight: 400;
-    }
-    img {
-        width: 100%;
-        border-radius: 10px;
-    }
+}
+.historique-item p {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #000;
+    font-weight: 400;
+}
+.historique-item img {
+    width: 100%;
+    border-radius: 10px;
 }
 
 /***************************JS style****************************/
@@ -283,17 +320,17 @@ h1{
     max-width: 90%;
     max-height: 90%;
     overflow: auto;
-    img {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
-    p {
-        margin-top: 15px;
-        font-size: 16px;
-        color: #000;
-        text-align: center;
-    }
+}
+.modal-content img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.modal-content p {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #000;
+    text-align: center;
 }
 
 .historique-item-container {
@@ -309,11 +346,6 @@ h1{
 }
 /*************************about style****************************/
 
-h1{
-    font-size: 48px;
-    font-weight: 300;
-}
-
 .about-container {
     text-align: center;
     margin-top: 100px;
@@ -327,16 +359,15 @@ h1{
 
 .about-content {
     max-width: 700px;
-    img {
-        max-width: 100%;
-        height: auto;
-        text-align: center;
-        border-radius: 10px;
-        margin-bottom: 50px;
-    }
-    p{
-        margin-bottom: 50px;
-        text-align: left;
-    }
 }
-
+.about-content img {
+    max-width: 100%;
+    height: auto;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+.about-content p {
+    margin-bottom: 50px;
+    text-align: left;
+}

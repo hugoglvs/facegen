@@ -15,7 +15,6 @@
     <style>
         body {
             background: linear-gradient(360deg, rgba(229,248,255,1) 60%, rgba(6,114,203,1) 100%); 
-            color: #fff;
         }
         input[type="file"], button {
             display: none;
@@ -52,28 +51,38 @@
         <p>Your gateway to AI-generated faces and personas. Describe, and watch as lifelike images come to life effortlessly.</p>
         <form id="image-inputs" hx-get="/home/generate" hx-target="#test">
             <div class="prompt-area">
-                <div class="buttons-container">
-                    <div class="buttons">
-                        <label for="settings-button"><img class="icon" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings"></label>
-                        <button id="settings-button" onclick="$('#advanced-settings').toggle()"></button>
-                        <label for="upload_file"><img class="icon" src="{% static 'home/icons/upload.svg' %}" alt="Upload a photo"></label>
-                        <input type="file" id="upload_file" name="upload_file" accept="image/png, image/jpeg"></input>
-                        <label for="camera"><img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo"></label>
-                        <button id="camera"></button>
+                <div class="prompt-container">
+                    <div class="buttons-container">
+                        <div class="buttons">
+                            <label for="settings-button"><img class="icon" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings"></label>
+                            <button id="settings-button" onclick="$('#advanced-settings').toggle()"></button>
+                            <label for="upload_file"><img class="icon" src="{% static 'home/icons/upload.svg' %}" alt="Upload a photo"></label>
+                            <input type="file" id="upload_file" name="upload_file" accept="image/png, image/jpeg"></input>
+                            <label for="camera"><img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo"></label>
+                            <button id="camera" hx-get="/home/start_webcam" hx-trigger="click" hx-target="#webcam-container"></button>
+                        </div>
                     </div>
+                    <input type="text" name="prompt" id="prompt" class="prompt-input" placeholder="Enter your prompt here..." required>
+                    <button id="send-button" class="prompt-button"><img class="icon" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
                 </div>
-                <input type="text" name="prompt" id="prompt" class="prompt-input" placeholder="Enter your prompt here..." required>
-                <input type="submit" id="send-button"><img class="icon" src="{% static 'home/icons/send.svg' %}" alt="Send"></input>
             </div>
-            <div id="advanced-settings" class="advanced-settings" style="display: None">
+            <div id="advanced-settings" class="advanced-settings">
+                <p style="color: black;">negative prompt:</p>
                 <input type="text" name="negative_prompt" id="negative_prompt">
+                <p style="color: black;">width:</p>
                 <input type="number" name="width" id="width" value="512" min="128" max="1024">
+                <p style="color: black;">height:</p>
                 <input type="number" name="height" id="height" value="512" min="128" max="1024">
+                <p style="color: black;">guidance scale:</p>
                 <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10">
+                <p style="color: black;">num inference steps:</p>
                 <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500">
             </div>
         </form>
-            
+        <video id="webcam" width="640" height="480" autoplay></video>
+        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+        </div>
+                    
         <div id="test" class="image-output">
             <img src="{% static 'home/images/output.png' %}" alt="Output">
             <button class="trash-button">
@@ -95,5 +104,54 @@
         </ul>
     {% endif %}
     </footer>
-</body>
-</html>
+    <script>
+        $(document).ready(function() {
+            $('#camera').on('click', function() {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                    .then(function(stream) {
+                        const video = $('#webcam')[0];
+                        video.srcObject = stream;
+                        video.play();
+                    })
+                    .catch(function(err) {
+                        console.error("Error accessing the webcam: " + err);
+                    });
+
+                const canvas = $('#canvas')[0];
+                const video = $('#webcam')[0];
+                const context = canvas.getContext('2d');
+                const photos = [];
+                let photoCount = 0;
+
+                const takePhoto = () => {
+                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                    photos.push(canvas.toDataURL('image/png'));
+                    photoCount++;
+
+                    if (photoCount < 5) {
+                        setTimeout(takePhoto, 1000); // Take a photo every second
+                    } else {
+                        // Upload photos to the server
+                        $.ajax({
+                            url: '/upload_photos',
+                            method: 'POST',
+                            contentType: 'application/json',
+                            headers: {
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            data: JSON.stringify({ photos: photos }),
+                            success: function(response) {
+                                console.log(response);
+                                // Redirect to generate.html or perform other actions
+                            },
+                            error: function(error) {
+                                console.error('Error:', error);
+                            }
+                        });
+                    }
+                };
+
+                takePhoto();
+            });
+        });
+    </script></html>
