@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{% static 'home/styles.css' %}">
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="{% static 'home/script.js' %}"></script>
     
     <style>
         body {
@@ -19,11 +18,6 @@
         input[type="file"], button {
             display: none;
         }
-        input[type="submit"] {
-
-        }
-
-
     </style>
 </head>
 <body>
@@ -33,7 +27,8 @@
             <a href="index.html">Home</a>
             <a href="about.html">About</a>
             <div class="dropdown">
-                <button>▼</button>
+                <label for="color-picker"><img class="icon" src="{% static 'home/icons/dropdown.svg' %}" alt="Dropdown arrow"></label>
+                <button id="color-picker"></button>
                 <div class="dropdown-content">
                     <a href="#"><div class="circle c1"></div></a>
                     <a href="#"><div class="circle c2"></div></a>
@@ -104,54 +99,5 @@
         </ul>
     {% endif %}
     </footer>
-    <script>
-        $(document).ready(function() {
-            $('#camera').on('click', function() {
-                navigator.mediaDevices.getUserMedia({ video: true })
-                    .then(function(stream) {
-                        const video = $('#webcam')[0];
-                        video.srcObject = stream;
-                        video.play();
-                    })
-                    .catch(function(err) {
-                        console.error("Error accessing the webcam: " + err);
-                    });
-
-                const canvas = $('#canvas')[0];
-                const video = $('#webcam')[0];
-                const context = canvas.getContext('2d');
-                const photos = [];
-                let photoCount = 0;
-
-                const takePhoto = () => {
-                    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    photos.push(canvas.toDataURL('image/png'));
-                    photoCount++;
-
-                    if (photoCount < 5) {
-                        setTimeout(takePhoto, 1000); // Take a photo every second
-                    } else {
-                        // Upload photos to the server
-                        $.ajax({
-                            url: '/upload_photos',
-                            method: 'POST',
-                            contentType: 'application/json',
-                            headers: {
-                                'X-CSRFToken': '{{ csrf_token }}'
-                            },
-                            data: JSON.stringify({ photos: photos }),
-                            success: function(response) {
-                                console.log(response);
-                                // Redirect to generate.html or perform other actions
-                            },
-                            error: function(error) {
-                                console.error('Error:', error);
-                            }
-                        });
-                    }
-                };
-
-                takePhoto();
-            });
-        });
-    </script></html>
+    <script src="{% static 'home/script.js' %}"></script>
+</html>
