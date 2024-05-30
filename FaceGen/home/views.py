@@ -7,7 +7,7 @@ import os
 import json
 import base64
 
-flag = True
+flag = False
 
 # def view(request: HttpRequest) -> HttpResponse:
 
@@ -40,7 +40,7 @@ def generate(request: HttpRequest) -> HttpResponse:
     image_output.save()
 
     context = {"image_output": image_output}
-    return render(request, 'home/generate.html', context)
+    return render(request, 'home/components/image_output.html', context)
 
 @csrf_exempt
 def upload_photos(request):
@@ -49,7 +49,7 @@ def upload_photos(request):
         photos = data.get('photos', [])
         for idx, photo in enumerate(photos):
             photo_data = base64.b64decode(photo.split(',')[1])
-            with open(f'media/photo_{idx}.png', 'wb') as f:
+            with open(f'media/users/photo_{idx}.png', 'wb') as f:
                 f.write(photo_data)
         return JsonResponse({'status': 'success'})
     return JsonResponse({'status': 'failed'})
