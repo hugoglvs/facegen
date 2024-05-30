@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceGen</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/htmx.org@1.4.1/dist/htmx.min.js"></script>
+    <script src="{% static 'home/webcam.js'%}"></script>
+    <style>
+        body {
+            background: linear-gradient(180deg, rgba(6,114,203,1) 0%, rgba(68,152,218,1) 16%, rgba(229,248,255,1) 30%, rgba(229,248,255,1) 100%);
+            color: black;
+        }
+        #webcam-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+        #webcam {
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        #photos {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .photo {
+            border: 1px solid black;
+            border-radius: 10px;
+            width: 200px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div id="webcam-container">
+        <video id="webcam" width="640" height="480" autoplay></video>
+        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+        <button id="capture-button">Capture Photo</button>
+    </div>
+    <div id="photos">
+        <img id="photo1" class="photo" src="">
+        <img id="photo2" class="photo" src="">
+        <img id="photo3" class="photo" src="">
+    </div>
+    <button id="send-button" hx-post="/home/upload_photos/" >Valider les photos à envoyer</button>
+    
+</body>

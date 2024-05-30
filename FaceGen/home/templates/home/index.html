@@ -8,9 +8,10 @@
     <title>FaceGen</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap">
     <link rel="stylesheet" href="{% static 'home/styles.css' %}">
-    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    
+    <script async src="https://docs.opencv.org/4.5.5/opencv.js"></script>
     <style>
         body {
             background: linear-gradient(360deg, rgba(229,248,255,1) 60%, rgba(6,114,203,1) 100%); 
@@ -30,6 +31,7 @@
                 <label for="color-picker"><img class="icon" src="{% static 'home/icons/dropdown.svg' %}" alt="Dropdown arrow"></label>
                 <button id="color-picker"></button>
                 <div class="dropdown-content">
+                    <!-- Make it using Django logic -->
                     <a href="#"><div class="circle c1"></div></a>
                     <a href="#"><div class="circle c2"></div></a>
                     <a href="#"><div class="circle c3"></div></a>
@@ -38,7 +40,7 @@
             </div>
         </div>
     </header>
-    <div class="content">
+    <div class="content"  x-data="{ showAdvancedSettings: false }">
         <div class="title-container">
             <h1>FaceGen</h1>
             <span class="subtitle">Powered by the students of Paul Valéry</span>
@@ -50,18 +52,21 @@
                     <div class="buttons-container">
                         <div class="buttons">
                             <label for="settings-button"><img class="icon" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings"></label>
-                            <button id="settings-button" onclick="$('#advanced-settings').toggle()"></button>
+                            <button id="settings-button" @click="showAdvancedSettings = !showAdvancedSettings"></button>
                             <label for="upload_file"><img class="icon" src="{% static 'home/icons/upload.svg' %}" alt="Upload a photo"></label>
                             <input type="file" id="upload_file" name="upload_file" accept="image/png, image/jpeg"></input>
-                            <label for="camera"><img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo"></label>
-                            <button id="camera" hx-get="/home/start_webcam" hx-trigger="click" hx-target="#webcam-container"></button>
+                            <img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo"
+                                    id="camera" 
+                                    hx-get="/home/webcam" 
+                                    hx-trigger="click" 
+                                    hx-target="#webcam-container">
                         </div>
                     </div>
                     <input type="text" name="prompt" id="prompt" class="prompt-input" placeholder="Enter your prompt here..." required>
                     <button id="send-button" class="prompt-button"><img class="icon" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
                 </div>
             </div>
-            <div id="advanced-settings" class="advanced-settings">
+            <div id="advanced-settings"  x-show="showAdvancedSettings">
                 <p style="color: black;">negative prompt:</p>
                 <input type="text" name="negative_prompt" id="negative_prompt">
                 <p style="color: black;">width:</p>
@@ -74,9 +79,7 @@
                 <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500">
             </div>
         </form>
-        <video id="webcam" width="640" height="480" autoplay></video>
-        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
-        </div>
+        <div id="webcam-container"></div>
                     
         <div id="test" class="image-output">
             <img src="{% static 'home/images/output.png' %}" alt="Output">

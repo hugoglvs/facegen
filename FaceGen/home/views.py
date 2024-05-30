@@ -3,6 +3,7 @@ from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import ImageOutput, ImageInput
 from django.conf import settings
+from django.core.files.base import ContentFile
 import os
 import json
 import base64
@@ -18,8 +19,14 @@ def index(request: HttpRequest) -> HttpResponse:
                       'history': ImageOutput.objects.all()[10:25]
                   })
 
+def about(request: HttpRequest) -> HttpResponse:
+    return render(request, 'home/about.html')
+
 @csrf_exempt
 def generate(request: HttpRequest) -> HttpResponse:
+    # if not already loaded, load the pipeline
+    from .utils import load_pipeline, generate_image
+    pipe = load_pipeline()
     params = request.GET
     image_input = ImageInput(
         prompt=params['prompt'],
@@ -43,7 +50,11 @@ def generate(request: HttpRequest) -> HttpResponse:
     return render(request, 'home/components/image_output.html', context)
 
 @csrf_exempt
-def upload_photos(request):
+def webcam(request: HttpRequest) -> HttpResponse:
+    return render(request, 'home/components/webcam.html')
+
+@csrf_exempt
+def upload_photo(request: HttpRequest) -> JsonResponse:
     if request.method == 'POST':
         data = json.loads(request.body)
         photos = data.get('photos', [])
