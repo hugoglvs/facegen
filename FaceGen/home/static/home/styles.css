@@ -1,6 +1,6 @@
 body {
     color: white;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,13 +23,18 @@ header {
     width: 32px;
     height: 32px;
 }
+.dropdown .icon {
+    margin-right: 10px;
+}
+
 .nav-buttons {
     display: flex;
     gap: 50px;
     a:hover {
         color: #ffffff7b;
     }
-    a, .dropdown button {
+    a,
+    .dropdown button {
         background: none;
         color: #fff;
         cursor: pointer;
@@ -47,6 +52,7 @@ header {
     position: absolute;
     right: 0;
     padding: 2.5px;
+    margin-right: 12.5px;
 }
 .circle {
     width: 20px;
@@ -58,16 +64,16 @@ header {
     }
 }
 .c1 {
-    background-color: #80C7FB;
+    background-color: #80c7fb;
 }
 .c2 {
-    background-color: #9FFF99;
+    background-color: #9fff99;
 }
 .c3 {
-    background-color: #BEAFFF;
+    background-color: #beafff;
 }
 .c4 {
-    background-color: #F4BB5E;
+    background-color: #f4bb5e;
 }
 .dropdown:hover .dropdown-content {
     display: block;
@@ -79,7 +85,7 @@ header {
         text-align: left;
     }
     p {
-        font-size: 16px;
+        font-size: 18px;
         max-width: 600px;
         margin: 0px;
         text-align: left;
@@ -87,7 +93,7 @@ header {
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 56px;
     font-weight: 300;
 }
 .title-container {
@@ -95,13 +101,14 @@ h1 {
     align-items: center;
 }
 .subtitle {
-    font-size: 16px;
+    font-size: 18px;
     color: #ffffff7b;
     margin-left: 10px;
     position: relative;
     top: 10px;
     font-weight: 400;
     font-style: italic;
+    margin-top: 8px;
 }
 
 .prompt-container {
@@ -109,7 +116,7 @@ h1 {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    max-width: 700px;
+    max-width: 750px;
     border-radius: 25px;
     overflow: hidden;
     background: #fff;
@@ -122,13 +129,14 @@ h1 {
     margin-right: 5px;
     margin-left: 5px;
     border: none;
-    width: calc(100% - 90px - 60px); /* Adjust input width to consider icon and button space */
+    width: calc(100% - 90px - 60px);
     position: relative;
     z-index: 1;
+    font-size: 18px;
 }
 
 .prompt-input:focus {
-    outline: none; /* Remove the default focus outline */
+    outline: none;
 }
 
 .buttons-container {
@@ -170,18 +178,23 @@ h1 {
 /*********************advsettings index*************************/
 
 #advanced-settings {
+    display: none;
     background-color: #fff;
     border-radius: 15px;
     padding: 20px;
     max-width: 250px;
-    margin: 20px auto; 
+    margin: 20px auto;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.advanced-settings p {
+    color: black;
+    margin-left: 25px;
 }
 
 #advanced-settings input[type="text"],
 #advanced-settings input[type="number"] {
     display: block;
-    width: calc(90% - 20px); 
+    width: calc(90% - 20px);
     margin: 10px auto;
     padding: 10px;
     border: 1px solid #ccc;
@@ -193,7 +206,7 @@ h1 {
 #advanced-settings input[type="text"]:focus,
 #advanced-settings input[type="number"]:focus {
     outline: none;
-    border-color: #80C7FB; 
+    border-color: #80c7fb;
 }
 
 #advanced-settings {
@@ -226,6 +239,7 @@ h1 {
     justify-content: center;
     align-items: center;
     margin: 0 auto;
+    margin-top: 35px;
 }
 
 .image-output img {
@@ -265,21 +279,21 @@ h1 {
 }
 
 .c10 {
-    background-color: #80C7FB;
+    background-color: #80c7fb;
 }
 .c20 {
-    background-color: #9FFF99;
+    background-color: #9fff99;
 }
 .c30 {
-    background-color: #BEAFFF;
+    background-color: #beafff;
 }
 .c40 {
-    background-color: #F4BB5E;
+    background-color: #f4bb5e;
 }
 
 @media (max-width: 768px) {
     .historique-item-container {
-        width: calc(40% - 20px);
+        width: calc(45% - 30px);
     }
 }
 
@@ -313,7 +327,7 @@ h1 {
 
 .modal-content {
     position: relative;
-    background-color: #80C7FB;
+    background-color: #80c7fb;
     border-radius: 10px;
     padding: 20px;
     max-width: 90%;
@@ -351,9 +365,9 @@ h1 {
     margin-bottom: 50px;
     padding-right: 200px;
     padding-left: 200px;
-    background-color: rgba(229,248,255,1);
+    background-color: rgba(229, 248, 255, 1);
     border-radius: 10px;
-    color: #0D2155;
+    color: #0d2155;
 }
 
 .about-content {

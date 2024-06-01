@@ -1,14 +1,18 @@
 import datetime
+from typing import overload
 
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 # Create your models here.
 # py manage.py makemigrations <appName> (creates a migration file)
 # py manage.py sqlmigrate <appName> <numberMigration>  (returns the SQL code for the migration)
 # py manage.py migrate <appName> (applies the migration)
 
-class ImageInput(models.Model):
+class GeneratedImage(models.Model):
+    path = models.CharField(max_length=100)
+    date = models.DateTimeField(auto_now_add=True)
     prompt = models.CharField(max_length=256)
     negative_prompt = models.CharField(max_length=256)
     width = models.IntegerField()
@@ -19,6 +23,13 @@ class ImageInput(models.Model):
 
     def __str__(self):
         return f"{self.prompt} - {self.negative_prompt} - {self.width}x{self.height} - {self.num_inference_steps} steps - {self.guidance_scale} - {self.seed}"
+
+    def save(self, *args, **kwargs):
+        self.path = f"{settings.MEDIA_URL}image_{self.id}.png"
+        super().save(*args, **kwargs)
+
+    def filename(self):
+        return self.path.split('/')[-1]
 
     def params(self):
         return {
@@ -31,13 +42,5 @@ class ImageInput(models.Model):
             "seed": float(self.seed)
         }
 
-class ImageOutput(models.Model):
-    path = models.CharField(max_length=100)
-    date = models.DateTimeField(auto_now_add=True)
-    params = models.ForeignKey('home.ImageInput', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.path
-    
     def was_generated_recently(self):
         return self.date >= timezone.now() - datetime.timedelta(days=1)

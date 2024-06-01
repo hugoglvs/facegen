@@ -48,6 +48,10 @@
         <img id="photo2" class="photo" src="">
         <img id="photo3" class="photo" src="">
     </div>
-    <button id="send-button" hx-post="/home/upload_photos/" >Valider les photos à envoyer</button>
-    
+    <button id="send-button"
+        hx-post="/home/upload_photos/"
+        hx-trigger="click delay:500ms"
+        hx-swap="none">
+    </button>Valider les photos à envoyer</button>
+
 </body>

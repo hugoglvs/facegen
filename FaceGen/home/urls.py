@@ -7,5 +7,5 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('generate/', views.generate, name='generate'),
     path('webcam/', views.webcam, name='webcam'),
-    path('upload_photos/', views.upload_photo, name='upload_photos'),
+    path('upload_photos/', views.upload_photos, name='upload_photos'),
 ]

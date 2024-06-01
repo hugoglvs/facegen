@@ -8,20 +8,18 @@
     <title>FaceGen</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap">
     <link rel="stylesheet" href="{% static 'home/styles.css' %}">
-    <script src="https://unpkg.com/htmx.org@1.9.12" defer></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.0/dist/cdn.min.js" defer></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script async src="https://docs.opencv.org/4.5.5/opencv.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.x.x/dist/alpine.min.js" defer></script>
+
     <style>
-        body {
-            background: linear-gradient(360deg, rgba(229,248,255,1) 60%, rgba(6,114,203,1) 100%); 
-        }
         input[type="file"], button {
             display: none;
         }
     </style>
 </head>
-<body>
+<body x-data="{ color: 'linear-gradient(360deg, rgba(229,248,255,1) 40%, rgba(6,114,203,1) 100%)' }" :style="'background: ' + color">
     <header>
         <img src="{% static 'home/images/logo.png' %}" alt="Logo" class="logo">
         <div class="nav-buttons">
@@ -31,16 +29,15 @@
                 <label for="color-picker"><img class="icon" src="{% static 'home/icons/dropdown.svg' %}" alt="Dropdown arrow"></label>
                 <button id="color-picker"></button>
                 <div class="dropdown-content">
-                    <!-- Make it using Django logic -->
-                    <a href="#"><div class="circle c1"></div></a>
-                    <a href="#"><div class="circle c2"></div></a>
-                    <a href="#"><div class="circle c3"></div></a>
-                    <a href="#"><div class="circle c4"></div></a>
+                    <a @click="color = 'linear-gradient(360deg, rgba(229,248,255,1) 40%, rgba(6,114,203,1) 100%)'"><div class="circle c1"></div></a>
+                    <a @click="color = 'linear-gradient(360deg, rgba(228,255,214,1) 40%, rgba(55,204,92,1) 100%)'"><div class="circle c2"></div></a>
+                    <a @click="color = 'linear-gradient(360deg, rgba(222,221,255,1) 40%, rgba(142,92,239,1) 100%)'"><div class="circle c3"></div></a>
+                    <a @click="color = 'linear-gradient(360deg, rgba(251,238,206,1) 40%, rgba(225,99,63,1) 100%)'"><div class="circle c4"></div></a>
                 </div>
             </div>
         </div>
     </header>
-    <div class="content"  x-data="{ showAdvancedSettings: false }">
+    <div class="content">
         <div class="title-container">
             <h1>FaceGen</h1>
             <span class="subtitle">Powered by the students of Paul Valéry</span>
@@ -52,41 +49,38 @@
                     <div class="buttons-container">
                         <div class="buttons">
                             <label for="settings-button"><img class="icon" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings"></label>
-                            <button id="settings-button" @click="showAdvancedSettings = !showAdvancedSettings"></button>
+                            <button id="settings-button" onclick="$('#advanced-settings').toggle()"></button>
                             <label for="upload_file"><img class="icon" src="{% static 'home/icons/upload.svg' %}" alt="Upload a photo"></label>
                             <input type="file" id="upload_file" name="upload_file" accept="image/png, image/jpeg"></input>
-                            <img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo"
-                                    id="camera" 
-                                    hx-get="/home/webcam" 
-                                    hx-trigger="click" 
-                                    hx-target="#webcam-container">
+                            <label for="camera"><img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo"></label>
+                            <button id="camera" hx-get="/home/start_webcam" hx-trigger="click" hx-target="#webcam-container"></button>
                         </div>
                     </div>
                     <input type="text" name="prompt" id="prompt" class="prompt-input" placeholder="Enter your prompt here..." required>
                     <button id="send-button" class="prompt-button"><img class="icon" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
                 </div>
             </div>
-            <div id="advanced-settings"  x-show="showAdvancedSettings">
-                <p style="color: black;">negative prompt:</p>
+            <div id="advanced-settings" class="advanced-settings">
+                <p>negative prompt:</p>
                 <input type="text" name="negative_prompt" id="negative_prompt">
-                <p style="color: black;">width:</p>
+                <p>width:</p>
                 <input type="number" name="width" id="width" value="512" min="128" max="1024">
-                <p style="color: black;">height:</p>
+                <p>height:</p>
                 <input type="number" name="height" id="height" value="512" min="128" max="1024">
-                <p style="color: black;">guidance scale:</p>
+                <p>guidance scale:</p>
                 <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10">
-                <p style="color: black;">num inference steps:</p>
+                <p>num inference steps:</p>
                 <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500">
             </div>
         </form>
-        <div id="webcam-container"></div>
-                    
+        </div>
+
         <div id="test" class="image-output">
             <img src="{% static 'home/images/output.png' %}" alt="Output">
             <button class="trash-button">
                 <img src="{% static 'home/icons/trash.svg' %}" alt="Trash">
             </button>
-        </div>        
+        </div>
     </div>
     <footer>
     {% if history %}
@@ -103,4 +97,5 @@
     {% endif %}
     </footer>
     <script src="{% static 'home/script.js' %}"></script>
+</body>
 </html>
