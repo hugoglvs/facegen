@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,21 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap">
     <title>FaceGen - About</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{% static 'home/styles.css'%}">
     <style>
     body {
-        background: linear-gradient(180deg, rgba(6,114,203,1) 0%, rgba(68,152,218,1) 16%, rgba(229,248,255,1) 30%, rgba(229,248,255,1) 100%);
-        color: black;
-    }
+        background: radial-gradient(circle, rgba(128,199,251,1) 35%, rgba(6,114,203,1) 100%);
+        }
     </style>
 </head>
 <body>
     <header>
-        <img src="images/logo.png" alt="Logo" class="logo">
+        <img src="{% static 'home/images/logo.png' %}" alt="Logo" class="logo">
         <div class="nav-buttons">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="#">Contact us</a>
+            <a href="/home">Home</a>
+            <a href="/home/about">About</a>
             <div class="dropdown">
                 <button>▼</button>
                 <div class="dropdown-content">
@@ -31,16 +30,30 @@
             </div>
         </div>
     </header>
+
     <div class="about-container">
         <div class="about-content">
-            <h2>About Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec dui a arcu congue commodo. Sed et vestibulum lorem. Phasellus id turpis sed massa pretium aliquet eu sit amet velit. 
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec dui a arcu congue commodo. Sed et vestibulum lorem. Phasellus id turpis sed massa pretium aliquet eu sit amet velit.
+            <h1>Discover the Power of Imagination</h1>
+            <p>Welcome to our innovative platform, where we push the boundaries of what's possible with generative AI. Our website offers a unique service that transforms text into stunning images, 
+                enabling you to explore the limits of your imagination. Whether you're an artist seeking inspiration, a designer in need of unique visuals, or simply curious about the potential of AI, 
+                our platform provides a seamless and engaging experience to bring your creative visions to life.
             </p>
-            <img src="images/image2.png" alt="About Image">
-            <h3>Our Mission</h3>
-            <p>Nulla facilisi. Vivamus scelerisque dolor quis lorem ultrices, eget feugiat metus mattis. Fusce id elit nec nisl volutpat vehicula. Proin ac sapien eu sem consectetur malesuada.
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec dui a arcu congue commodo. Sed et vestibulum lorem. Phasellus id turpis sed massa pretium aliquet eu sit amet velit.
+            <img src="{% static 'home/images/image2.png' %}" alt="About Image">
+        </div>
+    </div>
+    <h1>Our Vision for the Future</h1>
+    <div class="about-content">
+        <p>Our mission is to elevate the current standards of generative AI, making it more accessible and less intimidating to the public. We aim to demystify AI technology by demonstrating
+             its potential for creativity and innovation. By fostering a supportive and inclusive community, we encourage everyone to participate and contribute to the evolution of generative AI.
+              Our goal is to show that AI is not just for experts but for anyone with a creative spark, helping to build a future where technology and imagination go hand in hand.
+        </p>
+    </div>
+    <div class="about-container">
+        <div class="about-content">
+            <h1>About Us</h1>
+            <p>We are two dedicated students enrolled in the MIASHS program at the University Paul Valéry Montpellier 3. Currently, we are interning at Dell Technologies, where we are diving deep into the world of AI, 
+                particularly the exciting branch of generative AI. Through this internship, we are gaining valuable insights and hands-on experience that fuel our passion for technology and creativity. Our work aims
+                 to bridge the gap between academic learning and practical application, contributing to the vibrant field of AI innovation.
             </p>
         </div>
     </div>

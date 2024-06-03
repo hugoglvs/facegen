@@ -131,4 +131,4 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTOMATIC_LOAD_PIPELINE = False
+AUTOMATIC_LOAD_PIPELINE = True

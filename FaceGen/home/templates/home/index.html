@@ -14,30 +14,8 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.x.x/dist/alpine.min.js" defer></script>
 
     <style>
-        input[type="file"], button {
+        input[type="file"], #settings-button {
             display: none;
-        }
-        #webcam-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-        }
-        #webcam {
-            border: 1px solid black;
-            border-radius: 10px;
-        }
-        #photos {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .photo {
-            border: 1px solid black;
-            border-radius: 10px;
-            width: 200px;
-            height: 150px;
         }
     </style>
 </head>
@@ -45,8 +23,8 @@
     <header>
         <img src="{% static 'home/images/logo.png' %}" alt="Logo" class="logo">
         <div class="nav-buttons">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
+            <a href="/home">Home</a>
+            <a href="/home/about">About</a>
             <div class="dropdown">
                 <label for="color-picker"><img class="icon" src="{% static 'home/icons/dropdown.svg' %}" alt="Dropdown arrow"></label>
                 <button id="color-picker"></button>
@@ -75,7 +53,12 @@
                             <label for="upload_file"><img class="icon" src="{% static 'home/icons/upload.svg' %}" alt="Upload a photo"></label>
                             <input type="file" id="upload_file" name="upload_file" accept="image/png, image/jpeg"></input>
                             <label for="camera"><img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo"></label>
-                            <button id="camera" hx-get="/home/webcam" hx-trigger="click" hx-target="#webcam-functionality" hx-swap="outerHTML"></button>
+                            <button id="camera" 
+                                    hx-get="/home/webcam"
+                                    hx-trigger="click"
+                                    hx-target="#webcam-functionality"
+                                    hx-swap="outerHTML">
+                            </button>
                         </div>
                     </div>
                     <input type="text" name="prompt" id="prompt" class="prompt-input" placeholder="Enter your prompt here..." required>
@@ -93,9 +76,10 @@
                 <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10">
                 <p>num inference steps:</p>
                 <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500">
+                <input type="number" name="seed" id="seed" value="0">
             </div>
         </form>
-        <div id="#webcam-functionality" style="display:None"></div>
+        <div id="webcam-functionality" style="display:none"></div>
         </div>
 
         <div id="test" class="image-output">

@@ -1,6 +1,5 @@
 $(document).ready(function() {
     historyHandler();
-    cameraHandler();
 });
 
 function historyHandler() {

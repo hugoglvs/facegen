@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .utils import save_photo
+from .utils import load_pipeline, generate_image, save_photo
 from .models import GeneratedImage
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -9,23 +9,18 @@ import os
 import json
 import base64
 
-flag = False
-
 # def view(request: HttpRequest) -> HttpResponse:
 
 def index(request: HttpRequest) -> HttpResponse:
-    return render(request,
-                  'home/index.html',
-                  {
-                      'history': GeneratedImage.objects.all()[10:25]
-                  })
+    return render(request,'home/index.html',
+                  {'history': GeneratedImage.history(5)}
+                  )
 
 def about(request: HttpRequest) -> HttpResponse:
     return render(request, 'home/about.html')
 
 @csrf_exempt
 def generate(request: HttpRequest) -> HttpResponse:
-    # if not already loaded, load the pipeline
     params = request.GET.dict()
     print("Bonjour", params)
     generated_image = GeneratedImage.objects.create(**params)
@@ -55,6 +50,5 @@ def upload_photos(request):
         return JsonResponse({"status": "success", "photos": saved_photos})
     return JsonResponse({"status": "failure"}, status=400)
 
-if flag:
-    from .utils import load_pipeline, generate_image
+if settings.AUTOMATIC_LOAD_PIPELINE:
     pipe = load_pipeline()

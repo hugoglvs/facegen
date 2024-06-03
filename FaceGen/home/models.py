@@ -22,7 +22,7 @@ class GeneratedImage(models.Model):
     seed = models.IntegerField()
 
     def __str__(self):
-        return f"{self.prompt} - {self.negative_prompt} - {self.width}x{self.height} - {self.num_inference_steps} steps - {self.guidance_scale} - {self.seed}"
+        return f" {self.path} - {self.prompt} - {self.negative_prompt} - {self.width}x{self.height} - {self.num_inference_steps} steps - {self.guidance_scale} - {self.seed}"
 
     def save(self, *args, **kwargs):
         self.path = f"{settings.MEDIA_URL}image_{self.id}.png"
@@ -44,3 +44,7 @@ class GeneratedImage(models.Model):
 
     def was_generated_recently(self):
         return self.date >= timezone.now() - datetime.timedelta(days=1)
+    
+    @classmethod
+    def history(cls, number):
+        return cls.objects.order_by('date')[:number][::-1]

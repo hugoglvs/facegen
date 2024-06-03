@@ -28,7 +28,7 @@ def load_pipeline():
     pipe.to(device)
     return pipe
 
-def generate_image(pipe: DiffusionPipeline, prompt: str, negative_prompt: str, width: int, height: int, num_inference_steps: int, guidance_scale: float, seed: int):
+def generate_image(pipe: DiffusionPipeline, prompt: str, negative_prompt: str, width: int, height: int, num_inference_steps: int, guidance_scale: float, seed: int = 0):
     params = {
         "prompt": prompt,
         "negative_prompt": negative_prompt,
@@ -38,6 +38,7 @@ def generate_image(pipe: DiffusionPipeline, prompt: str, negative_prompt: str, w
         "guidance_scale": guidance_scale,
         "seed": seed
     }
+    print(params)
     result = pipe(**params)
     image = result.images[0]
     return image

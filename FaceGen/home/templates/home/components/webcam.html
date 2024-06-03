@@ -39,32 +39,32 @@
 </head>
 <body>
     <div id="webcam-functionality">
-    <div id="webcam-container">
-        <video id="webcam" width="640" height="480" autoplay></video>
-        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
-        <button id="capture-button">Capture Photo</button>    
-    </div>
-    <div id="photos-container">
-        <div data-photo-index="0" class="photo-container">
-            <img class="photo" src="" alt="User">
-            <button class="trash-button">Delete</button>
+        <div id="webcam-container">
+            <video id="webcam" width="640" height="480" autoplay></video>
+            <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+            <button id="capture-button">Capture Photo</button>
         </div>
-        <div data-photo-index="1" class="photo-container">
-            <img class="photo" src="" alt="User">
-            <button class="trash-button">Delete</button>
+        <div id="photos-container">
+            <div data-photo-index="0" class="photo-container">
+                <img class="photo" src="" alt="User">
+                <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
+            </div>
+            <div data-photo-index="1" class="photo-container">
+                <img class="photo" src="" alt="User">
+                <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
+            </div>
+            <div data-photo-index="2" class="photo-container">
+                <img class="photo" src="" alt="User">
+                <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
+            </div>
         </div>
-        <div data-photo-index="2" class="photo-container">
-            <img class="photo" src="" alt="User">
-            <button class="trash-button">Delete</button>
-        </div>
-    </div>
-    <button id="send-button"
-        hx-post="/home/upload_photos/"
-        hx-trigger="click delay:500ms"
-        hx-target="#photos-container"
-        hx-swap="delete">
-    </button>Valider les photos à envoyer</button>
-    <script src="{% static 'home/webcam.js' %}"></script>
+        <button id="send-button"
+            hx-post="/home/upload_photos/"
+            hx-trigger="click delay:500ms"
+            hx-target="#photos-container"
+            hx-swap="delete">
+        </button>Valider les photos à envoyer</button>
+        <script src="{% static 'home/webcam.js' %}"></script>
     </div>
 
 </body>

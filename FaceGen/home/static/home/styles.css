@@ -126,8 +126,8 @@ h1 {
 .prompt-input {
     flex: 1;
     padding: 15px 15px 15px 90px;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 0px;
+    margin-left: 35px;
     border: none;
     width: calc(100% - 90px - 60px);
     position: relative;
@@ -383,4 +383,65 @@ h1 {
 .about-content p {
     margin-bottom: 50px;
     text-align: left;
+}
+
+/***********************webcam_images******************/
+
+#photos-container {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    flex-wrap: nowrap; 
+    position: relative; 
+}
+
+.photo {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 200px;
+    height: 150px;
+    margin: 0 10px; 
+}
+
+.trash-button {
+    position: absolute;
+    bottom: 0;
+    left: 50%; 
+    transform: translateX(-50%); 
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.photo-container {
+    position: relative;
+    margin: 0 10px; 
+}
+
+#webcam-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; 
+    height: 80vh;
+}
+#webcam {
+    border: 1px solid black;
+    border-radius: 10px;
+}
+#photos {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#capture-button {
+    margin-top: 10px; 
+}
+
+body button{
+    background-color: transparent;
+    border: none;
 }
