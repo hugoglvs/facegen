@@ -75,7 +75,7 @@
                             <label for="upload_file"><img class="icon" src="{% static 'home/icons/upload.svg' %}" alt="Upload a photo"></label>
                             <input type="file" id="upload_file" name="upload_file" accept="image/png, image/jpeg"></input>
                             <label for="camera"><img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo"></label>
-                            <button id="camera" hx-get="/home/webcam" hx-trigger="click" hx-target="#webcam-container"></button>
+                            <button id="camera" hx-get="/home/webcam" hx-trigger="click" hx-target="#webcam-functionality" hx-swap="outerHTML"></button>
                         </div>
                     </div>
                     <input type="text" name="prompt" id="prompt" class="prompt-input" placeholder="Enter your prompt here..." required>
@@ -95,7 +95,7 @@
                 <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500">
             </div>
         </form>
-        <div id="webcam-container"></div>
+        <div id="#webcam-functionality" style="display:None"></div>
         </div>
 
         <div id="test" class="image-output">

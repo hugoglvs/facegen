@@ -3,3 +3,4 @@
 /models
 *__pycache__
 /FaceGen/db.sqlite3
+/FaceGen/media/
