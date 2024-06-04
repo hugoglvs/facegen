@@ -267,7 +267,7 @@ h1 {
     max-height: calc(100vh - 200px);
 }
 
-.historique-item-container {
+.history-item-container {
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
@@ -292,21 +292,21 @@ h1 {
 }
 
 @media (max-width: 768px) {
-    .historique-item-container {
+    .history-item-container {
         width: calc(45% - 30px);
     }
 }
 
-.historique-item {
+.history-item {
     width: 100%;
 }
-.historique-item p {
+.history-item p {
     margin-top: 5px;
     font-size: 14px;
     color: #000;
     font-weight: 400;
 }
-.historique-item img {
+.history-item img {
     width: 100%;
     border-radius: 10px;
 }
@@ -346,7 +346,7 @@ h1 {
     text-align: center;
 }
 
-.historique-item-container {
+.history-item-container {
     position: relative;
     z-index: 1;
 }

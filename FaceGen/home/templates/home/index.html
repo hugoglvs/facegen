@@ -93,10 +93,17 @@
     {% if history %}
         <ul>
         {% for image in history %}
-            <div class="historique-item-container c10">
-                <div class="historique-item">
+            <div class="history-item-container c10">
+                <div class="history-item">
                     <img src= "{{ image.path }}" alt="AI-generated face">
                     <p> {{ image.params.prompt }} </p>
+                    <button class="trash-button" 
+                            hx-target="closest .history-item-container"
+                            hx-post="/home/delete_photo/"
+                            hx-swap="delete"
+                            hx-vals=' { "id": {{ image.id }} }' >
+                        <img src="{% static 'home/icons/trash.svg' %}" alt="Trash">
+                    </button>
                 </div>
             </div>
         {% endfor %}

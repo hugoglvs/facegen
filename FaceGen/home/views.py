@@ -13,7 +13,7 @@ import base64
 
 def index(request: HttpRequest) -> HttpResponse:
     return render(request,'home/index.html',
-                  {'history': GeneratedImage.history(5)}
+                  {'history': GeneratedImage.history(10)}
                   )
 
 def about(request: HttpRequest) -> HttpResponse:
@@ -48,6 +48,17 @@ def upload_photos(request):
                 saved_photo_path = save_photo(photo_data, f"photo_{index}.png")
                 saved_photos.append(saved_photo_path)
         return JsonResponse({"status": "success", "photos": saved_photos})
+    return JsonResponse({"status": "failure"}, status=400)
+
+@csrf_exempt
+def delete_photo(request: HttpRequest) -> JsonResponse:
+    if request.method == "POST":
+        data = request.POST.dict()
+        print(data)
+        photo = GeneratedImage.objects.get(id=data["id"])
+        os.remove(f"{settings.BASE_DIR}/{photo.path}")
+        photo.delete()
+        return JsonResponse({"status": "success"})
     return JsonResponse({"status": "failure"}, status=400)
 
 if settings.AUTOMATIC_LOAD_PIPELINE:
