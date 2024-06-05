@@ -1,0 +1,62 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block title %}Dreambooth{% endblock %}
+
+{% block content %}
+<h1>Dreambooth</h1>
+{% comment %} <p> DreamBooth is a method created by Google Research to make text-to-image models, like Stable Diffusion, better at generating pictures of specific things. Imagine you have a model that can create images from text descriptions, and you want it to generate pictures of your pet in different scenes.</p>
+<p>Here's how it works:</p>
+<ul>
+    <li>Collect Images: First, you gather a few pictures of the subject you want to focus on, like your pet dog.</li>
+    <li>Training: You then train the model using these pictures along with text descriptions that describe the subject. This step helps the model learn the unique features of your pet.</li>
+    <li>Embedding: The model creates a special token or code that represents your pet. This token is added to the model’s vocabulary.</li>
+    <li>Generate New Images: Now, when you use the special token in a text prompt, the model can generate new images of your pet in different settings or doing various activities, while keeping its unique characteristics.</li>
+</ul>
+<p>    For example, if you trained the model with pictures of your dog named "Buddy," you can then type a description like "Buddy at the beach," and the model will create a picture of your dog at the beach.</p>  
+<p>DreamBooth allows you to personalize image generation, making it possible to create custom images that are unique to your subject. It’s a powerful tool for artists, content creators, and anyone interested in generating personalized images.</p> {% endcomment %}
+
+<form id="image-inputs" hx-get="{ url 'generate'}" hx-target="#test">
+    <div class="prompt-area">
+        <div class="prompt-container">
+            <div class="buttons-container">
+                <div class="buttons">
+                    <button id="settings-button" onclick="$('#advanced-settings').toggle()"><img class="icon" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings"></button>
+                    {% comment %} <input type="file" id="select_file" name="select_file" accept="image/png, image/jpeg"></input>
+                    <button onclick="$('#select_file').click()"><img class="icon" src="{% static 'home/icons/upload.svg' %}" alt="Upload"></button> {% endcomment %}
+                    <button id="camera" 
+                            hx-get="{% url 'webcam' %}"
+                            hx-trigger="click"
+                            hx-target="#webcam-functionality"
+                            hx-swap="outerHTML">
+                            <img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo">
+                    </button>
+                </div>
+            </div>
+            <input type="text" name="prompt" id="prompt" class="prompt-input" placeholder="Enter your prompt here..." required>
+            <button id="send-button" class="prompt-button"><img class="icon" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
+        </div>
+    </div>
+    <div id="advanced-settings" >
+        <label for="height">Unique identifier:</label>
+        <input type="number" name="height" id="height" value="512" min="128" max="1024">
+        <label for="negative_prompt">Number of steps</label>
+        <input type="text" name="negative_prompt" id="negative_prompt">
+        <label for="width">Batch size</label>
+        <input type="number" name="width" id="width" value="512" min="128" max="1024">
+    </div>
+</form>
+<div id="webcam-functionality" style="display:none"></div>
+</div>
+
+<div id="test" class="image-output">
+<img src="{% static 'home/images/output.png' %}" alt="Output">
+<button class="trash-button">
+    <img src="{% static 'home/icons/trash.svg' %}" alt="Trash">
+</button>
+</div>
+<script src="{% static 'home/theme-picker.js' %}" async></script>
+{% endblock %}
+
+{% block style %}
+{% endblock %}

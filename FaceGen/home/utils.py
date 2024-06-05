@@ -49,3 +49,34 @@ def save_photo(photo_data, filename):
     with open(file_path, 'wb') as f:
         f.write(photo_data)
     return file_path
+
+def dreambooth_training(instance_data_dir, output_dir, hey):
+    os.system('export MODEL_NAME="runwayml/stable-diffusion-v1-5')
+    os.system('export INSTANCE_DIR="./data"')
+    os.system('export OUTPUT_DIR="models/facedell-model-amir"')
+    os.system('accelerate launch train_dreambooth.py \
+    --pretrained_model_name_or_path=$MODEL_NAME  \
+    --instance_data_dir=$INSTANCE_DIR \
+    --output_dir=$OUTPUT_DIR \
+    --instance_prompt="a photo of sks man" \
+    --gradient_checkpointing \
+    --use_8bit_adam \
+    --resolution=512 \
+    --train_batch_size=1 \
+    --gradient_accumulation_steps=1 \
+    --learning_rate=5e-6 \
+    --lr_scheduler="constant" \
+    --lr_warmup_steps=0 \
+    --max_train_steps=500 \
+    # --validation_prompt="a photo of sks man" \
+    # --num_validation_images=4 \
+    # --validation_steps=100 \
+    # --train_text_encoder \
+    ')
+
+def random_token():
+    import random
+    import string
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+
+print(random_token())

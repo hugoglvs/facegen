@@ -7,7 +7,7 @@
     <title>FaceGen</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://unpkg.com/htmx.org@1.4.1/dist/htmx.min.js"></script>
-    <script src="{% static 'home/webcam.js'%}"></script>
+    <script src="{% static 'home/js/webcam.js'%}"></script>
     <style>
         body {
             background: linear-gradient(180deg, rgba(6,114,203,1) 0%, rgba(68,152,218,1) 16%, rgba(229,248,255,1) 30%, rgba(229,248,255,1) 100%);
@@ -59,11 +59,12 @@
             </div>
         </div>
         <button id="send-button"
-            hx-post="/home/upload_photos/"
+            hx-post="{% url 'upload_photos' %}"
             hx-trigger="click delay:500ms"
-            hx-target="#photos-container"
+            hx-target="#webcam-functionality"
             hx-swap="delete">
-        </button>Valider les photos à envoyer</button>
+            Send Photos
+        </button>
         <script src="{% static 'home/webcam.js' %}"></script>
     </div>
 

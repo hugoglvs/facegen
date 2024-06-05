@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap">
+    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script async src="https://docs.opencv.org/4.5.5/opencv.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@2.x.x/dist/alpine.min.js" defer></script>
+    <script src="{% static 'home/themeSwitcher.js' %}" async></script>
+    <script src="{% static 'home/script.js' %}" defer></script>
+    {% block style%}
+    {% endblock%}
+</head>
+
+<body x-data="themeSwitcher()" x-init="init()">
+    <header>
+        <a href="{% url 'index' %}"><img src="{% static 'home/images/logo.png' %}" alt="Logo" class="logo"></a>
+        <div class="nav-buttons">
+            <a href="{% url 'dreambooth' %}">Dreambooth</a>
+            <a href="{% url 'about' %}">About</a>
+            <div class="dropdown">
+                <label for="color-picker"><img class="icon" src="{% static 'home/icons/dropdown.svg' %}" alt="Dropdown arrow"></label>
+                <button id="color-picker"></button>
+                <div class="dropdown-content">
+                    <a @click.prevent="changeTheme('blueFamily')"><div class="circle" style="background-color: var(--blue-primary)"></div></a>
+                    <a @click.prevent="changeTheme('greenFamily')"><div class="circle" style="background-color: var(--green-primary)"></div></a>
+                    <a @click.prevent="changeTheme('purpleFamily')"><div class="circle" style="background-color: var(--purple-primary)"></div></a>
+                    <a @click.prevent="changeTheme('redFamily')"><div class="circle" style="background-color: var(--red-primary)"></div></a>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

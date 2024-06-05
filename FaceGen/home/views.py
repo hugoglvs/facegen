@@ -16,6 +16,9 @@ def index(request: HttpRequest) -> HttpResponse:
                   {'history': GeneratedImage.history(10)}
                   )
 
+def dreambooth(request: HttpRequest) -> HttpResponse:
+    return render(request, 'home/dreambooth.html')
+
 def about(request: HttpRequest) -> HttpResponse:
     return render(request, 'home/about.html')
 
@@ -62,4 +65,4 @@ def delete_photo(request: HttpRequest) -> JsonResponse:
     return JsonResponse({"status": "failure"}, status=400)
 
 if settings.AUTOMATIC_LOAD_PIPELINE:
-    pipe = load_pipeline()
+    pipe = load_pipeline() 

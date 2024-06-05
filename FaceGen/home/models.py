@@ -48,3 +48,16 @@ class GeneratedImage(models.Model):
     @classmethod
     def history(cls, number):
         return cls.objects.order_by('date')[:number][::-1]
+
+class DreamboothModel(models.Model):
+
+    token = models.CharField(max_length=8)
+    path = models.CharField(max_length=100)
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.path}/{self.id}"
+
+    @classmethod
+    def already_exists(cls, token):
+        return cls.objects.filter(token=token).exists()
