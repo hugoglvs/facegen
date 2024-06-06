@@ -1,71 +1,47 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FaceGen</title>
+    <title>Webcam</title>
+    <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://unpkg.com/htmx.org@1.4.1/dist/htmx.min.js"></script>
-    <script src="{% static 'home/js/webcam.js'%}"></script>
-    <style>
-        body {
-            background: linear-gradient(180deg, rgba(6,114,203,1) 0%, rgba(68,152,218,1) 16%, rgba(229,248,255,1) 30%, rgba(229,248,255,1) 100%);
-            color: black;
-        }
-        #webcam-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 80vh;
-        }
-        #webcam {
-            border: 1px solid black;
-            border-radius: 10px;
-        }
-        #photos-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .photo {
-            border: 1px solid black;
-            border-radius: 10px;
-            width: 200px;
-            height: 150px;
-        }
-    </style>
 </head>
-<body>
-    <div id="webcam-functionality">
-        <div id="webcam-container">
-            <video id="webcam" width="640" height="480" autoplay></video>
-            <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
-            <button id="capture-button">Capture Photo</button>
+
+{% block content %}
+<div id="webcam-functionality">
+    <div id="webcam-container">
+        <video id="webcam" width="640" height="480" autoplay></video>
+        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+        <button id="capture-button">Capture Photo</button>
+    </div>
+    <div id="photos-container">
+        <div data-photo-index="0" class="photo-container">
+            <img class="photo" src="" alt="User">
+            <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
         </div>
-        <div id="photos-container">
-            <div data-photo-index="0" class="photo-container">
-                <img class="photo" src="" alt="User">
-                <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
-            </div>
-            <div data-photo-index="1" class="photo-container">
-                <img class="photo" src="" alt="User">
-                <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
-            </div>
-            <div data-photo-index="2" class="photo-container">
-                <img class="photo" src="" alt="User">
-                <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
-            </div>
+        <div data-photo-index="1" class="photo-container">
+            <img class="photo" src="" alt="User">
+            <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
         </div>
-        <button id="send-button"
-            hx-post="{% url 'upload_photos' %}"
-            hx-trigger="click delay:500ms"
-            hx-target="#webcam-functionality"
-            hx-swap="delete">
+        <div data-photo-index="2" class="photo-container">
+            <img class="photo" src="" alt="User">
+            <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
+        </div>
+    </div>
+    <form id="training-settings" >
+        <label for="identifier">Unique identifier:</label>
+        <input type="text" name="identifier" id="identifier" value="sks">
+        <label for="training_steps">Number of steps</label>
+        <input type="number" name="training_steps" id="training_steps" value="100" min="100" max="500">
+        <label for="batch_size">Batch size</label>
+        <input type="number" name="batch_size" id="batch_size" value="1" min="1" max="10">
+    </form>
+    <button id="send-button"
+                hx-post="{% url 'upload_photos' %}"
+                hx-trigger="click delay:500ms"
+                hx-target="#webcam-functionality"
+                hx-swap="none">
             Send Photos
         </button>
-        <script src="{% static 'home/webcam.js' %}"></script>
-    </div>
-
-</body>
+    <script src="{% static 'home/webcam.js' %}"></script>
+</div>
+{% endblock %}

@@ -16,14 +16,13 @@
 <p>    For example, if you trained the model with pictures of your dog named "Buddy," you can then type a description like "Buddy at the beach," and the model will create a picture of your dog at the beach.</p>  
 <p>DreamBooth allows you to personalize image generation, making it possible to create custom images that are unique to your subject. It’s a powerful tool for artists, content creators, and anyone interested in generating personalized images.</p> {% endcomment %}
 
+<main>
 <form id="image-inputs" hx-get="{ url 'generate'}" hx-target="#test">
     <div class="prompt-area">
         <div class="prompt-container">
             <div class="buttons-container">
                 <div class="buttons">
                     <button id="settings-button" onclick="$('#advanced-settings').toggle()"><img class="icon" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings"></button>
-                    {% comment %} <input type="file" id="select_file" name="select_file" accept="image/png, image/jpeg"></input>
-                    <button onclick="$('#select_file').click()"><img class="icon" src="{% static 'home/icons/upload.svg' %}" alt="Upload"></button> {% endcomment %}
                     <button id="camera" 
                             hx-get="{% url 'webcam' %}"
                             hx-trigger="click"
@@ -38,24 +37,27 @@
         </div>
     </div>
     <div id="advanced-settings" >
-        <label for="height">Unique identifier:</label>
-        <input type="number" name="height" id="height" value="512" min="128" max="1024">
-        <label for="negative_prompt">Number of steps</label>
+        <label for="negative_prompt">negative prompt:</label>
         <input type="text" name="negative_prompt" id="negative_prompt">
-        <label for="width">Batch size</label>
+        <label for="width">width:</label>
         <input type="number" name="width" id="width" value="512" min="128" max="1024">
+        <label for="height">height:</label>
+        <input type="number" name="height" id="height" value="512" min="128" max="1024">
+        <label for="guidance_scale">guidance scale:</label>
+        <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10">
+        <label for="num_inference_steps">num inference steps:</label>
+        <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500">
+        <input type="number" name="seed" id="seed" value="0">
     </div>
 </form>
 <div id="webcam-functionality" style="display:none"></div>
 </div>
 
 <div id="test" class="image-output">
-<img src="{% static 'home/images/output.png' %}" alt="Output">
-<button class="trash-button">
-    <img src="{% static 'home/icons/trash.svg' %}" alt="Trash">
-</button>
+    <img src="{% static 'home/images/output.png' %}" alt="Output">
 </div>
-<script src="{% static 'home/theme-picker.js' %}" async></script>
+</main>
+
 {% endblock %}
 
 {% block style %}
