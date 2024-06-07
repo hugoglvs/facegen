@@ -50,16 +50,21 @@ def webcam(request: HttpRequest) -> HttpResponse:
 
 @csrf_exempt
 def start_dreambooth_training(request: HttpRequest) -> JsonResponse:
-    params = request.POST.dict()
-    dreambooth_model = DreamboothModel.objects.create(**params)
+    # Upload "user_photos" to "users" folder by running "upload_photos" view
+    upload_photos(request)
+    print("Photos uploaded")
+    # Create DreamboothModel instance with the uploaded photos
+    params = request.POST.dict().copy()
+    del params["user_photos"]
+    print(params)
+    dreambooth_model = DreamboothModel(**params)
+    dreambooth_model.train(**params)
     dreambooth_model.save()
     return JsonResponse({"status": "success"})
 
 @csrf_exempt
 def upload_photos(request: HttpRequest) -> JsonResponse:
     if request.method == "POST":
-        body = request.body
-        print(body)
         photos = request.POST.getlist("user_photos")
         saved_photos = []
         for index, photo in enumerate(photos):
@@ -67,6 +72,7 @@ def upload_photos(request: HttpRequest) -> JsonResponse:
                 photo_data = base64.b64decode(photo.split(",")[1])
                 saved_photo_path = save_photo(photo_data, f"photo_{index}.png")
                 saved_photos.append(saved_photo_path)
+                print(f"Saved photo {index}")
         return JsonResponse({"status": "success", "photos": saved_photos })
     return JsonResponse({"status": "failure"}, status=400)
 
@@ -84,5 +90,5 @@ def delete_photo(request: HttpRequest) -> JsonResponse:
         return JsonResponse({"status": "success"})
     return JsonResponse({"status": "failure"}, status=400)
 
-if settings.AUTOMATIC_LOAD_PIPELINE:
+if settings.AUTO_LOAD_PIPELINE:
     pipe = FaceGenPipeline()

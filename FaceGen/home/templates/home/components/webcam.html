@@ -34,14 +34,14 @@
         <input type="number" name="training_steps" id="training_steps" value="100" min="100" max="500">
         <label for="batch_size">Batch size</label>
         <input type="number" name="batch_size" id="batch_size" value="1" min="1" max="10">
-    </form>
-    <button id="send-button"
-                hx-post="{% url 'upload_photos' %}"
+        <button id="send-button"
+                hx-post="{% url 'start_dreambooth_training' %}"
                 hx-trigger="click delay:500ms"
                 hx-target="#webcam-functionality"
                 hx-swap="none">
             Send Photos
         </button>
-    <script src="{% static 'home/webcam.js' %}"></script>
+    </form>
+    <script src="{% static 'home/webcam.js' %}" defer></script>
 </div>
 {% endblock %}

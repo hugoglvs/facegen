@@ -8,6 +8,7 @@ urlpatterns = [
     path('dreambooth/', views.dreambooth, name='dreambooth'),
     path('generate/', views.generate, name='generate'),
     path('webcam/', views.webcam, name='webcam'),
+    path('start_dreambooth_training/', views.start_dreambooth_training, name='start_dreambooth_training'),
     path('upload_photos/', views.upload_photos, name='upload_photos'),
     path('delete_photo/', views.delete_photo, name='delete_photo'),
 ]

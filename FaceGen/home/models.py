@@ -5,6 +5,9 @@ from django.db import models
 from django.utils import timezone
 from django.conf import settings
 
+import os
+import subprocess
+
 # Create your models here.
 # py manage.py makemigrations <appName> (creates a migration file)
 # py manage.py sqlmigrate <appName> <numberMigration>  (returns the SQL code for the migration)
@@ -27,17 +30,15 @@ class GeneratedImage(models.Model):
         return f" {self.path} - {self.prompt} - {self.negative_prompt} - {self.width}x{self.height} - {self.num_inference_steps} steps - {self.guidance_scale} - {self.seed}"
 
     def save(self, *args, **kwargs):
-        
-        print("Absolute url", self.get_absolute_url())
+        self.path = f"{settings.MEDIA_URL}outputs/GeneratedImage_{self.id}.png"
         super().save(*args, **kwargs)
 
+        
     def get_filename(self):
         return self.path.split('/')[-1]
     
     def get_absolute_url(self):
-        path = self.path.replace(settings.MEDIA_URL, settings.MEDIA_ROOT)
-        path = path.replace('/', '\\')
-        return path
+        return os.path.abspath()
     
     def params(self):
         return {
@@ -66,6 +67,12 @@ class DreamboothModel(models.Model):
     batch_size = models.IntegerField()
     date = models.DateTimeField(auto_now_add=True)
 
+    def __init__(self, *args, **kwargs) -> None:
+        self.token = self.__create_token()
+        print(self.token)
+        self.path = f"{settings.MEDIA_URL}dreambooth/FaceGen_{self.token}"
+        super().__init__(*args, **kwargs)
+
     def __str__(self):
         return f"{self.path}/{self.id}"
 
@@ -77,11 +84,37 @@ class DreamboothModel(models.Model):
             return self.__create_token()
         return token
     
-    def save(self, *args, **kwargs):
-        self.token = self.__create_token()
-        self.path = f"{settings.MEDIA_URL}dreambooth/FaceGen_{self.token}"
-        super().save(*args, **kwargs)
-    
+    def get_name(self):
+        return self.path.split('/')[-1]
+
+    def train(self, identifier="sks", training_steps=100, batch_size=1, model_name="runwayml/stable-diffusion-v1-5"):
+
+        env = os.environ.copy()
+        env["MODEL_NAME"] = model_name
+        env["INSTANCE_DIR"] = os.path.join(settings.MEDIA_ROOT, 'users')
+        env["OUTPUT_DIR"] = self.path
+        
+        command = [
+            "accelerate", "launch", "train_dreambooth.py",
+            "--pretrained_model_name_or_path", env["MODEL_NAME"],
+            "--instance_data_dir", env["INSTANCE_DIR"],
+            "--output_dir", env["OUTPUT_DIR"],
+            "--instance_prompt", f"A photo of {identifier} man",
+            "--gradient_checkpointing",
+            "--use_8bit_adam",
+            "--resolution=512",
+            f"--train_batch_size={batch_size}",
+            "--gradient_accumulation_steps=1",
+            "--learning_rate=5e-6",
+            "--lr_scheduler=constant",
+            "--lr_warmup_steps=0",
+            f"--max_train_steps={training_steps}"
+        ]
+        # subprocess.run(command, env=env)
+        subprocess.Popen(command, env=env, shell=True)
+        
+        
+
     @classmethod
     def already_exists(cls, token):
         return cls.objects.filter(token=token).exists()

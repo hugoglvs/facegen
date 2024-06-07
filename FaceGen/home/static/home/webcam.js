@@ -42,7 +42,6 @@ $(document).ready(function () {
             const photos = photoElements.map((photoElement) => photoElement.attr("src"));
             const photoData = JSON.stringify({ user_photos: photos });
             sendButton.attr("hx-vals", photoData);
-            console.log("Photos sent:", photoData)
         } catch (error) {
             console.error("Error stringifying photos object:", error);
         }
@@ -63,5 +62,5 @@ $(document).ready(function () {
         });
     });
 
-    sendButton.on("click", function() { console.log('click')});
+    sendButton.on("click", sendPhotos);
 });
