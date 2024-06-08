@@ -25,7 +25,7 @@ def about(request: HttpRequest) -> HttpResponse:
     context = { "gradient-type": "circular"}
     return render(request, 'home/about.html', context)
 
-# 
+#
 
 @csrf_exempt
 def generate(request: HttpRequest) -> HttpResponse:
@@ -34,7 +34,7 @@ def generate(request: HttpRequest) -> HttpResponse:
     generated_image.save()
     print(generated_image)
     image = pipe(**generated_image.params()).images[0]
-    image.save(f"{settings.MEDIA_ROOT}\outputs\{generated_image.get_filename()}")
+    image.save(os.path.join(settings.MEDIA_ROOT, "outputs", generated_image.get_filename()), "PNG")
     context = {"image_output": generated_image,
                'history': GeneratedImage.history(10)
                }
@@ -57,7 +57,7 @@ def start_dreambooth_training(request: HttpRequest) -> JsonResponse:
     params = request.POST.dict().copy()
     del params["user_photos"]
     print(params)
-    dreambooth_model = DreamboothModel(**params)
+    dreambooth_model = DreamboothModel.objects.create(**params)
     dreambooth_model.train(**params)
     dreambooth_model.save()
     return JsonResponse({"status": "success"})

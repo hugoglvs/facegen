@@ -30,10 +30,10 @@ class FaceGenPipeline:
 
     def __repr__(self):
         return f"FaceGenPipeline(model_id={self.model_id}, device={self.device})"
-    
+
     def __call__(self, **kwargs):
         return self.pipe(**kwargs)
-    
+
     def __define_device(self):
         if torch.cuda.is_available():
             return "cuda"
@@ -44,6 +44,7 @@ class FaceGenPipeline:
     def __load_pipeline(self):
         pipe = StableDiffusionPipeline.from_pretrained(
             self.model_id,
+            safety_checker=None,
             torch_dtype=torch.float,
             use_safetensors=True,
         )
@@ -76,4 +77,3 @@ def random_token():
     import random
     import string
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
-    
