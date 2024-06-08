@@ -72,7 +72,7 @@ class DreamboothModel(models.Model):
             self.token = self.__create_token()
         super().save(*args, **kwargs)
         if not self.path:
-            self.path = f"{settings.MEDIA_ROOT}dreambooth/FaceGen_{self.token}"
+            self.path = f"{settings.MEDIA_ROOT}/dreambooth/FaceGen_{self.token}"
             DreamboothModel.objects.filter(id=self.id).update(path=self.path)
 
     def __str__(self):
@@ -110,8 +110,8 @@ class DreamboothModel(models.Model):
             "--instance_data_dir", env["INSTANCE_DIR"],
             "--output_dir", env["OUTPUT_DIR"],
             "--instance_prompt", f"A photo of {identifier} man",
-            "--gradient_checkpointing",
-            "--use_8bit_adam",
+            # "--gradient_checkpointing",
+            # "--use_8bit_adam",
             "--resolution=512",
             f"--train_batch_size={batch_size}",
             "--gradient_accumulation_steps=1",
