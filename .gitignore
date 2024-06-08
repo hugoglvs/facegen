@@ -4,3 +4,4 @@
 *__pycache__
 /FaceGen/db.sqlite3
 /FaceGen/media/
+/venv
