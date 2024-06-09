@@ -22,5 +22,6 @@ from django.conf import settings
 urlpatterns = [
     # path(route, view, kwargs=None, name=None)
     path('admin/', admin.site.urls),
+    path('__reload__/', include('django_browser_reload.urls')),
     path('home/', include("home.urls"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # Only for development,  when in production, use a web server to serve media files

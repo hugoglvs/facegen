@@ -1,4 +1,5 @@
 {% load static %}
+{% load tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +8,14 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap">
     <link rel="stylesheet" href="{% static 'home/styles.css' %}">
+    {% tailwind_css %}
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script async src="https://docs.opencv.org/4.5.5/opencv.js"></script>
     <script src="https://unpkg.com/alpinejs" async></script>
     <script src="{% static 'home/theme-picker.js' %}" async></script>
     <script src="{% static 'home/script.js' %}" defer></script>
-    
+
     {% block style%}
     {% endblock%}
 </head>
