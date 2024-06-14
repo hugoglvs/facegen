@@ -20,7 +20,7 @@
     {% endblock%}
 </head>
 
-<body x-data="themeSwitcher()" x-init="init()">
+<body class="flex flex-col items-center p-5 m-0 min-h-dvh text-white font-roboto" x-data="themeSwitcher()" x-init="init()">
     <header>
         <a href="{% url 'index' %}"><img src="{% static 'home/images/logo.png' %}" alt="Logo" class="logo"></a>
         <div class="nav-buttons">

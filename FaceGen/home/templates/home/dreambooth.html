@@ -4,8 +4,9 @@
 {% block title %}Dreambooth{% endblock %}
 
 {% block content %}
-<h1>Dreambooth</h1>
-{% comment %} <p> DreamBooth is a method created by Google Research to make text-to-image models, like Stable Diffusion, better at generating pictures of specific things. Imagine you have a model that can create images from text descriptions, and you want it to generate pictures of your pet in different scenes.</p>
+<main>
+<h1 class="text-3xl text-start">Dreambooth</h1>
+<p> DreamBooth is a method created by Google Research to make text-to-image models, like Stable Diffusion, better at generating pictures of specific things. Imagine you have a model that can create images from text descriptions, and you want it to generate pictures of your pet in different scenes.</p>
 <p>Here's how it works:</p>
 <ul>
     <li>Collect Images: First, you gather a few pictures of the subject you want to focus on, like your pet dog.</li>
@@ -14,9 +15,21 @@
     <li>Generate New Images: Now, when you use the special token in a text prompt, the model can generate new images of your pet in different settings or doing various activities, while keeping its unique characteristics.</li>
 </ul>
 <p>    For example, if you trained the model with pictures of your dog named "Buddy," you can then type a description like "Buddy at the beach," and the model will create a picture of your dog at the beach.</p>  
-<p>DreamBooth allows you to personalize image generation, making it possible to create custom images that are unique to your subject. It’s a powerful tool for artists, content creators, and anyone interested in generating personalized images.</p> {% endcomment %}
+<p>DreamBooth allows you to personalize image generation, making it possible to create custom images that are unique to your subject. It’s a powerful tool for artists, content creators, and anyone interested in generating personalized images.</p>
 
-<main>
+
+<div class="grid-flow-row">
+    <div class="grid-flow-row">
+        <div class="columns-1">
+            <p>Train your own model</p>
+            <button>Train</button>
+        </div>
+        <div class="columns-2">
+            <p>Use your model</p>
+            <button>Use your model</button>
+        </div>
+    </div>
+</div>
 <form id="image-inputs" hx-get="{ url 'generate'}" hx-target="#test">
     <div class="prompt-area">
         <div class="prompt-container">

@@ -5,13 +5,13 @@
 
 {% block content %}
 
-    <main class="content">
+    <main class="flex flex-col items-center min-w-[80%] max-w-[80%] p-5">
         <div class="title-container">
             <h1>FaceGen</h1>
             <span class="subtitle">Powered by the students of Paul Valéry</span>
         </div>
         <p>Your gateway to AI-generated faces and personas. Describe, and watch as lifelike images come to life effortlessly.</p>
-        <form id="image-inputs" hx-get="{% url 'generate' %}" hx-target="#test">
+        <form id="image-inputs" class="text-black" hx-get="{% url 'generate' %}" hx-target="#test">
                 <div class="prompt-container">
                     <div class="buttons-container">
                         <button id="settings-button" onclick="$('#advanced-settings').toggle()"><img class="icon" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings"></button>
