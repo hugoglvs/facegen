@@ -8,6 +8,7 @@ from django.core.files.base import ContentFile
 import os
 import json
 import base64
+import torch
 
 # def view(request: HttpRequest) -> HttpResponse:
 
@@ -32,8 +33,9 @@ def generate(request: HttpRequest) -> HttpResponse:
     params = request.GET.dict()
     generated_image = GeneratedImage.objects.create(**params)
     generated_image.save()
+    generator = torch.Generator(device=pipe.device).manual_seed(int(generated_image.seed))
     print(generated_image)
-    image = pipe(**generated_image.params()).images[0]
+    image = pipe(**generated_image.params(), generator=generator).images[0]
     image.save(os.path.join(settings.MEDIA_ROOT, "outputs", generated_image.get_filename()), "PNG")
     context = {"image_output": generated_image,
                'history': GeneratedImage.history(10)
@@ -45,6 +47,9 @@ def generate(request: HttpRequest) -> HttpResponse:
 @csrf_exempt
 def webcam(request: HttpRequest) -> HttpResponse:
     return render(request, 'home/components/webcam.html')
+
+def history(request: HttpRequest) -> HttpResponse:
+    return render(request, 'home/comppnents/history.html')
 
 # Actions
 

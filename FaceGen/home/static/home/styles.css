@@ -5,6 +5,7 @@
     --tertiary-color: var(--blue-tertiary);
     --background: var(--linear-background);
     --linear-background: linear-gradient(4deg, var(--tertiary-color) 30%, var(--primary-color) 100%);
+    --linear-background: var(--dell-blue);
     --circular-background: radial-gradient(var(--secondary-color) 35%, var(--primary-color) 100%);
   
     /* Blue Family */
@@ -13,11 +14,6 @@
     --dell-blue: #0672cb;
     --sky: #80c7fb;
     --glacier: #e5f8ff;
-    --midnight-rgb: 13, 33, 85; /* #0d2155 */
-    --royal-rgb: 12, 50, 164; /* #0c32a4 */
-    --dell-blue-rgb: 6, 114, 203; /* #0672cb */
-    --sky-rgb: 128, 199, 251; /* #80c7fb */
-    --glacier-rgb: 229, 248, 255; /* #e5f8ff */
   
     /* Green Family */
     --deep-green: #244739;
@@ -25,23 +21,13 @@
     --basil: #37cc5c;
     --lime: #9fff99;
     --tea-green: #e4ffd6;
-    --deep-green-rgb: 36, 71, 57; /* #244739 */
-    --hunter-rgb: 36, 117, 84; /* #247554 */
-    --basil-rgb: 55, 204, 92; /* #37cc5c */
-    --lime-rgb: 159, 255, 153; /* #9fff99 */
-    --tea-green-rgb: 228, 255, 214; /* #e4ffd6 */
-  
+ 
     /* Purple Family */
     --raisin: #2a145a;
     --plum: #612cb0;
     --amethyst: #8e5cef;
     --lavender: #beafff;
     --periwinkle: #dedfff;
-    --raisin-rgb: 42, 20, 90; /* #2a145a */
-    --plum-rgb: 97, 44, 176; /* #612cb0 */
-    --amethyst-rgb: 142, 92, 239; /* #8e5cef */
-    --lavender-rgb: 190, 175, 255; /* #beafff */
-    --periwinkle-rgb: 222, 223, 255; /* #dedfff */
   
     /* Red Family */
     --burgundy: #691d3f;
@@ -49,12 +35,7 @@
     --coral: #e1633f;
     --apricot: #f4b85e;
     --sand: #fbeecc;
-    --burgundy-rgb: 105, 29, 63; /* #691d3f */
-    --scarlet-rgb: 179, 11, 55; /* #b30b37 */
-    --coral-rgb: 225, 99, 63; /* #e1633f */
-    --apricot-rgb: 244, 184, 94; /* #f4b85e */
-    --sand-rgb: 251, 238, 204; /* #fbeecc */
-  
+ 
     /* Neutrals */
     --black: #000000;
     --carbon: #444444;
@@ -62,13 +43,7 @@
     --granite: #c8c9c7;
     --quartz: #eeeeee;
     --white: #ffffff;
-    --black-rgb: 0, 0, 0; /* #000000 */
-    --carbon-rgb: 68, 68, 68; /* #444444 */
-    --gray-rgb: 128, 128, 128; /* #808080 */
-    --granite-rgb: 200, 201, 199; /* #c8c9c7 */
-    --quartz-rgb: 238, 238, 238; /* #eeeeee */
-    --white-rgb: 255, 255, 255; /* #ffffff */
-  
+ 
     /* Theme colors */
     --blue-primary: var(--royal);
     --blue-secondary: var(--sky);
@@ -92,51 +67,6 @@
     padding: 0;
     box-sizing: border-box;
 
-}
-body {
-    background: var(--background);
-    min-height: 100vh;
-    color: white;
-    font-family: "Roboto", sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-}
-
-main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    min-width: 60%;
-    max-width: 80%;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-button {
-    background: none;
-    border: none;
-}
-
-.title-container {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    h1 {
-        font-size: 56px;
-        font-weight: 300;
-    }
-    .subtitle {
-        font-size: 18px;
-        color: var(--granite);
-        margin-left: 10px;
-        position: relative;
-        top: 10px;
-        font-weight: 400;
-        font-style: italic;
-        margin-top: 8px;
-    }
 }
 
 p {
@@ -259,43 +189,6 @@ input[type="file"] {
 
 
 /*********************advsettings index*************************/
-
-#advanced-settings {
-    display: none;
-    background-color: var(--white);
-    border-radius: 15px;
-    padding: 20px;
-    max-width: 250px;
-    margin: 20px auto;
-    box-shadow: 0 4px 8px var(--black);
-    position: relative;
-    z-index: 3;
-    label {
-        color: black;
-        margin-left: 25px;  
-    }
-    input[type="text"], input[type="number"] {
-        display: block;
-        width: calc(90% - 20px);
-        margin: 10px auto;
-        padding: 10px;
-        border: 1px solid var(--gray);
-        border-radius: 5px;
-        box-sizing: border-box;
-        text-align: center;
-        &:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-    }
-}
-
-@media (max-width: 768px) {
-    #advanced-settings {
-        width: 90%;
-    }
-}
-
 .image-output {
     position: relative;
     width: 270px;
@@ -326,33 +219,7 @@ input[type="file"] {
     }
 }
 
-#history-container {
-    display: flex;
-    flex-wrap: wrap;
-    flex-basis: auto;
-    justify-content: space-evenly;
-    .history-item {
-        display: flex;
-        flex-direction: column;
-        background-color: rgba(var(--white-rgb), 0.6);
-        border-radius: 10px;
-        padding: 10px;
-        margin: 10px;
-        text-align: center;
-        width: 28ch;
-        justify-content: center; 
-        align-items: center;
-        img {
-            width: 100%;
-            border-radius: 10px;
-        }
-        p {
-            font-size: 14px;
-            font-weight: 400;
-            color: var(--black);
-        }
-    }
-}
+
 
 /***************************JS style****************************/
 .modal-container {

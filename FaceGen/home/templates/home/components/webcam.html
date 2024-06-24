@@ -9,38 +9,41 @@
 {% block content %}
 <div id="webcam-functionality">
     <div id="webcam-container">
-        <video id="webcam" width="640" height="480" autoplay></video>
-        <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
-        <button id="capture-button">Capture Photo</button>
+        <video id="webcam" width="512" height="384" autoplay></video>
+        <canvas id="canvas" width="512" height="384" style="display: none;"></canvas>
+        <button id="capture-button"><img class="size-12" src="{% static 'home/icons/capture.svg' %}" alt="Capture"></button>
     </div>
-    <div id="photos-container">
-        <div data-photo-index="0" class="photo-container">
-            <img class="photo" src="" alt="User">
-            <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
+    <div id="photos-container" class="flex justify-center items-center">
+        <div data-photo-index="0" class="photo-container flex flex-col items-center" style="background-image: {% static 'home/images/2.png' %}">
+            <img class="photo" src="{% static 'home/images/1.png' %}" alt="User">
+            <button class="trash-button mt-2"><img class="size-6" src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
         </div>
-        <div data-photo-index="1" class="photo-container">
-            <img class="photo" src="" alt="User">
-            <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
+        <div data-photo-index="1" class="photo-container flex flex-col items-center">
+
+            <img class="photo" src="{% static 'home/images/2.png' %}" alt="User">
+            <button class="trash-button mt-2"><img class="size-6" src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
         </div>
-        <div data-photo-index="2" class="photo-container">
-            <img class="photo" src="" alt="User">
-            <button class="trash-button"><img src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
+        <div data-photo-index="2" class="photo-container flex flex-col items-center">
+            <img class="photo" src="{% static 'home/images/3.png' %}" alt="User">
+            <button class="trash-button mt-2"><img class="size-6" src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
         </div>
     </div>
-    <form id="training-settings" >
-        <label for="identifier">Unique identifier:</label>
-        <input type="text" name="identifier" id="identifier" value="sks">
-        <label for="training_steps">Number of steps</label>
-        <input type="number" name="training_steps" id="training_steps" value="100" min="100" max="500">
-        <label for="batch_size">Batch size</label>
-        <input type="number" name="batch_size" id="batch_size" value="1" min="1" max="10">
+    <div class="flex justify-center mt-4">
         <button id="send-button"
                 hx-post="{% url 'start_dreambooth_training' %}"
                 hx-trigger="click delay:500ms"
                 hx-target="#webcam-functionality"
-                hx-swap="none">
-            Send Photos
+                hx-swap="delete">
+            <img class="size-12" src="{% static 'home/icons/send.svg' %}" alt="Send Photos">
         </button>
+    </div>
+    <form id="training-settings" class="mt-4">
+        <label for="identifier">Unique identifier:</label>
+        <input type="text" name="identifier" id="identifier" value="sks" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+        <label for="training_steps">Number of steps:</label>
+        <input type="number" name="training_steps" id="training_steps" value="100" min="100" max="500" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+        <label for="batch_size">Batch size:</label>
+        <input type="number" name="batch_size" id="batch_size" value="1" min="1" max="10" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
     </form>
     <script src="{% static 'home/webcam.js' %}" defer></script>
 </div>

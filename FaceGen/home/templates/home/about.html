@@ -1,39 +1,46 @@
 {% extends 'home/base.html' %}
 {% load static %}
 
-
 {% block title %}About Us{% endblock %}
 
+{% block style %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+<style>
+    body {
+        background: var(--circular-background);
+        }
+</style>
+{% endblock %}
 
 {% block content %}
-
-<div class="about-container">
-    <div class="about-content">
-        <h1>Discover the Power of Imagination</h1>
-        <p>Welcome to our innovative platform, where we push the boundaries of what's possible with generative AI. Our website offers a unique service that transforms text into stunning images, 
+<body>
+<div class="about-container bg-white rounded-lg p-8 my-10 text-blue-900 text-center">
+    <div class="about-content max-w-4xl mx-auto">
+        <h1 class="text-4xl font-semibold mb-4">Discover the Power of Imagination</h1>
+        <p class="text-lg mb-6">Welcome to our innovative platform, where we push the boundaries of what's possible with generative AI. Our website offers a unique service that transforms text into stunning images, 
             enabling you to explore the limits of your imagination. Whether you're an artist seeking inspiration, a designer in need of unique visuals, or simply curious about the potential of AI, 
             our platform provides a seamless and engaging experience to bring your creative visions to life.
         </p>
-        <img src="{% static 'home/images/image2.png' %}" alt="About Image">
+        <div class="flex justify-center">
+            <img src="{% static 'home/images/image2.png' %}" alt="About Image" class="rounded-lg shadow-md">
+        </div>
     </div>
 </div>
-<h1>Our Vision for the Future</h1>
-<div class="about-content">
-    <p>Our mission is to elevate the current standards of generative AI, making it more accessible and less intimidating to the public. We aim to demystify AI technology by demonstrating
+<h1 class="text-4xl font-semibold text-center mt-10 mb-4">Our Vision for the Future</h1>
+<div class="about-content max-w-4xl mx-auto text-center">
+    <p class="text-lg">Our mission is to elevate the current standards of generative AI, making it more accessible and less intimidating to the public. We aim to demystify AI technology by demonstrating
             its potential for creativity and innovation. By fostering a supportive and inclusive community, we encourage everyone to participate and contribute to the evolution of generative AI.
             Our goal is to show that AI is not just for experts but for anyone with a creative spark, helping to build a future where technology and imagination go hand in hand.
     </p>
 </div>
-<div class="about-container">
-    <div class="about-content">
-        <h1>About Us</h1>
-        <p>We are two dedicated students enrolled in the MIASHS program at the University Paul Valéry Montpellier 3. Currently, we are interning at Dell Technologies, where we are diving deep into the world of AI, 
+<div class="about-container bg-white rounded-lg p-8 my-10 text-blue-900 text-center">
+    <div class="about-content max-w-4xl mx-auto">
+        <h1 class="text-4xl font-semibold mb-4">About Us</h1>
+        <p class="text-lg">We are two dedicated students enrolled in the MIASHS program at the University Paul ValÃ©ry Montpellier 3. Currently, we are interning at Dell Technologies, where we are diving deep into the world of AI, 
             particularly the exciting branch of generative AI. Through this internship, we are gaining valuable insights and hands-on experience that fuel our passion for technology and creativity. Our work aims
                 to bridge the gap between academic learning and practical application, contributing to the vibrant field of AI innovation.
         </p>
     </div>
 </div>
-{% endblock %}
-
-{% block style %}
+</body>
 {% endblock %}
