@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .utils import FaceGenPipeline, generate_image, save_photo
-from .models import GeneratedImage, DreamboothModel
+from .utils import FaceGenPipeline, save_photo
+from .models import GeneratedImage
 from django.conf import settings
 from django.core.files.base import ContentFile
 import os
 import json
 import base64
 import torch
+
+if settings.AUTO_LOAD_PIPELINE:
+    pipe = FaceGenPipeline()
 
 # def view(request: HttpRequest) -> HttpResponse:
 
@@ -40,6 +43,10 @@ def generate(request: HttpRequest) -> HttpResponse:
 # Components
 
 @csrf_exempt
+def prompt(request: HttpRequest) -> HttpResponse:
+    return render(request, 'home/components/prompt.html')
+
+@csrf_exempt
 def webcam(request: HttpRequest) -> HttpResponse:
     return render(request, 'home/components/webcam.html')
 
@@ -61,13 +68,7 @@ def start_dreambooth_training(request: HttpRequest) -> JsonResponse:
     # Upload "user_photos" to "users" folder by running "upload_photos" view
     upload_photos(request)
     print("Photos uploaded")
-    # Create DreamboothModel instance with the uploaded photos
-    params = request.POST.dict().copy()
-    del params["user_photos"]
-    print(params)
-    dreambooth_model = DreamboothModel.objects.create(**params)
-    dreambooth_model.train(**params)
-    dreambooth_model.save()
+    pipe.dreambooth()
     return JsonResponse({"status": "success"})
 
 @csrf_exempt
@@ -97,6 +98,3 @@ def delete_photo(request: HttpRequest) -> JsonResponse:
         photo.delete()
         return JsonResponse({"status": "success"})
     return JsonResponse({"status": "failure"}, status=400)
-
-if settings.AUTO_LOAD_PIPELINE:
-    pipe = FaceGenPipeline()
