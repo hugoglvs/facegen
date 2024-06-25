@@ -3,10 +3,7 @@
     --primary-color: var(--blue-primary);
     --secondary-color: var(--blue-secondary);
     --tertiary-color: var(--blue-tertiary);
-    --background: var(--linear-background);
-    --linear-background: linear-gradient(4deg, var(--tertiary-color) 30%, var(--primary-color) 100%);
-    --circular-background: radial-gradient(var(--secondary-color) 35%, var(--primary-color) 100%);
-  
+    --background: var(--linear-background);  
     /* Blue Family */
     --midnight: #0d2155;
     --royal: #0c32a4;
@@ -87,10 +84,6 @@
     --red-tertiary: var(--sand);
   }
 
-
-body {
-    background: var(--background);
-}
 
 button {
     background: none;
@@ -197,15 +190,6 @@ input[type="file"] {
     width: 100%;
 }
 .prompt-container {
-    display: flex;
-    flex-direction: row;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    padding: 0 15px;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    width: 100%;
     border-radius: 25px;
     overflow: hidden;
     background: var(--white);
