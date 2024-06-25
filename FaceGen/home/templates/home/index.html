@@ -3,59 +3,43 @@
 
 {% block title %}FaceGen{% endblock %}
 
-{% block body_class %}bg-gradient-to-t from-[--tertiary-color] from-70% to-[--primary-color] {% endblock %}
+
 {% block content %}
 
-    <main class="flex flex-col items-center min-w-[80%] max-w-[80%] p-5">
-        <div class="title-container">
-            <h1>FaceGen</h1>
-            <span class="subtitle">Powered by the students of Paul Valéry</span>
+<main class="flex flex-col items-center min-w-[80%] max-w-[80%] p-5">
+    <div>
+        <div class="flex items-center w-full">
+            <h1 class="text-5xl font-light">FaceGen</h1><a href="info/stable_diffusion">Info</a>
+            <span class="text-lg text-white text-opacity-55 ml-2 relative top-2 font-normal italic mt-2">Powered by the students of Paul Valéry</span>
         </div>
-        <p>Your gateway to AI-generated faces and personas. Describe, and watch as lifelike images come to life effortlessly.</p>
-        <form id="image-inputs" class="text-black" hx-get="{% url 'generate' %}" hx-target="#test">
-                <div class="prompt-container flex flex-row mt-8 mb-5 px-4 items-center content-between gap-5 w-auto rounded-3xl overflow-hidden relative">
-                    <div class="buttons-container">
-                        <button id="settings-button" onclick="$('#advanced-settings').toggle()"><img class="icon" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings"></button>
-                    </div>
-                    <input type="text" name="prompt" id="prompt" placeholder="Enter your prompt here..." required>
-                    <button id="send-button" class="prompt-button"><img class="icon" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
-                </div>
-            <div id="advanced-settings" >
-                <label for="negative_prompt">negative prompt:</label>
-                <input type="text" name="negative_prompt" id="negative_prompt">
-                <label for="width">width:</label>
-                <input type="number" name="width" id="width" value="512" min="128" max="1024">
-                <label for="height">height:</label>
-                <input type="number" name="height" id="height" value="512" min="128" max="1024">
-                <label for="guidance_scale">guidance scale:</label>
-                <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10">
-                <label for="num_inference_steps">num inference steps:</label>
-                <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500">
-                <input type="number" name="seed" id="seed" value="0">
-            </div>
-        </form>
+        <p class="text-lg max-w-3xl text-left">Your gateway to AI-generated faces and personas. Describe, and watch as lifelike images come to life effortlessly.</p>
 
-        <div id="test" class="image-output">
-            <img src="{% static 'home/images/output.png' %}" alt="Output">
-        </div>
-    </main>
-    {% if history %}
-    <div id="history-container">
-        {% for image in history %}
-        <div class="history-item">
-            <img src= "{{ image.path }}" alt="AI-generated face">
-            <p> {{ image.params.prompt }} </p>
-            <button class="trash-button" 
-                    hx-target="closest .history-item"
-                    hx-post="{% url 'delete_photo' %}"
-                    hx-swap="delete"
-                    hx-vals=' { "id": {{ image.id }} }' >
-                    <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" clip-rule="evenodd" d="M7 4C7 2.34315 8.34315 1 10 1H14C15.6569 1 17 2.34315 17 4V5H21C21.5523 5 22 5.44772 22 6C22 6.55228 21.5523 7 21 7H19.9394L19.1153 20.1871C19.0164 21.7682 17.7053 23 16.1211 23H7.8789C6.29471 23 4.98356 21.7682 4.88474 20.1871L4.06055 7H3C2.44772 7 2 6.55228 2 6C2 5.44772 2.44772 5 3 5H7V4ZM9 5H15V4C15 3.44772 14.5523 3 14 3H10C9.44772 3 9 3.44772 9 4V5ZM6.06445 7L6.88085 20.0624C6.91379 20.5894 7.35084 21 7.8789 21H16.1211C16.6492 21 17.0862 20.5894 17.1191 20.0624L17.9355 7H6.06445Z" fill="#000000"/>
-                    </svg>
-            </button>
-        </div>
-        {% endfor %}
     </div>
-    {% endif %}
+    <form id="image-inputs" class="text-black w-full" hx-get="{% url 'generate' %}" hx-swap-oob="true" hx-target="#output">
+        <div class="flex flex-row mt-8 mb-5 px-4 items-center justify-between gap-5 w-full rounded-3xl overflow-hidden bg-white relative">
+            <div class="absolute left-4 flex gap-2 z-2 items-center">
+                <button id="settings-button" onclick="$('#advanced-settings').toggle()" type="button">
+                    <img class="w-8 h-8" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings">
+                </button>
+            </div>
+            <input type="text" name="prompt" id="prompt" placeholder="Enter your prompt here..." required class="p-4 mr-0 ml-16 border-none w-[calc(100%-90px-60px)] relative z-1 text-lg focus:outline-none">
+            <button id="send-button" class="p-2" type="submit"><img class="w-8 h-8" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
+        </div>
+        <div id="advanced-settings" class="hidden bg-white rounded-lg p-5 max-w-[80%] mx-auto shadow-lg relative z-3">
+            <label for="negative_prompt" class="block text-black ml-6">Negative prompt:</label>
+            <input type="text" name="negative_prompt" id="negative_prompt" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">            <label for="guidance_scale" class="block text-black ml-6">Guidance scale:</label>
+            <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+            <label for="num_inference_steps" class="block text-black ml-6">Number of inference steps:</label>
+            <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+            <label for="seed" class="block text-black ml-6">Seed:</label>
+            <input type="number" name="seed" id="seed" value="0" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+        </div>
+    </form>
+
+    <div id="output" class="flex flex-col bg-white/60 rounded-lg p-2 m-2 text-center w-72 justify-center items-center">
+        <img src="{% static 'home/images/output.png' %}" alt="Output" class="w-64 h-64 rounded-lg">
+    </div>
+</main>
+<div id="history-container" hx-post="{% url 'history' %}" hx-trigger="load, from:#send-button">
+</div>
 {% endblock %}

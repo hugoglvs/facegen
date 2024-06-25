@@ -20,14 +20,12 @@ class GeneratedImage(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     prompt = models.CharField(max_length=256)
     negative_prompt = models.CharField(max_length=256)
-    width = models.IntegerField()
-    height = models.IntegerField()
     num_inference_steps = models.IntegerField()
     guidance_scale = models.FloatField()
     seed = models.IntegerField()
 
     def __str__(self):
-        return f" {self.path} - {self.prompt} - {self.negative_prompt} - {self.width}x{self.height} - {self.num_inference_steps} steps - {self.guidance_scale} - {self.seed}"
+        return f" {self.path} - {self.prompt} - {self.negative_prompt} - {self.num_inference_steps} steps - {self.guidance_scale} - {self.seed}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -45,8 +43,6 @@ class GeneratedImage(models.Model):
         return {
             "prompt": self.prompt,
             "negative_prompt": self.negative_prompt,
-            "width": int(self.width),
-            "height": int(self.height),
             "num_inference_steps": int(self.num_inference_steps),
             "guidance_scale": int(self.guidance_scale),
             "seed": float(self.seed)

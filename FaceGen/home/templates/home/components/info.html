@@ -1,0 +1,13 @@
+{% load static%}
+
+
+{% block content %}
+{% if method == "dreambooth" %}
+Dreambooth
+{% elif method == "stable_diffusion" %}
+
+Stable diffusion
+
+{% endif %}
+{% endblock %}
+

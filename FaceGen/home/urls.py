@@ -11,4 +11,6 @@ urlpatterns = [
     path('start_dreambooth_training/', views.start_dreambooth_training, name='start_dreambooth_training'),
     path('upload_photos/', views.upload_photos, name='upload_photos'),
     path('delete_photo/', views.delete_photo, name='delete_photo'),
+    path('history/', views.history, name='history'),
+    path('info/<str:method>', views.info, name='info')
 ]

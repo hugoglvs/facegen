@@ -37,7 +37,7 @@ function themeSwitcher() {
             $(':root').css(variable, theme[variable]);
         }
         },
-        changeTheme(newTheme) {
+        changeTheme(newTheme) { 
         this.theme = newTheme;
         }
     }

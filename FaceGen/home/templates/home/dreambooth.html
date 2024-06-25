@@ -4,74 +4,58 @@
 {% block title %}Dreambooth{% endblock %}
 
 {% block content %}
-<main>
-<h1 class="text-3xl text-start">Dreambooth</h1>
-<p> DreamBooth is a method created by Google Research to make text-to-image models, like Stable Diffusion, better at generating pictures of specific things. Imagine you have a model that can create images from text descriptions, and you want it to generate pictures of your pet in different scenes.</p>
-<p>Here's how it works:</p>
-<ul>
-    <li>Collect Images: First, you gather a few pictures of the subject you want to focus on, like your pet dog.</li>
-    <li>Training: You then train the model using these pictures along with text descriptions that describe the subject. This step helps the model learn the unique features of your pet.</li>
-    <li>Embedding: The model creates a special token or code that represents your pet. This token is added to the model’s vocabulary.</li>
-    <li>Generate New Images: Now, when you use the special token in a text prompt, the model can generate new images of your pet in different settings or doing various activities, while keeping its unique characteristics.</li>
-</ul>
-<p>    For example, if you trained the model with pictures of your dog named "Buddy," you can then type a description like "Buddy at the beach," and the model will create a picture of your dog at the beach.</p>  
-<p>DreamBooth allows you to personalize image generation, making it possible to create custom images that are unique to your subject. It’s a powerful tool for artists, content creators, and anyone interested in generating personalized images.</p>
+<main class="flex flex-col items-center min-w-[80%] max-w-[80%] p-5 text-lg">
+    <h1 class="text-5xl text-center font-thin">Dreambooth</h1>
 
+    <p class="mt-10 text-start"> DreamBooth is a method created by Google Research to make text-to-image models, like Stable Diffusion, better at generating pictures of specific things. Imagine you have a model that can create images from text descriptions, and you want it to generate pictures of your pet in different scenes.</p>
 
-<div class="grid-flow-row">
-    <div class="grid-flow-row">
-        <div class="columns-1">
-            <p>Train your own model</p>
-            <button>Train</button>
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <button class="bg-[--primary-color] text-white py-2 px-4 rounded">Train</button>
         </div>
-        <div class="columns-2">
-            <p>Use your model</p>
-            <button>Use your model</button>
+        <div>
+            <button class="bg-[--primary-color] text-white py-2 px-4 rounded">Use your model</button>
         </div>
     </div>
-</div>
-<form id="image-inputs" hx-get="{ url 'generate'}" hx-target="#test">
-    <div class="prompt-area">
-        <div class="prompt-container">
-            <div class="buttons-container">
-                <div class="buttons">
-                    <button id="settings-button" onclick="$('#advanced-settings').toggle()"><img class="icon" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings"></button>
-                    <button id="camera" 
-                            hx-get="{% url 'webcam' %}"
-                            hx-trigger="click"
-                            hx-target="#webcam-functionality"
-                            hx-swap="outerHTML">
-                            <img class="icon" src="{% static 'home/icons/camera.svg' %}" alt="Take a photo">
-                    </button>
-                </div>
+
+    <form id="image-inputs" hx-get="{% url 'generate' %}" hx-target="#test" class="mt-4">
+        <div class="flex flex-row mt-8 mb-5 px-4 items-center justify-between gap-5 w-full rounded-3xl overflow-hidden bg-white relative">
+            <div class="absolute left-4 flex gap-2 z-2 items-center">
+                <button id="settings-button" onclick="$('#advanced-settings').toggle()" type="button">
+                    <img class="w-8 h-8" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings">
+                </button>
             </div>
-            <input type="text" name="prompt" id="prompt" class="prompt-input" placeholder="Enter your prompt here..." required>
-            <button id="prompt-button" class="prompt-button"><img class="icon" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
+            <input type="text" name="prompt" id="prompt" placeholder="Enter your prompt here..." required class="p-4 mr-0 ml-16 border-none w-[calc(100%-90px-60px)] relative z-1 text-lg focus:outline-none">
+            <button id="send-button" class="p-2" type="submit"><img class="w-8 h-8" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
         </div>
-    </div>
-    <div id="advanced-settings" >
-        <label for="negative_prompt">negative prompt:</label>
-        <input type="text" name="negative_prompt" id="negative_prompt">
-        <label for="width">width:</label>
-        <input type="number" name="width" id="width" value="512" min="128" max="1024">
-        <label for="height">height:</label>
-        <input type="number" name="height" id="height" value="512" min="128" max="1024">
-        <label for="guidance_scale">guidance scale:</label>
-        <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10">
-        <label for="num_inference_steps">num inference steps:</label>
-        <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500">
-        <input type="number" name="seed" id="seed" value="0">
-    </div>
-</form>
-<div id="webcam-functionality" style="display:none"></div>
-</div>
+        <div id="advanced-settings" class="hidden bg-white rounded-lg p-5 max-w-xs mx-auto shadow-lg relative z-3">
+            <label for="negative_prompt" class="block text-gray-700">Negative prompt:</label>
+            <input type="text" name="negative_prompt" id="negative_prompt" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">            <label for="guidance_scale" class="block text-gray-700 mt-2">Guidance scale:</label>
+            <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+            <label for="num_inference_steps" class="block text-gray-700 mt-2">Num inference steps:</label>
+            <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+            <label for="seed" class="block text-gray-700 mt-2">Seed:</label>
+            <input type="number" name="seed" id="seed" value="0" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+        </div>
+    </form>
 
-<div id="test" class="image-output">
-    <img src="{% static 'home/images/output.png' %}" alt="Output">
-</div>
+    <div id="webcam-functionality">
+    </div>
+
+    <div id="test" class="flex flex-col bg-white/60 rounded-lg p-2 m-2 text-center w-72 justify-center items-center">
+        <img src="{% static 'home/images/output.png' %}" alt="Output" class="w-64 h-64 rounded-lg">
+    </div>
+
+    <div class="text-blue-900">
+        <p class="mt-4 text-3xl">Here's how it works:</p>
+        <ul class="list-disc pl-5 mt-4">
+            <li>Collect Images: First, you gather a few pictures of the subject you want to focus on, like your pet dog.</li>
+            <li>Training: You then train the model using these pictures along with text descriptions that describe the subject. This step helps the model learn the unique features of your pet.</li>
+            <li>Embedding: The model creates a special token or code that represents your pet. This token is added to the model’s vocabulary.</li>
+            <li>Generate New Images: Now, when you use the special token in a text prompt, the model can generate new images of your pet in different settings or doing various activities, while keeping its unique characteristics.</li>
+        </ul>
+        <p>For example, if you trained the model with pictures of your dog named "Buddy," you can then type a description like "Buddy at the beach," and the model will create a picture of your dog at the beach.</p>  
+        <p>DreamBooth allows you to personalize image generation, making it possible to create custom images that are unique to your subject. It’s a powerful tool for artists, content creators, and anyone interested in generating personalized images.</p>
+    </div>
 </main>
-
-{% endblock %}
-
-{% block style %}
 {% endblock %}
