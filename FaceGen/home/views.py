@@ -18,7 +18,7 @@ if settings.AUTO_LOAD_PIPELINE:
 # Pages to render
 
 def index(request: HttpRequest) -> HttpResponse:
-    remove_old_files()
+    remove_old_files(15)
     if not pipe.is_base_model():
         pipe.rebase()
     return render(request,'home/index.html')

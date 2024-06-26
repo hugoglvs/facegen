@@ -8,6 +8,7 @@ import subprocess
 import os
 from .models import GeneratedImage
 from django.conf import settings
+from django.utils import timezone
 
 import logging
 
@@ -122,9 +123,9 @@ def save_photo(photo_data, filename):
         f.write(photo_data)
     return file_path
 
-def remove_old_files(days):
+def remove_old_files(number_of_days):
     # Get all GeneratedImage objects older than `days` days
-    old_images = GeneratedImage.objects.filter(date__lt=datetime.timezone.now() - datetime.timedelta(days=days))
+    old_images = GeneratedImage.objects.filter(date__lt=timezone.now() - datetime.timedelta(days=number_of_days))
     # Delete the files associated with these objects
     for image in old_images:
         try:

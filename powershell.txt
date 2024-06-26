@@ -1,0 +1,103 @@
+Important PowerShell Cmdlets
+
+File Operations:
+    - Get-ChildItem: Listing files and directories in a specified path.
+    - New-Item: Creating a new item (file or directory).
+    - Copy-Item: Copying an item (file or directory) to a new location.
+    - Remove-Item: Deleting an item (file or directory).
+
+File content Operations:
+    - Get-Content: Reading the contents of a file.
+    - Set-Content: Writing or replacing the contents of a file.
+    - Add-Content: Appending content to a file.
+
+System Operations:
+    - Get-Process: Retrieving a list of currently running processes.
+    - Stop-Process: Stopping a running process by name or process ID.
+    - Get-Service: Listing all services on the system.
+    - Start-Service: Starting a stopped service.
+    - Stop-Service: Stopping a running service.
+    - Restart-Service: Restarting a service.
+    - Get-Help: Displaying help information for cmdlets and concepts.
+    - Update-Help: Downloading and installing the latest help files.
+    - Get-Command: Listing all available cmdlets, functions, workflows, aliases installed on your system.
+    - Get-Module: Listing the modules that are loaded in the current session.
+    - Import-Module: Importing a module into the current session.
+    - Export-ModuleMember: Exporting specified module members (functions, variables, aliases).
+    - Get-WmiObject: Retrieving management information from local and remote computers.
+    - Invoke-Command: Running commands on local or remote computers.
+    - Enter-PSSession: Starting an interactive session with a remote computer.
+    - Exit-PSSession: Ending an interactive session with a remote computer.
+    - Get-EventLog: Retrieving event log data.
+    - Write-EventLog: Writing an event to an event log.
+    - Clear-EventLog: Deleting all entries from an event log.
+    - Get-EventSubscriber: Listing event subscribers in the current session.
+    - Register-ObjectEvent: Subscribing to an event on a specified object.
+    - Unregister-Event: Cancelling an event subscription.
+    - Out-File: Sending output to a file.
+    - Out-GridView: Sending output to an interactive table in a separate window.
+    - Out-Null: Discarding the output instead of sending it to the console.
+    - Out-String: Sending output to the console as a string.
+
+    - ConvertTo-HTML: Converting objects into HTML.
+    - ConvertTo-JSON: Converting objects into JSON.
+    - ConvertFrom-JSON: Converting JSON to objects.
+
+    - Select-Object: Selecting specific properties of an object or set of objects.
+    - Sort-Object: Sorting objects by property values.
+    - Measure-Object: Calculating the numeric properties of objects, and the count of objects.
+    - Where-Object: Filtering objects based on their property values.
+    - ForEach-Object: Performing an operation on each item in a collection of input objects.
+
+
+    - New-ScheduledTask: Creating a new scheduled task.
+    - Get-ScheduledTask: Retrieving scheduled tasks.
+    - Start-ScheduledTask: Starting a scheduled task.
+    - Stop-ScheduledTask: Stopping a running scheduled task.
+    - Unregister-ScheduledTask: Deleting a scheduled task.
+
+
+    - Get-Job: Retrieving the status of background jobs.
+    - Start-Job: Starting a new background job.
+    - Stop-Job: Stopping a running background job.
+    - Receive-Job: Retrieving the results of a background job.
+    - Remove-Job: Deleting a background job.
+
+
+
+Creating a function:
+    function Get-Greeting {         #Verb-Noun
+        param (
+            [string]$Name
+        )
+        Write-Host "Hello, $Name!"
+    }
+
+Using paramets and Pipelines:
+    Get-ChildItem -Path C:\Users\YourUsername\Documents | Where-Object { $_.PSIsContainer }
+
+Variables:
+    Variables in PowerShell are declared using the $ symbol.
+
+    Example:
+    $greeting = "Hello, World!"
+
+Data Types:
+    PowerShell supports various data types, including strings, integers, arrays, and hashtables.
+
+    Example:
+    $number = 10
+    $array = @(1, 2, 3)
+    $hashtable = @{"Name" = "John"; "Age" = 30}
+
+Operators:
+    PowerShell includes arithmetic, comparison, and logical operators.
+
+    # Arithmetic
+    $sum = 5 + 3
+
+    # Comparison
+    $isEqual = 5 -eq 5
+
+    # Logical
+    $result = ($true -and $false)

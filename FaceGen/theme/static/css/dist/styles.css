@@ -835,6 +835,10 @@ select {
   margin: 5rem;
 }
 
+.m-\[300px\] {
+  margin: 300px;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -853,6 +857,11 @@ select {
 .my-8 {
   margin-top: 2rem;
   margin-bottom: 2rem;
+}
+
+.mx-\[300px\] {
+  margin-left: 300px;
+  margin-right: 300px;
 }
 
 .mb-2 {
@@ -1241,8 +1250,7 @@ select {
 }
 
 .text-base {
-  font-size: 1rem;
-  line-height: 1.5rem;
+  font-size: 108px;
 }
 
 .text-lg {

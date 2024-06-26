@@ -157,6 +157,9 @@ module.exports = {
             },
           },
         extend: {
+            fontSize: {
+              'base': '108px',
+            },
             fontFamily: {
                 roboto: ['Roboto', 'sans-serif'],
               },
