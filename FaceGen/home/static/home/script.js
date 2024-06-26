@@ -51,6 +51,8 @@ function initWebcam() {
 
     function sendPhotos() {
         try {
+            $("#webcam-functionality").hide()
+            loadingBar(100, 1.1)
             const photos = photoElements.toArray().map((photoElement) => $(photoElement).attr("src"));
             const validPhotos = photos.filter(photo => photo); // Filter out empty src values
             const photoData = JSON.stringify({ user_photos: validPhotos });
@@ -163,4 +165,30 @@ function activityChecker() {
             location.reload();
         }
     }, 1000);
+}
+
+function generateImage() {
+    const steps = $("#num_inference_steps").attr("value");
+    const iterationsSecond = 4.7;
+    const stepsDuration = 1/iterationsSecond;
+    loadingBar(steps, stepsDuration);
+    
+}
+
+function loadingBar(steps, stepDuration) {
+    $("#myProgress").show()
+    let i = 1;
+    var elem = document.getElementById("myBar");
+    var width = 1;
+    var id = setInterval(frame, steps*stepDuration*1000/100);
+    function frame() {
+        if (width >= 100) {
+            clearInterval(id);
+            i = 0;
+        } else {
+            width++;
+            elem.style.width = width + "%";
+            elem.innerHTML = width + "%";
+        }   
+    }
 }

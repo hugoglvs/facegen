@@ -22,11 +22,10 @@ class GeneratedImage(models.Model):
     negative_prompt = models.CharField(max_length=256)
     num_inference_steps = models.IntegerField()
     guidance_scale = models.FloatField()
-    seed = models.IntegerField()
     dreambooth = models.BooleanField(default=False)
 
     def __str__(self):
-        return f" {self.path} - {self.prompt} - {self.negative_prompt} - {self.num_inference_steps} steps - {self.guidance_scale} - {self.seed}"
+        return f" {self.path} - {self.prompt} - {self.negative_prompt} - {self.num_inference_steps} steps - {self.guidance_scale}"
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -46,7 +45,6 @@ class GeneratedImage(models.Model):
             "negative_prompt": self.negative_prompt,
             "num_inference_steps": int(self.num_inference_steps),
             "guidance_scale": int(self.guidance_scale),
-            "seed": float(self.seed)
         }
 
     def was_generated_recently(self):

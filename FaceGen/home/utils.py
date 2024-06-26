@@ -1,10 +1,9 @@
-import os
-import csv
 from sympy import true
 import torch
 from torchvision import datasets, transforms
 from diffusers import DiffusionPipeline,StableDiffusionPipeline
 
+import datetime
 import subprocess
 import os
 from .models import GeneratedImage
@@ -52,6 +51,7 @@ class FaceGenPipeline:
             use_safetensors=True,
         )
         pipe.to(self.device)
+        print(f"Pipeline loaded from {self.model_id}")
         self._initialized = True
         return pipe
     
@@ -65,12 +65,14 @@ class FaceGenPipeline:
     def rebase(self):
         if self.model_id != settings.BASE_MODEL:
             self.model_id = settings.BASE_MODEL
-            self.__load_pipeline
+            self.__load_pipeline()
 
     
-    def dreambooth(self, identifier="sks", training_steps=100, batch_size=1, base_model=settings.BASE_MODEL):
+    def dreambooth(self, identifier="EnzoBertrand", training_steps=100, batch_size=1, base_model=settings.BASE_MODEL):
         del self.pipe
-        print("Heeey")
+        torch.cuda.empty_cache()
+        print("Unloading pipeline")
+        print("Starting Dreambooth training")
         env = os.environ.copy()
         env["MODEL_NAME"] = base_model
         env["INSTANCE_DIR"] = os.path.join(settings.MEDIA_ROOT, 'users')
@@ -104,6 +106,7 @@ class FaceGenPipeline:
 
         try:
             result = subprocess.run(command, env=env, capture_output=True, text=True)
+            print("Training command executed successfully.")
             logger.info("Command output: %s", result.stdout)
             logger.error("Command error output: %s", result.stderr)
             self.model_id = dreambooth_path
@@ -118,4 +121,16 @@ def save_photo(photo_data, filename):
     with open(file_path, 'wb') as f:
         f.write(photo_data)
     return file_path
+
+def remove_old_files(days):
+    # Get all GeneratedImage objects older than `days` days
+    old_images = GeneratedImage.objects.filter(date__lt=datetime.timezone.now() - datetime.timedelta(days=days))
+    # Delete the files associated with these objects
+    for image in old_images:
+        try:
+            os.remove(image.get_absolute_url())
+        except Exception as e:
+            logger.exception(f"An error occurred while trying to remove the file {image.get_absolute_url()}")
+        image.delete()
+
 

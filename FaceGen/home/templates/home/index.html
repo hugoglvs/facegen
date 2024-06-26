@@ -28,6 +28,10 @@
     <div id="output-wrapper" class="flex flex-col bg-white/60 rounded-lg p-2 m-2 text-center w-72 justify-center items-center">
         <img src="{% static 'home/images/output.png' %}" alt="Output" class="w-64 h-64 rounded-lg">
     </div>
+
+    <div id="myProgress" class="hidden">
+        <div id="myBar">0%</div>
+    </div>
 </main>
 <div id="history-container" hx-post="{% url 'history' %}" hx-trigger="load, from:#send-button">
 </div>

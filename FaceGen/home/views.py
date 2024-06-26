@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .utils import FaceGenPipeline, save_photo
+from .utils import FaceGenPipeline, save_photo, remove_old_files
 from .models import GeneratedImage
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -18,6 +18,9 @@ if settings.AUTO_LOAD_PIPELINE:
 # Pages to render
 
 def index(request: HttpRequest) -> HttpResponse:
+    remove_old_files()
+    if not pipe.is_base_model():
+        pipe.rebase()
     return render(request,'home/index.html')
 
 def dreambooth(request: HttpRequest) -> HttpResponse:
@@ -36,8 +39,7 @@ def generate(request: HttpRequest) -> HttpResponse:
         generated_image.dreambooth = True
     generated_image.save()
     print(generated_image)
-    generator = torch.Generator(device=pipe.device).manual_seed(int(params['seed'])) 
-    image = pipe(**generated_image.params(), generator=generator).images[0]
+    image = pipe(**generated_image.params()).images[0]
     image.save(os.path.join(settings.MEDIA_ROOT, "outputs", generated_image.get_filename()), "PNG")
     context = {"image_output": generated_image}
     return render(request, 'home/components/image_output.html', context)
@@ -75,7 +77,7 @@ def start_dreambooth_training(request: HttpRequest) -> JsonResponse:
     # Upload "user_photos" to "users" folder by running "upload_photos" view
     upload_photos(request)
     print("Photos uploaded")
-    #pipe.dreambooth()
+    pipe.dreambooth()
     return render(request, 'home/components/prompt.html')
 
 @csrf_exempt

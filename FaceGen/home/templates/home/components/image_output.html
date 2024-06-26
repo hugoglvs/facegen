@@ -5,5 +5,10 @@
     {% else %}
         <p>Error, no image generated</p>
     {% endif %}
+
+    <script>$("#myProgress").hide()</script>
 </div>
 
+<div id="myProgress" class="hidden" hx-swap-oob="true">
+    <div id="myBar">0%</div>
+</div>

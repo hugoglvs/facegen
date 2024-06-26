@@ -8,7 +8,7 @@ hx-get="{% url 'generate' %}" hx-target="#output-wrapper">
             </button>
         </div>
         <input type="text" name="prompt" id="prompt" placeholder="Enter your prompt here..." required class="p-4 mr-0 ml-16 border-none w-[calc(100%-90px-60px)] relative z-1 text-lg focus:outline-none">
-        <button id="send-button" class="p-2" type="submit"><img class="w-8 h-8" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
+        <button id="send-button" @click="generateImage" class="p-2" type="submit"><img class="w-8 h-8" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
     </div>
     <div id="advanced-settings" class="hidden bg-white rounded-lg p-5 max-w-[80%] mx-auto shadow-lg relative z-3">
         <label for="negative_prompt" class="block text-black ml-6">Negative prompt:</label>
@@ -19,4 +19,5 @@ hx-get="{% url 'generate' %}" hx-target="#output-wrapper">
         <label for="seed" class="block text-black ml-6">Seed:</label>
         <input type="number" name="seed" id="seed" value="0" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
     </div>
+    <script>$("#myProgress").hide()</script>
 </form>
