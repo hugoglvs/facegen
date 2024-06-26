@@ -16,7 +16,7 @@
     <script src="{% static 'home/script.js' %}" defer></script>
 </head>
 
-<body class="flex flex-col items-center p-5 m-0 min-h-dvh text-white font-roboto {% block body_class %}bg-gradient-to-t from-[--tertiary-color] from-10% to-[--primary-color] {% endblock %}" x-data="themeSwitcher()" x-init="init()">
+<body class="flex flex-col items-center p-5 min-h-dvh text-white font-roboto {% block body_class %}bg-gradient-to-t from-[--tertiary-color] from-10% to-[--primary-color] {% endblock %}" x-data="themeSwitcher()" x-init="init()">
     <header class="w-full flex flex-col justify-between items-center p-8 sm:flex-row">
         <a href="{% url 'index' %}"><img src="{% static 'home/images/logo.png' %}" class="min-w-32 max-w-sm" alt="Logo"></a>
         <nav class="flex items-center gap-8">
@@ -26,6 +26,5 @@
     </header>
     {% block content %}
     {% endblock %}
-
 </body>
 </html>

@@ -3,7 +3,9 @@
 <div id="history-container" class="flex flex-wrap justify-evenly">
     {% for image in history %}
     <div class="history-item flex flex-col bg-white/60 rounded-lg p-2 m-2 text-center w-72 justify-center items-center">
-        <img src="{{ image.path }}" alt="{{ image.params.prompt }}" class="w-full rounded-lg">
+        <img data-generated-image-id="{{ image.id }}" src="{{ image.path }}" alt="{{ image.params.prompt }}" class="w-full rounded-lg"
+                hx-post="detail/{{ image.id }}"
+                hx-target="body" hx-swap="beforeend">
         <p class="text-base font-normal text-black"></p>
         <button class="mt-2 trash-button" hx-target="closest .history-item" hx-post="{% url 'delete_photo' %}" hx-swap="delete" hx-vals='{ "id": {{ image.id }} }'>
             <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

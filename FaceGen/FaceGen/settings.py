@@ -144,3 +144,4 @@ INTERNAL_IPS = [
 
 
 AUTO_LOAD_PIPELINE = True
+BASE_MODEL = "runwayml/stable-diffusion-v1-5"

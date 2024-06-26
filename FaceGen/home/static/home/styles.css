@@ -3,7 +3,17 @@
     --primary-color: var(--blue-primary);
     --secondary-color: var(--blue-secondary);
     --tertiary-color: var(--blue-tertiary);
-    --background: var(--linear-background);  
+    --theme-100: '#d9f5fd';
+    --theme-200: '#94dcf7';
+    --theme-300: '#5cc1ee';
+    --theme-400: '#31a2e3';
+    --theme-500: '#1282d6';
+    --theme-600: '#0672cb';
+    --theme-700: '#0063b8';
+    --theme-800: '#00468b';
+    --theme-900: '#002a58';
+
+
     /* Blue Family */
     --midnight: #0d2155;
     --royal: #0c32a4;

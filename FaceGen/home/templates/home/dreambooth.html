@@ -5,33 +5,30 @@
 
 {% block content %}
 <main class="flex flex-col items-center min-w-[80%] max-w-[80%] p-5 text-lg">
-    <h1 class="text-5xl text-center font-thin">Dreambooth</h1>
+    <div class="flex flex-row">
+        <h1 class="text-5xl text-center font-thin">Dreambooth</h1>
+        <div class="inline-block float-left " hx-post="../info/dreambooth" hx-target="body" hx-swap="beforeend">
+            <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 18.5C12.5523 18.5 13 18.0523 13 17.5L13 10.5C13 9.94772 12.5523 9.5 12 9.5C11.4477 9.5 11 9.94772 11 10.5L11 17.5C11 18.0523 11.4477 18.5 12 18.5Z" fill="#fff"/>
+                <path d="M12 8.5C12.8284 8.5 13.5 7.82843 13.5 7C13.5 6.17157 12.8284 5.5 12 5.5C11.1716 5.5 10.5 6.17157 10.5 7C10.5 7.82843 11.1716 8.5 12 8.5Z" fill="#fff"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M1 12C1 18.0751 5.92487 23 12 23C18.0751 23 23 18.0751 23 12C23 5.92487 18.0751 1 12 1C5.92487 1 1 5.92487 1 12ZM12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21Z" fill="#fff"/>
+            </svg>
+        </div>
+    </div>
 
     <p class="mt-10 text-start"> DreamBooth is a method created by Google Research to make text-to-image models, like Stable Diffusion, better at generating pictures of specific things. Imagine you have a model that can create images from text descriptions, and you want it to generate pictures of your pet in different scenes.</p>
 
         <div>
             <button class="bg-[--primary-color] text-white py-2 px-4 my-8 rounded hover:bg-[--secondary-color] transition-colors ease-in-out"
                     hx-post="{% url 'webcam' %}"
-                    hx-target="closest div">Start !</button>
+                    hx-target="closest div"
+                    hx-swap="outerHTML">Start !</button>
         </div>
 
     <form id="image-inputs"></form>
     <div id="webcam-functionality"></div>
 
-    <div id="output-wrapper" class="flex flex-col bg-white/60 rounded-lg p-2 m-2 text-center w-72 justify-center items-center">
-        <img src="{% static 'home/images/output.png' %}" alt="Output" class="w-64 h-64 rounded-lg">
-    </div>
-
-    <div class="text-gray-900">
-        <p class="mt-4 text-3xl">Here's how it works:</p>
-        <ul class="list-disc pl-5 mt-4">
-            <li>Collect Images: First, you gather a few pictures of the subject you want to focus on, like your pet dog.</li>
-            <li>Training: You then train the model using these pictures along with text descriptions that describe the subject. This step helps the model learn the unique features of your pet.</li>
-            <li>Embedding: The model creates a special token or code that represents your pet. This token is added to the model’s vocabulary.</li>
-            <li>Generate New Images: Now, when you use the special token in a text prompt, the model can generate new images of your pet in different settings or doing various activities, while keeping its unique characteristics.</li>
-        </ul>
-        <p>For example, if you trained the model with pictures of your dog named "Buddy," you can then type a description like "Buddy at the beach," and the model will create a picture of your dog at the beach.</p>  
-        <p>DreamBooth allows you to personalize image generation, making it possible to create custom images that are unique to your subject. It’s a powerful tool for artists, content creators, and anyone interested in generating personalized images.</p>
+    <div id="output-wrapper">
     </div>
 </main>
 {% endblock %}

@@ -23,6 +23,7 @@ class GeneratedImage(models.Model):
     num_inference_steps = models.IntegerField()
     guidance_scale = models.FloatField()
     seed = models.IntegerField()
+    dreambooth = models.BooleanField(default=False)
 
     def __str__(self):
         return f" {self.path} - {self.prompt} - {self.negative_prompt} - {self.num_inference_steps} steps - {self.guidance_scale} - {self.seed}"
@@ -53,4 +54,4 @@ class GeneratedImage(models.Model):
 
     @classmethod
     def history(cls, number):
-        return cls.objects.order_by('-date')[:number]
+        return cls.objects.filter(dreambooth=False).order_by('-date')[:number]

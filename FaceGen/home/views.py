@@ -32,9 +32,11 @@ def about(request: HttpRequest) -> HttpResponse:
 def generate(request: HttpRequest) -> HttpResponse:
     params = request.GET.dict()
     generated_image = GeneratedImage.objects.create(**params)
+    if not pipe.is_base_model():
+        generated_image.dreambooth = True
     generated_image.save()
-    generator = torch.Generator(device=pipe.device).manual_seed(int(generated_image.seed))
     print(generated_image)
+    generator = torch.Generator(device=pipe.device).manual_seed(int(params['seed'])) 
     image = pipe(**generated_image.params(), generator=generator).images[0]
     image.save(os.path.join(settings.MEDIA_ROOT, "outputs", generated_image.get_filename()), "PNG")
     context = {"image_output": generated_image}
@@ -61,6 +63,11 @@ def info(request: HttpRequest, method: str) -> HttpResponse:
     context = {"method": method}  # can be "dreambooth" or "stable_diffusion"
     return render(request, 'home/components/info.html', context)
 
+@csrf_exempt
+def details(request: HttpRequest, id: int) -> HttpResponse:
+    context = {"image": GeneratedImage.objects.get(id=id)}
+    return render(request, 'home/components/details.html', context)
+
 # Actions
 
 @csrf_exempt
@@ -68,8 +75,8 @@ def start_dreambooth_training(request: HttpRequest) -> JsonResponse:
     # Upload "user_photos" to "users" folder by running "upload_photos" view
     upload_photos(request)
     print("Photos uploaded")
-    pipe.dreambooth()
-    return JsonResponse({"status": "success"})
+    #pipe.dreambooth()
+    return render(request, 'home/components/prompt.html')
 
 @csrf_exempt
 def upload_photos(request: HttpRequest) -> JsonResponse:

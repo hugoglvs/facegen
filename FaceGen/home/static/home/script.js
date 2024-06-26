@@ -7,58 +7,8 @@ $(document).ready(function() {
         const nextTheme = themes[(currentThemeIndex + 1) % themes.length];
         themeManager.changeTheme(nextTheme);
     }, 5*60*1000);
-
-    let lastActivityTime = Date.now();
-    // List of events to track
-    const events = ['mousemove', 'keydown', 'click', 'scroll'];
-
-    // Add event listeners to update the last activity time on user interaction
-    events.forEach(event => {
-        $(document).on(event, () => {
-            lastActivityTime = Date.now();
-        });
-    });
-
-    // Check if the user has been inactive for 5 minutes
-    setInterval(() => {
-        const currentTime = Date.now();
-        const inactiveTime = currentTime - lastActivityTime;
-        if (inactiveTime > 5*60*1000) {
-            location.reload();
-        }
-    }, 1000);
+    activityChecker();
 });
-
-function initHistoryItems() {
-    const $historyItems = $('.history-item');
-
-    $historyItems.each(function() {
-        const $item = $(this);
-        const $itemContainer = $item.parent();
-        const $image = $item.find('img');
-        const $description = $item.find('p');
-        const $trashButton = $item.find('.trash-button');
-
-        $image.on('click', function() {
-            const $modalContainer = $('<div>').addClass('modal-container');
-            const $modalContent = $('<div>').addClass('modal-content');
-
-            const $exitButton = $('<div>').addClass('exit-button').text('X');
-            const $enlargedImage = $('<img>').attr('src', $image.attr('src'));
-            const $enlargedDescription = $('<p>').text($description.text());
-
-            $modalContent.append($exitButton, $enlargedImage, $enlargedDescription);
-            $modalContainer.append($modalContent);
-            $('body').append($modalContainer);
-
-            $modalContainer.on('click', function(event) {
-                if ($(event.target).is($modalContainer) || $(event.target).is($exitButton)) {
-                    $modalContainer.remove();
-                }
-            });
-        });
-    });
-}
 
 function initWebcam() {
     const video = $("#webcam")[0];
@@ -105,6 +55,10 @@ function initWebcam() {
             const validPhotos = photos.filter(photo => photo); // Filter out empty src values
             const photoData = JSON.stringify({ user_photos: validPhotos });
             sendButton.attr("hx-vals", photoData);
+            // Stop the video stream
+            if (video.srcObject) {
+                video.srcObject.getTracks().forEach(track => track.stop());
+            }
         } catch (error) {
             console.error("Error stringifying photos object:", error);
         }
@@ -113,6 +67,10 @@ function initWebcam() {
     // Returns the first index of the photo element that is missing the photo
     function getMissingPhotoIndex(photoElements) {
         return photoElements.toArray().findIndex((photo) => $(photo).attr("src") === "");
+    }
+
+    function changeBackground(photo) {
+      // implementation...  
     }
 
     setupWebcam();
@@ -184,3 +142,25 @@ function themeSwitcher() {
     return themeManager;
 }
 
+function activityChecker() {
+
+    let lastActivityTime = Date.now();
+    // List of events to track
+    const events = ['mousemove', 'keydown', 'click', 'scroll'];
+
+    // Add event listeners to update the last activity time on user interaction
+    events.forEach(event => {
+        $(document).on(event, () => {
+            lastActivityTime = Date.now();
+        });
+    });
+
+    // Check if the user has been inactive for 5 minutes
+    setInterval(() => {
+        const currentTime = Date.now();
+        const inactiveTime = currentTime - lastActivityTime;
+        if (inactiveTime > 5*60*1000) {
+            location.reload();
+        }
+    }, 1000);
+}

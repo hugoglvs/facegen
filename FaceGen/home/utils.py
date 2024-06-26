@@ -1,9 +1,9 @@
 import os
 import csv
+from sympy import true
 import torch
 from torchvision import datasets, transforms
 from diffusers import DiffusionPipeline,StableDiffusionPipeline
-from dataclasses import dataclass
 
 import subprocess
 import os
@@ -24,12 +24,11 @@ class FaceGenPipeline:
             cls._instance = super(FaceGenPipeline, cls).__new__(cls)
         return cls._instance
 
-    def __init__(self, model_id="runwayml/stable-diffusion-v1-5"):
+    def __init__(self, model_id=settings.BASE_MODEL):
         if not hasattr(self, '_initialized'):
             self.model_id = model_id
             self.device = self.__define_device()
             self.pipe = self.__load_pipeline()
-            self._initialized = True
             print(f"FaceGenPipeline initialized on {self.device} device")
 
     def __repr__(self):
@@ -48,27 +47,32 @@ class FaceGenPipeline:
     def __load_pipeline(self):
         pipe = StableDiffusionPipeline.from_pretrained(
             self.model_id,
-            safety_checker=None,
+            #safety_checker=None,
             torch_dtype=torch.float,
             use_safetensors=True,
         )
         pipe.to(self.device)
+        self._initialized = True
         return pipe
     
     def __del__(self):
+        self._initialized = False
         del self.pipe
     
-    def get_model_id(self):
-        return self.model_id
+    def is_base_model(self):
+        return self.model_id == settings.BASE_MODEL
 
-    def is_runway(self):
-        return self.model_id == "runwayML/stable-diffusion-v1-5"
+    def rebase(self):
+        if self.model_id != settings.BASE_MODEL:
+            self.model_id = settings.BASE_MODEL
+            self.__load_pipeline
+
     
-    def dreambooth(self, identifier="sks", training_steps=100, batch_size=1, model_name="runwayml/stable-diffusion-v1-5"):
+    def dreambooth(self, identifier="sks", training_steps=100, batch_size=1, base_model=settings.BASE_MODEL):
         del self.pipe
         print("Heeey")
         env = os.environ.copy()
-        env["MODEL_NAME"] = model_name
+        env["MODEL_NAME"] = base_model
         env["INSTANCE_DIR"] = os.path.join(settings.MEDIA_ROOT, 'users')
         dreambooth_path = os.path.join(settings.MEDIA_ROOT, 'FaceGen/stable-diffusion-dreambooth')
         env["OUTPUT_DIR"] = dreambooth_path
@@ -108,9 +112,6 @@ class FaceGenPipeline:
         except Exception as e:
             logger.exception("An error occurred while trying to run the training command.")
 
-        
-
-
 def save_photo(photo_data, filename):
     file_path = os.path.join(settings.MEDIA_ROOT, "users", filename)
     print(file_path)
@@ -118,7 +119,3 @@ def save_photo(photo_data, filename):
         f.write(photo_data)
     return file_path
 
-def random_token():
-    import random
-    import string
-    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))

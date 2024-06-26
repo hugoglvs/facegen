@@ -28,7 +28,7 @@
                 hx-post="{% url 'start_dreambooth_training' %}"
                 hx-trigger="click delay:500ms"
                 hx-target="#webcam-functionality"
-                hx-swap="delete">
+                hx-swap="outerHTML">
             <img class="size-12" src="{% static 'home/icons/send.svg' %}" alt="Send Photos">
         </button>
     </div>
