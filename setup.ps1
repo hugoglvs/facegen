@@ -1,66 +1,71 @@
-# setup.ps1
-
 Write-Host "Setting up the project..."
-# Change Execution Policy to Administrator
+
+# Change Execution Policy to allow script execution
 Set-ExecutionPolicy -ExecutionPolicy Bypass -Scope Process -Force
 
 
-# Parameters
-param (
-    [string]$githubRepoUrl = "https://github.com/hugoglvs/facegen.git", # GitHub repository URL
-    [string]$projectDir = "$HOME\FaceGen"
-)
-
-Set-Variable -Name FACEGEN_PATH $ -Value $projectDir -Scope global -Description "FaceGen project directory path"
+# Set global variable for project path
+Set-Variable -Name FACEGEN_PATH -Value $HOME\FaceGen -Scope Global -Description "FaceGen project directory path"
 
 # Function to install Chocolatey
 function Install-Chocolatey {
-    Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor  [System.Net.SecurityProtocolType]::Tls12; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    Set-ExecutionPolicy Bypass -Scope Process -Force
+    [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12
+    Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 }
 
 # Install Chocolatey if not installed
 if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
-    Write-Output "Installing Chocolatey..."
+    Write-Host "Installing Chocolatey..."
     Install-Chocolatey
 }
 
-# Install Python
+# Install Python if not installed
 if (-not (Get-Command python -ErrorAction SilentlyContinue)) {
     choco install python --version=3.12.4 -y
 } else {
     $pythonVersion = python --version
-    Write-Output  "$pythonVersion already installed."
+    Write-Host "$pythonVersion already installed."
 }
 
-# Install Git
+# Install Git if not installed
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
     choco install git -y
 } else {
     $gitVersion = git --version
-    Write-Output "$gitVersion already installed."
+    Write-Host "$gitVersion already installed."
 }
 
-# Create project directory if not exists
-if (-not (Test-Path -Path $projectDir)) {
-    New-Item -ItemType Directory -Path $projectDir
+# Create project directory if it does not exist
+if (-not (Test-Path -Path $HOME\FaceGen)) {
+    New-Item -ItemType Directory -Path $HOME\FaceGen
 }
 
 # Clone the repository
-git clone $githubRepoUrl $projectDir
+if (-not (Test-Path -Path "$HOME\FaceGen\.git")) {
+    git clone https://github.com/hugoglvs/facegen.git $HOME\FaceGen
+} else {
+    Write-Host "Repository already cloned."
+}
 
 # Change to project directory
-Set-Location $projectDir
+Set-Location $HOME\FaceGen
 
 # Create a virtual environment
-python -m venv venv
+if (-not (Test-Path -Path "$HOME\FaceGen\venv")) {
+    python -m venv venv
+}
 
 # Activate the virtual environment
-& "$projectDir\venv\Scripts\Activate.ps1"
+& "$HOME\FaceGen\venv\Scripts\Activate.ps1"
 
 # Install project dependencies
 pip install -r requirements.txt
 
 # Create execution file
-New-Item -ItemType File -Path $projectDir -Name "run.ps1" -Value "python main.py"
+$runFilePath = Join-Path $HOME\FaceGen "run.ps1"
+if (-not (Test-Path -Path $runFilePath)) {
+    New-Item -ItemType File -Path $runFilePath -Value "python main.py"
+}
 
-Write-Output "Setup complete. Project downloaded and dependencies installed."
+Write-Host "Setup complete. Project downloaded and dependencies installed."
