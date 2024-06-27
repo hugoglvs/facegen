@@ -8,8 +8,8 @@
 
 {% block content %}
 <div id="webcam-functionality">
-    <p></p>
-    <div id="webcam-container" class="flex flex-col justify-center items-center">
+    <p class="text-lg text-slate-200 mb-3">Veuillez prendre 3 photos de vous en vous assurant de ne pas avoir quoi que ce soit qui puisse perturber l'image et empêcher le modèle de ne pas se focaliser sur vous. N'hésitez pas à tourner légèrement la tête pour que le modèle saisisse bien toutes les caractéristiques de votre visage.</p>
+    <div id="webcam-container" class="flex flex-row gap-3 justify-center items-center mb-8">
         <video id="webcam" class="rounded-md" width="512" height="384" autoplay></video>
         <canvas id="canvas" width="512" height="384" style="display: none;"></canvas>
         <button id="capture-button"><img class="size-12" src="{% static 'home/icons/capture.svg' %}" alt="Capture"></button>
@@ -18,7 +18,7 @@
         {% with ''|center:3 as range %}
             {% for _ in range %}
             <div data-photo-index="{{ forloop.counter0}}" class="photo-container flex flex-col min-w-8 border-solid items-center">
-                <img class="photo" src="" alt="User">
+                <img class="photo" src="">
                 <button class="trash-button mt-2"><img class="size-6" src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
             </div>
             {% endfor %}

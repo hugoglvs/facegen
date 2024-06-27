@@ -1,10 +1,11 @@
 {% load static%}
 
-<div id="modal" class="fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-gray-600 bg-opacity-90">
+<div id="modal" class="fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-gray-600 bg-opacity-90"
+    hx-on:click="$('#modal').remove();">
     
-    <div class="bg-[--primary-color] h-[80dvh] overflow-y-auto p-5 m-20 self-center justify-center border border-gray-300 shadow-lg rounded-lg">
-        <span class="close cursor-pointer float-right text-l" @click="$($el).parent().parent().remove()">
-            <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div class="bg-slate-600 h-[80dvh] overflow-y-auto p-5 m-20 self-center justify-center shadow-lg rounded-lg">
+        <span class="close cursor-pointer float-right text-l" onclick="$(this).parent().parent().remove()">
+            <svg width="32px" height="32px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
             <path d="M17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289Z" fill="#000000"/>
             </svg>
         </span>
@@ -14,26 +15,26 @@
             </div>
 
             <section class="mb-8 w-full">
-                <h2 class="text-2xl font-semibold mb-4">Technologies Used</h2>
-                <p class="text-lg mb-4">Dreambooth is a technique used to fine-tune generative models on a specific set of images, enabling personalized image generation based on new textual prompts.</p>
+                <h2 class="text-2xl font-semibold mb-4">Technologies Utilisées</h2>
+                <p class="text-lg mb-4">Dreambooth est une technique utilisée pour affiner les modèles génératifs sur un ensemble spécifique d'images, permettant une génération d'images personnalisées basée sur de nouveaux prompts textuels.</p>
                 
-                <h3 class="text-xl font-medium mb-4">What is Dreambooth?</h3>
-                <p class="text-lg mb-4">Dreambooth allows for customization of generative models by learning specific visual concepts from a small dataset of images. This technique fine-tunes a pre-trained model to generate images that closely match the personalized concepts present in the provided dataset.</p>
+                <h3 class="text-xl font-medium mb-4">Qu'est-ce que Dreambooth ?</h3>
+                <p class="text-lg mb-4">Dreambooth permet la personnalisation des modèles génératifs en apprenant des concepts visuels spécifiques à partir d'un petit ensemble de données d'images. Cette technique affine un modèle pré-entraîné pour générer des images qui correspondent étroitement aux concepts personnalisés présents dans l'ensemble de données fourni.</p>
                 
-                <h3 class="text-xl font-medium mb-2">How It Works:</h3>
+                <h3 class="text-xl font-medium mb-2">Comment Cela Fonctionne :</h3>
                 <ul class="list-disc list-inside mb-4 text-lg">
-                    <li>Data Collection: A small dataset of images related to a specific theme or subject is collected. These images should represent the visual concepts you want the model to learn.</li>
-                    <li>Model Fine-Tuning: The pre-trained generative model, such as stable-diffusion-v1-5, is fine-tuned using the collected dataset. This involves retraining the model on the new images to adapt its weights to the new visual concepts.</li>
-                    <li>Concept Learning: During fine-tuning, the model learns to associate specific visual characteristics and styles from the dataset with the corresponding textual descriptions.</li>
-                    <li>Personalized Generation: After fine-tuning, the model can generate new images that are personalized and aligned with the concepts learned during the training process.</li>
+                    <li>Collecte de Données : Un petit ensemble de données d'images liées à un thème ou un sujet spécifique est collecté. Ces images doivent représenter les concepts visuels que vous souhaitez que le modèle apprenne.</li>
+                    <li>Affinage du Modèle : Le modèle génératif pré-entraîné, tel que stable-diffusion-v1-5, est affiné en utilisant l'ensemble de données collecté. Cela implique de réentraîner le modèle sur les nouvelles images pour adapter ses poids aux nouveaux concepts visuels.</li>
+                    <li>Apprentissage des Concepts : Pendant l'affinage, le modèle apprend à associer des caractéristiques et des styles visuels spécifiques de l'ensemble de données aux descriptions textuelles correspondantes.</li>
+                    <li>Génération Personnalisée : Après l'affinage, le modèle peut générer de nouvelles images personnalisées et alignées avec les concepts appris pendant le processus de formation.</li>
                 </ul>
 
-                <h3 class="text-xl font-medium mb-2">Detailed Technical Explanation:</h3>
+                <h3 class="text-xl font-medium mb-2">Explication Technique Détaillée :</h3>
                 <ul class="list-disc list-inside mb-4 text-lg">
-                    <li>Architecture: Dreambooth typically fine-tunes transformer-based models, such as UNet architectures, that are capable of handling complex patterns in both image and text data. The architecture includes multiple layers of self-attention mechanisms to capture detailed relationships between different parts of the input data.</li>
-                    <li>Training Data: The fine-tuning process uses a small but carefully selected dataset. This dataset should cover a range of variations in the subject matter to ensure the model can generalize well. Data augmentation techniques may be used to artificially increase the diversity of the dataset.</li>
-                    <li>Training Process: The fine-tuning process involves adjusting the model's weights using a loss function that measures the difference between the generated images and the target images. This typically requires fewer training iterations compared to training from scratch, making it computationally efficient.</li>
-                    <li>Capabilities: The fine-tuned model can generate highly personalized images that reflect the visual style and characteristics of the training dataset. This is particularly useful for applications requiring custom content generation, such as personalized avatars, art, or product designs.</li>
+                    <li>Architecture : Dreambooth affine généralement des modèles basés sur des transformateurs, tels que les architectures UNet, capables de gérer des motifs complexes dans les données d'image et de texte. L'architecture comprend plusieurs couches de mécanismes d'attention pour capturer les relations détaillées entre les différentes parties des données d'entrée.</li>
+                    <li>Données de Formation : Le processus d'affinage utilise un petit ensemble de données soigneusement sélectionné. Cet ensemble de données doit couvrir une gamme de variations du sujet pour garantir que le modèle peut bien généraliser. Des techniques d'augmentation de données peuvent être utilisées pour augmenter artificiellement la diversité de l'ensemble de données.</li>
+                    <li>Processus de Formation : Le processus d'affinage consiste à ajuster les poids du modèle en utilisant une fonction de perte qui mesure la différence entre les images générées et les images cibles. Cela nécessite généralement moins d'itérations de formation par rapport à la formation à partir de zéro, ce qui le rend efficace en termes de calcul.</li>
+                    <li>Capacités : Le modèle affiné peut générer des images hautement personnalisées qui reflètent le style et les caractéristiques visuels de l'ensemble de données de formation. Cela est particulièrement utile pour les applications nécessitant une génération de contenu personnalisé, telles que les avatars personnalisés, l'art ou les conceptions de produits.</li>
                 </ul>
             </section>
 
@@ -43,65 +44,65 @@
             </div>
 
             <section class="mb-8 w-full">
-                <h2 class="text-2xl font-semibold mb-4">Technologies Used</h2>
-                <p class="text-lg mb-4">Stable Diffusion Pipelines are used to generate images from textual descriptions. These pipelines utilize stable diffusion models, a type of generative model that iteratively refines images to match given textual prompts.</p>
+                <h2 class="text-2xl font-semibold mb-4">Technologies Utilisées</h2>
+                <p class="text-lg mb-4">Les pipelines de diffusion stable sont utilisés pour générer des images à partir de descriptions textuelles. Ces pipelines utilisent des modèles de diffusion stable, un type de modèle génératif qui affine progressivement les images pour correspondre aux prompts textuels donnés.</p>
                 
-                <h3 class="text-xl font-semibold mb-4">What is a Pipeline?</h3>
-                <p class="text-lg mb-4">A pipeline is a series of data processing steps that are executed sequentially. Each step in the pipeline takes an input, processes it, and provides an output that becomes the input for the next step. Pipelines are commonly used in machine learning and data processing to structure and automate workflows.</p>
-                <h3 class="text-xl font-medium mb-2">How It Works:</h3>
+                <h3 class="text-xl font-semibold mb-4">Qu'est-ce qu'un Pipeline ?</h3>
+                <p class="text-lg mb-4">Un pipeline est une série d'étapes de traitement des données exécutées séquentiellement. Chaque étape du pipeline prend une entrée, la traite et fournit une sortie qui devient l'entrée de l'étape suivante. Les pipelines sont couramment utilisés en apprentissage automatique et en traitement des données pour structurer et automatiser les workflows.</p>
+                <h3 class="text-xl font-medium mb-2">Comment Cela Fonctionne :</h3>
                 <ul class="list-disc list-inside mb-4 text-lg">
-                    <li>Text Encoding: The textual description is encoded into a latent space.</li>
-                    <li>Image Generation: The encoded text guides the generation process, starting from random noise and iteratively refining the image.</li>
-                    <li>Diffusion Process: Each step in the diffusion process reduces noise and enhances the image quality to better match the text description.</li>
+                    <li>Encodage du Texte : La description textuelle est encodée dans un espace latent.</li>
+                    <li>Génération d'Image : Le texte encodé guide le processus de génération, en commençant par du bruit aléatoire et en affinant progressivement l'image.</li>
+                    <li>Processus de Diffusion : Chaque étape du processus de diffusion réduit le bruit et améliore la qualité de l'image pour mieux correspondre à la description textuelle.</li>
                 </ul>
 
-                <h3 class="text-xl font-medium mb-2">Model</h3>
-                <p class="text-lg mb-4">The runwayml/stable-diffusion-v1-5 model is a pre-trained image generation model available on Hugging Face. It is specifically designed for generating high-quality images based on textual inputs.</p>
+                <h3 class="text-xl font-medium mb-2">Modèle</h3>
+                <p class="text-lg mb-4">Le modèle runwayml/stable-diffusion-v1-5 est un modèle de génération d'images pré-entraîné disponible sur Hugging Face. Il est spécialement conçu pour générer des images de haute qualité à partir d'entrées textuelles.</p>
 
-                <h3 class="text-xl font-medium mb-2">In-Depth Technical Explanation:</h3>
+                <h3 class="text-xl font-medium mb-2">Explication Technique Approfondie :</h3>
                 <ul class="list-disc list-inside mb-4 text-lg">
-                    <li>Architecture: The model utilizes a transformer-based architecture, specifically a variant called the UNet (Universal Network). This architecture is adept at capturing complex relationships and patterns in both text and image data. It includes multiple layers of self-attention mechanisms that allow the model to focus on different parts of the input text while generating the corresponding parts of the image.</li>
-                    <li>Training Data: The model is trained on a large and diverse dataset comprising millions of image-text pairs. This dataset includes a wide variety of scenes, objects, and styles, which allows the model to learn to generalize well to new prompts. The training process involves optimizing the model parameters using a loss function that measures the difference between the generated images and the target images.</li>
-                    <li>Capabilities: The model is capable of generating highly detailed and high-resolution images. It can capture fine-grained details and textures, making it ideal for applications like FaceGen where image quality is paramount. The model's ability to understand and generate complex visual concepts from textual descriptions enables it to produce realistic and aesthetically pleasing images.</li>
-                </ul>
-            </section>
-
-            <section class="mb-8 w-full">
-                <h2 class="text-2xl font-semibold mb-4">User Manual</h3>
-                <h3 class="text-xl font-medium mb-2">Home Page</h3>
-                <p class="text-lg mb-4">The home page is the main page of FaceGen where users can interact with the platform.</p>
-
-                <h3 class="text-xl font-medium mb-2">Features:</h3>
-                <ul class="list-disc list-inside mb-4 text-lg">
-                    <li>Prompt Input Field: Allows the user to write a textual description of the image they want to generate (e.g., "A dog playing in a park").</li>
-                    <li>Send Button: Sends the prompt to generate an image.</li>
-                    <li>Settings Button: Allows users to adjust image parameters before sending the prompt.</li>
-                </ul>
-
-                <h3 class="text-xl font-medium mb-2">Image Parameters:</h3>
-                <ul class="list-disc list-inside mb-4 text-lg">
-                    <li>Negative Prompt: Allows excluding certain elements from the generated image. Example: If you do not want trees in the image, you can add "trees" in the negative prompt.</li>
-                    <li>Guidance Scale: Controls the influence of the text on the generated image. Values: A higher value makes the image more faithful to the textual description, while a lower value allows for more creativity.</li>
-                    <li>Number of Inference Steps: Defines the number of steps used to generate the image. Values: More steps can improve the image quality but also increase the generation time.</li>
-                    <li>Seed: Allows reproducing a specific image by using the same seed. Values: Using the same seed value with the same parameters will always generate the same image.</li>
-                </ul>
-
-                <h3 class="text-xl font-medium mb-2">History:</h3>
-                <ul class="list-disc list-inside mb-4 text-lg">
-                    <li>Image Display: Generated images are automatically saved in the history section at the bottom of the page.</li>
-                    <li>Trash Button: Allows deleting an image from the history.</li>
+                    <li>Architecture : Le modèle utilise une architecture basée sur des transformateurs, spécifiquement une variante appelée UNet (Universal Network). Cette architecture est capable de capturer des relations et des motifs complexes dans les données de texte et d'image. Elle comprend plusieurs couches de mécanismes d'attention qui permettent au modèle de se concentrer sur différentes parties du texte d'entrée tout en générant les parties correspondantes de l'image.</li>
+                    <li>Données de Formation : Le modèle est entraîné sur un ensemble de données large et diversifié comprenant des millions de paires image-texte. Cet ensemble de données inclut une grande variété de scènes, d'objets et de styles, ce qui permet au modèle d'apprendre à bien généraliser aux nouveaux prompts. Le processus de formation implique l'optimisation des paramètres du modèle en utilisant une fonction de perte qui mesure la différence entre les images générées et les images cibles.</li>
+                    <li>Capacités : Le modèle est capable de générer des images très détaillées et de haute résolution. Il peut capturer des détails et des textures fins, ce qui le rend idéal pour des applications comme FaceGen où la qualité de l'image est primordiale. La capacité du modèle à comprendre et générer des concepts visuels complexes à partir de descriptions textuelles lui permet de produire des images réalistes et esthétiquement plaisantes.</li>
                 </ul>
             </section>
 
             <section class="mb-8 w-full">
-                <h2 class="text-2xl font-semibold mb-4">Frequently Asked Questions</h3>
+                <h2 class="text-2xl font-semibold mb-4">Manuel d'Utilisation</h2>
+                <h3 class="text-xl font-medium mb-2">Page d'Accueil</h3>
+                <p class="text-lg mb-4">La page d'accueil est la page principale de FaceGen où les utilisateurs peuvent interagir avec la plateforme.</p>
+
+                <h3 class="text-xl font-medium mb-2">Fonctionnalités :</h3>
                 <ul class="list-disc list-inside mb-4 text-lg">
-                    <li class="underline">Q1: What types of descriptions work best?</li>
-                    <p class="pl-4 font-semibold">A1: Detailed and specific descriptions yield the best results.</p>
-                    <li class="underline">Q2: How can I improve the generated images?</li>
-                    <p class="pl-4 font-semibold">A2: Use clear and descriptive language, and consider providing additional context or constraints.</p>
-                    <li class="underline">Q3: Can I use my own images for fine-tuning?</li>
-                    <p class="pl-4 font-semibold">A3: Yes, you can use the Dreambooth technique to fine-tune the model on your own images.</p>
+                    <li>Champ de Saisie de Prompt : Permet à l'utilisateur d'écrire une description textuelle de l'image qu'il souhaite générer (par exemple, "Un chien jouant dans un parc").</li>
+                    <li>Bouton Envoyer : Envoie le prompt pour générer une image.</li>
+                    <li>Bouton Paramètres : Permet aux utilisateurs d'ajuster les paramètres de l'image avant d'envoyer le prompt.</li>
+                </ul>
+
+                <h3 class="text-xl font-medium mb-2">Paramètres de l'Image :</h3>
+                <ul class="list-disc list-inside mb-4 text-lg">
+                    <li>Prompt Négatif : Permet d'exclure certains éléments de l'image générée. Exemple : Si vous ne voulez pas d'arbres dans l'image, vous pouvez ajouter "arbres" dans le prompt négatif.</li>
+                    <li>Échelle de Guidance : Contrôle l'influence du texte sur l'image générée. Valeurs : Une valeur plus élevée rend l'image plus fidèle à la description textuelle, tandis qu'une valeur plus basse permet plus de créativité.</li>
+                    <li>Nombre d'Étapes d'Inférence : Définit le nombre d'étapes utilisées pour générer l'image. Valeurs : Plus d'étapes peuvent améliorer la qualité de l'image mais augmentent aussi le temps de génération.</li>
+                    <li>Seed : Permet de reproduire une image spécifique en utilisant la même seed. Valeurs : Utiliser la même valeur de seed avec les mêmes paramètres générera toujours la même image.</li>
+                </ul>
+
+                <h3 class="text-xl font-medium mb-2">Historique :</h3>
+                <ul class="list-disc list-inside mb-4 text-lg">
+                    <li>Affichage des Images : Les images générées sont automatiquement enregistrées dans la section historique en bas de la page.</li>
+                    <li>Bouton Corbeille : Permet de supprimer une image de l'historique.</li>
+                </ul>
+            </section>
+
+            <section class="mb-8 w-full">
+                <h2 class="text-2xl font-semibold mb-4">Questions Fréquemment Posées</h2>
+                <ul class="list-disc list-inside mb-4 text-lg">
+                    <li class="underline">Q1 : Quels types de descriptions fonctionnent le mieux ?</li>
+                    <p class="pl-4 font-semibold">R1 : Les descriptions détaillées et spécifiques donnent les meilleurs résultats.</p>
+                    <li class="underline">Q2 : Comment puis-je améliorer les images générées ?</li>
+                    <p class="pl-4 font-semibold">R2 : Utilisez un langage clair et descriptif, et envisagez de fournir un contexte ou des contraintes supplémentaires.</p>
+                    <li class="underline">Q3 : Puis-je utiliser mes propres images pour l'affinage ?</li>
+                    <p class="pl-4 font-semibold">R3 : Oui, vous pouvez utiliser la technique Dreambooth pour affiner le modèle avec vos propres images.</p>
                 </ul>
             </section>
         {% endif %}

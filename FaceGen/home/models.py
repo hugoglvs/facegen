@@ -6,9 +6,6 @@ from django.utils import timezone
 from django.conf import settings
 
 import os
-import subprocess
-import random
-import string
 import logging
 
 # Set up logging

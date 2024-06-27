@@ -4,9 +4,9 @@
 {% block title %}Facegen - Dreambooth{% endblock %}
 
 {% block content %}
-<main class="flex flex-col items-center min-w-[80%] max-w-[80%] p-5 text-lg">
     <div class="flex flex-row">
-        <h1 class="text-5xl text-center font-thin">Dreambooth</h1>
+        <h1 class="text-5xl text-center font-thin mb-10">Dreambooth</h1>
+
         <div class="inline-block float-left " hx-post="../info/dreambooth" hx-target="body" hx-swap="beforeend">
             <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 18.5C12.5523 18.5 13 18.0523 13 17.5L13 10.5C13 9.94772 12.5523 9.5 12 9.5C11.4477 9.5 11 9.94772 11 10.5L11 17.5C11 18.0523 11.4477 18.5 12 18.5Z" fill="#fff"/>
@@ -16,19 +16,23 @@
         </div>
     </div>
 
-    <p class="mt-10 text-start"> DreamBooth is a method created by Google Research to make text-to-image models, like Stable Diffusion, better at generating pictures of specific things. Imagine you have a model that can create images from text descriptions, and you want it to generate pictures of your pet in different scenes.</p>
-
-        <div>
-            <button class="bg-[--primary-color] text-white py-2 px-4 my-8 rounded hover:bg-[--secondary-color] transition-colors ease-in-out"
+        <div class="flex flex-col items-center">
+            <p class="text-start text-lg"> DreamBooth est une méthode créée par Google Research pour améliorer les modèles de génération d'images à partir de texte, comme Stable Diffusion, afin de mieux générer des images de choses spécifiques. Imaginez que vous ayez un modèle capable de créer des images à partir de descriptions textuelles, et que vous vouliez qu'il génère des images de votre animal de compagnie dans différents décors.</p>            <button class="bg-[--primary-color]  text-white py-2 px-4 my-8 rounded hover:bg-[--secondary-color] transition-colors ease-in-out"
                     hx-post="{% url 'webcam' %}"
                     hx-target="closest div"
-                    hx-swap="outerHTML">Start !</button>
+                    hx-swap="outerHTML">
+                Start !
+            </button>
         </div>
 
     <form id="image-inputs"></form>
     <div id="webcam-functionality"></div>
+
     <div id="myProgress" class="hidden">
-        <div id="myBar">0%</div>
+        <p class="text-lg text-start">Le modèle est dorénavant en cours d'entraînement. Suite à ce dernier, vous pourrez demander à générer des photos de vous. Le temps moyen d'attente est de 1 minute 30 secondes. Veuillez patienter.</p>
+        <div>
+            <div id="myBar" class="rounded-xl text-right ml-px w-[1%] h-8 bg-[--primary-color] leading-8 ">0%</div>
+        </div>
     </div>
 
     <div id="output-wrapper">

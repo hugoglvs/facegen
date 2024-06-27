@@ -168,17 +168,17 @@ function activityChecker() {
 }
 
 function generateImage() {
+    $(this).attr("disabled");
     const steps = $("#num_inference_steps").attr("value");
     const iterationsSecond = 4.7;
     const stepsDuration = 1/iterationsSecond;
     loadingBar(steps, stepsDuration);
-    
 }
 
 function loadingBar(steps, stepDuration) {
     $("#myProgress").show()
     let i = 1;
-    var elem = document.getElementById("myBar");
+    var elem = $("#myBar");
     var width = 1;
     var id = setInterval(frame, steps*stepDuration*1000/100);
     function frame() {
@@ -187,8 +187,8 @@ function loadingBar(steps, stepDuration) {
             i = 0;
         } else {
             width++;
-            elem.style.width = width + "%";
-            elem.innerHTML = width + "%";
+            elem.width(width + "%");
+            elem.text(width + "%");
         }   
     }
 }

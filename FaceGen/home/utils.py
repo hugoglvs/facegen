@@ -70,7 +70,10 @@ class FaceGenPipeline:
 
     
     def dreambooth(self, identifier="EnzoBertrand", training_steps=100, batch_size=1, base_model=settings.BASE_MODEL):
-        del self.pipe
+        try:
+            del self.pipe
+        except AttributeError:
+            pass
         torch.cuda.empty_cache()
         print("Unloading pipeline")
         print("Starting Dreambooth training")
@@ -130,6 +133,7 @@ def remove_old_files(number_of_days):
     for image in old_images:
         try:
             os.remove(image.get_absolute_url())
+            logger.info("File %s removed successfully", image.get_absolute_url())
         except Exception as e:
             logger.exception(f"An error occurred while trying to remove the file {image.get_absolute_url()}")
         image.delete()

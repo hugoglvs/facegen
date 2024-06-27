@@ -1,7 +1,7 @@
 {% load static %}
 {% load tailwind_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" class=" 3xl:text-lg">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,18 +12,18 @@
     <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script async src="https://docs.opencv.org/4.5.5/opencv.js"></script>
-    <script src="https://unpkg.com/alpinejs" async></script>
     <script src="{% static 'home/script.js' %}" defer></script>
 </head>
 
-<body class="flex flex-col items-center p-5 min-h-dvh text-white font-roboto {% block body_class %}bg-gradient-to-t from-[--tertiary-color] from-10% to-[--primary-color] {% endblock %}" x-data="themeSwitcher()" x-init="init()">
-    <header class="w-full flex flex-col justify-between items-center p-8 sm:flex-row">
+<body class="min-h-dvh text-white font-roboto {% block body_class %}bg-gradient-to-t from-[--tertiary-color] from-10% to-[--primary-color] {% endblock %}">
+    <header class="flex flex-col w-full justify-between items-center p-8 sm:flex-row">
         <a href="{% url 'index' %}"><img src="{% static 'home/images/logo.png' %}" class="min-w-32 max-w-sm" alt="Logo"></a>
         <nav class="flex items-center gap-8">
             <a class="text-lg" href="{% url 'dreambooth' %}">Dreambooth</a>
-            <a class="text-lg" href="{% url 'about' %}">About</a>
+            <a class="text-lg" href="{% url 'about' %}">À propos</a>
         </div>
     </header>
+    <main class="flex flex-col items-center min-w-96 sm:mx-0 md:mx-[10%] lg:mx-[15%] xl:mx-[20%] p-5">
     {% block content %}
     {% endblock %}
 </body>

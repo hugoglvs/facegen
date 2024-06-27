@@ -137,6 +137,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Tailwind configuration
 NPM_BIN_PATH = 'npm.cmd'
+NPM_BIN_PATH = "/opt/homebrew/bin/npm"
 TAILWIND_APP_NAME = 'theme'
 INTERNAL_IPS = [
     "127.0.0.1",

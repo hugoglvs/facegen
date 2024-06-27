@@ -1,21 +1,22 @@
 {%  load static %}
-<form id="image-inputs" class="text-black w-full" 
+<form id="image-inputs" class="text-black " 
 hx-get="{% url 'generate' %}" hx-target="#output-wrapper">
-    <div class="flex flex-row mt-8 mb-5 px-4 items-center justify-between gap-5 w-full rounded-3xl overflow-hidden bg-white relative">
-        <div class="absolute left-4 flex gap-2 z-2 items-center">
-            <button id="settings-button" onclick="$('#advanced-settings').toggle()" type="button">
-                <img class="w-8 h-8" src="{% static 'home/icons/settings.svg' %}" alt="Advanced settings">
-            </button>
-        </div>
-        <input type="text" name="prompt" id="prompt" placeholder="Enter your prompt here..." required class="p-4 mr-0 ml-16 border-none w-[calc(100%-90px-60px)] relative z-1 text-lg focus:outline-none">
-        <button id="send-button" @click="generateImage" class="p-2" type="submit"><img class="w-8 h-8" src="{% static 'home/icons/send.svg' %}" alt="Send"></button>
+<div class="flex flex-row mt-8 px-4 items-center justify-between gap-5 rounded-3xl overflow-hidden bg-white relative z-10 shadow-xl">
+    <div class="absolute left-4 flex gap-2 z-2 items-center">
+        <button id="settings-button" onclick="$('#advanced-settings').toggle(100, easing='linear')" type="button">
+            <img class="w-8 h-8" src="{% static 'home/icons/settings.svg' %}" alt="Paramètres avancés">
+        </button>
     </div>
-    <div id="advanced-settings" class="hidden bg-white rounded-lg p-5 max-w-[80%] mx-auto shadow-lg relative z-3">
-        <label for="negative_prompt" class="block text-black ml-6">Negative prompt:</label>
-        <input type="text" name="negative_prompt" id="negative_prompt" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">            <label for="guidance_scale" class="block text-black ml-6">Guidance scale:</label>
-        <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
-        <label for="num_inference_steps" class="block text-black ml-6">Number of inference steps:</label>
-        <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
-    </div>
+    <input type="text" name="prompt" id="prompt" placeholder="Portrait d'une jeune femme blonde aux yeux verts." required class="p-4 mr-0 ml-16 border-none w-[calc(100%-90px-60px)] relative z-1 text-lg focus:outline-none">
+    <button id="send-button" class="p-2" type="submit" onclick="generateImage()"><img class="w-8 h-8" src="{% static 'home/icons/send.svg' %}" alt="Envoyer"></button>
+</div>
+<div id="advanced-settings" class="hidden bg-white rounded-b-xl p-5 w-[86%] mx-auto shadow-lg relative" >
+    <label for="negative_prompt" class="block text-black ml-6">Prompt négatif:</label>
+    <input type="text" name="negative_prompt" id="negative_prompt" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+    <label for="guidance_scale" class="block text-black ml-6">Échelle de guidance:</label>
+    <input type="number" name="guidance_scale" id="guidance_scale" value="7" min="5" max="10" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+    <label for="num_inference_steps" class="block text-black ml-6">Nombre d'étapes d'inférence:</label>
+    <input type="number" name="num_inference_steps" id="num_inference_steps" value="100" min="1" max="500" class="block w-[calc(90%-20px)] mx-auto my-2 p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-primary">
+</div>
     <script>$("#myProgress").hide()</script>
 </form>

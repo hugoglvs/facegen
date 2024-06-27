@@ -6,9 +6,11 @@ from .models import GeneratedImage
 from django.conf import settings
 from django.core.files.base import ContentFile
 import os
-import json
+import logging
 import base64
-import torch
+
+
+logger = logging.getLogger(__name__)
 
 if settings.AUTO_LOAD_PIPELINE:
     pipe = FaceGenPipeline()

@@ -157,13 +157,23 @@ module.exports = {
             },
           },
         extend: {
-            fontSize: {
-              'base': '108px',
-            },
             fontFamily: {
                 roboto: ['Roboto', 'sans-serif'],
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.5s ease-in-out forwards',
+              'fade-out': 'fadeOut 0.5s ease-in-out forwards',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: 0, height: 0 },
+                '100%': { opacity: 1, height: 'auto' },
               },
-            
+              fadeOut: {
+                '0%': { opacity: 1, height: 'auto' },
+                '100%': { opacity: 0, height: 0 },
+              },  
+            },
         },
     },
     plugins: [
