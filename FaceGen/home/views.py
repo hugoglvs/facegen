@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from .utils import FaceGenPipeline, save_photo, remove_old_files
+from .utils import FaceGenPipeline, save_photo, remove_old_files, delete_not_saved_files
 from .models import GeneratedImage
 from django.conf import settings
 from django.core.files.base import ContentFile
@@ -20,9 +20,9 @@ if settings.AUTO_LOAD_PIPELINE:
 # Pages to render
 
 def index(request: HttpRequest) -> HttpResponse:
+    delete_not_saved_files()
     remove_old_files(15)
-    if not pipe.is_base_model():
-        pipe.rebase()
+    pipe.rebase()
     return render(request,'home/index.html')
 
 def dreambooth(request: HttpRequest) -> HttpResponse:
@@ -39,10 +39,10 @@ def generate(request: HttpRequest) -> HttpResponse:
     generated_image = GeneratedImage.objects.create(**params)
     if not pipe.is_base_model():
         generated_image.dreambooth = True
-    generated_image.save()
     print(generated_image)
     image = pipe(**generated_image.params()).images[0]
     image.save(os.path.join(settings.MEDIA_ROOT, "outputs", generated_image.get_filename()), "PNG")
+    generated_image.save()
     context = {"image_output": generated_image}
     return render(request, 'home/components/image_output.html', context)
 

@@ -40,10 +40,12 @@
         <img src="{% static 'home/images/output.png' %}" alt="Sortie" class="w-64 h-64 rounded-lg">
     </div>
 
-    <div id="myProgress" class="hidden rounded-xl bg-slate-600 w-full">
-        <div id="myBar" class="rounded-xl text-right ml-px w-[1%] h-8 bg-[--primary-color] leading-8 ">0%</div>
+    <div id="progress-bar" class="progress w-full hidden">
+        <div class="w-full rounded-xl bg-slate-500">
+            <div id="myBar" class="rounded-xl text-right ml-px w-[1%] h-8 bg-[--primary-color] leading-8 ">0%</div>
+        </div>
     </div>
-</main>
+
 <div id="history-container" hx-post="{% url 'history' %}" hx-trigger="load, from:#send-button">
 </div>
 {% endblock %}

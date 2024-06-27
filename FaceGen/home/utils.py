@@ -64,12 +64,12 @@ class FaceGenPipeline:
         return self.model_id == settings.BASE_MODEL
 
     def rebase(self):
-        if self.model_id != settings.BASE_MODEL:
+        if self.model_id != settings.BASE_MODEL or not hasattr(self, 'pipe'):
             self.model_id = settings.BASE_MODEL
             self.__load_pipeline()
 
     
-    def dreambooth(self, identifier="EnzoBertrand", training_steps=100, batch_size=1, base_model=settings.BASE_MODEL):
+    def dreambooth(self, identifier="XYZ", training_steps=100, batch_size=1, base_model=settings.BASE_MODEL):
         try:
             del self.pipe
         except AttributeError:
@@ -138,4 +138,17 @@ def remove_old_files(number_of_days):
             logger.exception(f"An error occurred while trying to remove the file {image.get_absolute_url()}")
         image.delete()
 
+def delete_not_saved_files():
+    # Get all GeneratedImage objects that have not been saved
+    saved_images = GeneratedImage.objects.all()
+    # Delete all files from media/outputsnot that ain't in our database
+    output_dir = os.path.join(settings.MEDIA_ROOT, 'outputs')
+    for file in os.listdir(output_dir):
+        if file not in [image.get_filename() for image in saved_images]:
+            try:
+                os.remove(os.path.join(output_dir, file))
+                logger.info("File %s removed successfully", file)
+            except Exception as e:
+                logger.exception(f"An error occurred while trying to remove the file {file}")
+    
 

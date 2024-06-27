@@ -859,8 +859,16 @@ select {
   margin-bottom: 2rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .mb-2 {
   margin-bottom: 0.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 0.75rem;
 }
 
 .mb-4 {
@@ -909,30 +917,6 @@ select {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.ml-\[50\%\] {
-  margin-left: 50%;
-}
-
-.mr-auto {
-  margin-right: auto;
-}
-
-.mb-10 {
-  margin-bottom: 2.5rem;
-}
-
-.mb-12 {
-  margin-bottom: 3rem;
-}
-
-.mb-5 {
-  margin-bottom: 1.25rem;
-}
-
-.mb-3 {
-  margin-bottom: 0.75rem;
 }
 
 .block {
@@ -1021,6 +1005,14 @@ select {
   width: 100%;
 }
 
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-1\/3 {
+  width: 33.333333%;
+}
+
 .min-w-32 {
   min-width: 8rem;
 }
@@ -1093,24 +1085,16 @@ select {
   gap: 0.5rem;
 }
 
+.gap-3 {
+  gap: 0.75rem;
+}
+
 .gap-5 {
   gap: 1.25rem;
 }
 
 .gap-8 {
   gap: 2rem;
-}
-
-.gap-4 {
-  gap: 1rem;
-}
-
-.gap-6 {
-  gap: 1.5rem;
-}
-
-.gap-3 {
-  gap: 0.75rem;
 }
 
 .self-center {
@@ -1180,9 +1164,9 @@ select {
   border-color: rgb(210 210 210 / var(--tw-border-opacity));
 }
 
-.border-slate-200 {
+.border-white {
   --tw-border-opacity: 1;
-  border-color: rgb(197 212 227 / var(--tw-border-opacity));
+  border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
 .bg-\[--primary-color\] {
@@ -1196,6 +1180,11 @@ select {
 .bg-gray-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(126 126 126 / var(--tw-bg-opacity));
+}
+
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(64 88 109 / var(--tw-bg-opacity));
 }
 
 .bg-slate-600 {
@@ -1212,9 +1201,8 @@ select {
   background-color: rgb(255 255 255 / 0.6);
 }
 
-.bg-slate-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(64 88 109 / var(--tw-bg-opacity));
+.bg-\[--tertiary-color\] {
+  background-color: var(--tertiary-color);
 }
 
 .bg-opacity-90 {
@@ -1239,26 +1227,6 @@ select {
   --tw-gradient-from-position: 10%;
 }
 
-.from-35\% {
-  --tw-gradient-from-position: 35%;
-}
-
-.from-30\% {
-  --tw-gradient-from-position: 30%;
-}
-
-.from-25\% {
-  --tw-gradient-from-position: 25%;
-}
-
-.from-20\% {
-  --tw-gradient-from-position: 20%;
-}
-
-.from-15\% {
-  --tw-gradient-from-position: 15%;
-}
-
 .via-\[--secondary-color\] {
   --tw-gradient-to: rgb(255 255 255 / 0)  var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--secondary-color) var(--tw-gradient-via-position), var(--tw-gradient-to);
@@ -1266,6 +1234,10 @@ select {
 
 .to-\[--primary-color\] {
   --tw-gradient-to: var(--primary-color) var(--tw-gradient-to-position);
+}
+
+.p-10 {
+  padding: 2.5rem;
 }
 
 .p-2 {
@@ -1408,24 +1380,14 @@ select {
   color: rgb(110 110 110 / var(--tw-text-opacity));
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-slate-100 {
-  --tw-text-opacity: 1;
-  color: rgb(235 241 246 / var(--tw-text-opacity));
-}
-
 .text-slate-200 {
   --tw-text-opacity: 1;
   color: rgb(197 212 227 / var(--tw-text-opacity));
 }
 
-.text-gray-900 {
+.text-white {
   --tw-text-opacity: 1;
-  color: rgb(14 14 14 / var(--tw-text-opacity));
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .text-opacity-55 {
@@ -1468,7 +1430,16 @@ select {
   background-color: var(--secondary-color);
 }
 
+.focus\:border-none:focus {
+  border-style: none;
+}
+
 .focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.active\:outline-none:active {
   outline: 2px solid transparent;
   outline-offset: 2px;
 }
@@ -1482,11 +1453,6 @@ select {
   .sm\:flex-row {
     flex-direction: row;
   }
-
-  .sm\:text-sm {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
 }
 
 @media (min-width: 768px) {
@@ -1494,22 +1460,12 @@ select {
     margin-left: 10%;
     margin-right: 10%;
   }
-
-  .md\:text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
 }
 
 @media (min-width: 1024px) {
   .lg\:mx-\[15\%\] {
     margin-left: 15%;
     margin-right: 15%;
-  }
-
-  .lg\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
   }
 }
 
@@ -1522,27 +1478,5 @@ select {
   .xl\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
-  }
-}
-
-@media (min-width: 1536px) {
-  .\32xl\:text-2xl {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .\32xl\:text-xl {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
-
-  .\32xl\:text-lg {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
-  .\32xl\:text-base {
-    font-size: 1rem;
-    line-height: 1.5rem;
   }
 }

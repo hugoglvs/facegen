@@ -1,7 +1,7 @@
 {% load static %}
 {% load tailwind_tags %}
 <!DOCTYPE html>
-<html lang="fr" class=" 3xl:text-lg">
+<html lang="fr" class="xl:text-xl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,7 @@
 </head>
 
 <body class="min-h-dvh text-white font-roboto {% block body_class %}bg-gradient-to-t from-[--tertiary-color] from-10% to-[--primary-color] {% endblock %}">
-    <header class="flex flex-col w-full justify-between items-center p-8 sm:flex-row">
+    <header class="flex flex-col w-full justify-between items-center p-10 sm:flex-row">
         <a href="{% url 'index' %}"><img src="{% static 'home/images/logo.png' %}" class="min-w-32 max-w-sm" alt="Logo"></a>
         <nav class="flex items-center gap-8">
             <a class="text-lg" href="{% url 'dreambooth' %}">Dreambooth</a>

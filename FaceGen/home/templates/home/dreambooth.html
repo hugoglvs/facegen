@@ -28,9 +28,9 @@
     <form id="image-inputs"></form>
     <div id="webcam-functionality"></div>
 
-    <div id="myProgress" class="hidden">
-        <p class="text-lg text-start">Le modèle est dorénavant en cours d'entraînement. Suite à ce dernier, vous pourrez demander à générer des photos de vous. Le temps moyen d'attente est de 1 minute 30 secondes. Veuillez patienter.</p>
-        <div class="w-full rounded-md bg-slate-500">
+    <p class="progress progress-training text-lg text-start hidden">Le modèle est dorénavant en cours d'entraînement. Suite à ce dernier, vous pourrez demander à générer des photos de vous. Le temps moyen d'attente est de 1 minute 30 secondes. Veuillez patienter.</p>
+    <div id="progress-bar" class="progress w-full hidden mt-4">
+        <div class="w-full rounded-xl bg-slate-500">
             <div id="myBar" class="rounded-xl text-right ml-px w-[1%] h-8 bg-[--primary-color] leading-8 ">0%</div>
         </div>
     </div>

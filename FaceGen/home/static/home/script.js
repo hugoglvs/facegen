@@ -176,7 +176,7 @@ function generateImage() {
 }
 
 function loadingBar(steps, stepDuration) {
-    $("#myProgress").show()
+    $(".progress").show()
     let i = 1;
     var elem = $("#myBar");
     var width = 1;
