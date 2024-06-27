@@ -51,20 +51,20 @@
     --white: #ffffff;
  
     /* Theme colors */
-    --blue-primary: var(--royal);
+    --blue-primary: var(--dell-blue);
     --blue-secondary: var(--sky);
     --blue-tertiary: var(--glacier);
   
-    --green-primary: var(--hunter);
-    --green-secondary: var(--basil);
+    --green-primary: var(--basil);
+    --green-secondary: var(--lime);
     --green-tertiary: var(--tea-green);
   
-    --purple-primary: var(--raisin);
-    --purple-secondary: var(--amethyst);
+    --purple-primary: var(--amethyst);
+    --purple-secondary: var(--lavender);
     --purple-tertiary: var(--periwinkle);
   
-    --red-primary: var(--burgundy);
-    --red-secondary: var(--scarlet);
+    --red-primary: var(--coral);
+    --red-secondary: var(--apricot);
     --red-tertiary: var(--sand);
   }
 

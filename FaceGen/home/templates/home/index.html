@@ -7,10 +7,9 @@
     <div>
         <div class="flex items-center w-full">
             <h1 class="text-5xl font-light">FaceGen</h1>
-            <span class="text-lg text-white text-opacity-55 ml-2 relative top-2 font-normal italic mt-2">Propulsé par les étudiants de Paul Valéry</span>
+            <span class="text-lg text-white text-opacity-55 ml-2 relative top-2 font-normal italic mt-2">Généré par des étudiants de Paul Valéry</span>
         </div>
-        <p class="text-lg max-w-3xl text-left">Votre passerelle vers des visages et des personnalités générés par l'IA. Décrivez, et regardez des images réalistes prendre vie sans effort.</p>
-        <div class="inline-block float-left" hx-post="info/stable_diffusion" hx-target="body" hx-swap="beforeend">
+        <div class="float-right" hx-post="info/stable_diffusion" hx-target="body" hx-swap="beforeend">
             <svg class="cursor-pointer" height="24px" width="24px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
                 viewBox="0 0 431.855 431.855" xml:space="preserve">
                 <g>
@@ -32,6 +31,8 @@
                 </g>
             </svg>
         </div>
+        <p class="text-lg max-w-3xl text-left">Votre passerelle vers des visages et des personnalités générés par l'IA. Décrivez, et regardez des images réalistes prendre vie sans effort.</p>
+        
     </div>
     <form id="image-inputs" class="text-black w-full" hx-post="{% url 'prompt' %}" hx-trigger="load">
     </form>

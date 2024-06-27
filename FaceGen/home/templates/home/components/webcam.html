@@ -19,7 +19,7 @@
             {% for _ in range %}
             <div data-photo-index="{{ forloop.counter0}}" class="photo-container flex flex-col min-w-8 border-solid items-center">
                 <img class="photo" src="">
-                <button class="trash-button mt-2"><img class="size-6" src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
+                <button class="trash-button mt-2"><img height="20px" width="20px" src="{% static 'home/icons/trash.svg' %}" alt="Trash"></button>
             </div>
             {% endfor %}
         {% endwith %}
@@ -30,9 +30,10 @@
                 hx-trigger="click delay:500ms"
                 hx-target="#webcam-functionality"
                 hx-swap="outerHTML">
-            <img class="size-12" src="{% static 'home/icons/send.svg' %}" alt="Send Photos">
+            <img class="size-10" src="{% static 'home/icons/send.svg' %}" alt="Send Photos">
         </button>
     </div>
+    
 </div>
 <script defer>initWebcam()</script>
 {% endblock %}

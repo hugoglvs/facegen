@@ -17,7 +17,7 @@
 
 <body class="min-h-dvh text-white font-roboto {% block body_class %}bg-gradient-to-t from-[--tertiary-color] from-10% to-[--primary-color] {% endblock %}">
     <header class="flex flex-col w-full justify-between items-center p-10 sm:flex-row">
-        <a href="{% url 'index' %}"><img src="{% static 'home/images/logo.png' %}" class="min-w-32 max-w-sm" alt="Logo"></a>
+        <a href="{% url 'index' %}"><img src="{% static 'home/images/logo.png' %}" class="min-w-32 max-w-xs" alt="Logo"></a>
         <nav class="flex items-center gap-8">
             <a class="text-lg" href="{% url 'dreambooth' %}">Dreambooth</a>
             <a class="text-lg" href="{% url 'about' %}">À propos</a>

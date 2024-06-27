@@ -1,23 +1,22 @@
 {% load static%}
 
-<div id="modal" class="fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-gray-600 bg-opacity-90">
+<div id="modal" class="flex justify-center items-center fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-gray-600 bg-opacity-90">
     
-    <div class="bg-[--secondary-color] h-[70dvh] overflow-hidden p-5 m-20 self-center justify-center border border-gray-300 shadow-lg rounded-lg">
+    <div class="bg-[--secondary-color] h-auto xl:w-[45%] overflow-hidden p-10 m-20 self-center justify-center border border-gray-300 shadow-lg rounded-lg">
         <button class="close cursor-pointer float-right text-l" onclick="$(this).parent().parent().remove()">
             <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289Z" fill="#000000"/>
             </svg>
         </button>
-        <div class="flex flex-row">
-            <div class="w-full rounded-lg mb-4">
+        <div class="flex flex-row gap-4">
+            <div class="flex justify-center align-middle w-full h-full rounded-lg mb-4 ">
                 <img class="rounded-lg" src="{{ image.path }}" alt="{{ image.prompt }}">
             </div>
-            <div class="w-full bg-[--tertiary-color] p-8 border-white border-2 rounded-lg">
+            <div class="w-full h-full bg-[--tertiary-color] p-8 border-white border-2 rounded-lg ">
                 <h2 class="text-xl font-semibold mb-2 text-black">{{ image.prompt }}</h2>
                 <p class="text-gray-700 mb-2"><strong>Prompt Négatif :</strong> {{ image.negative_prompt }}</p>
                 <p class="text-gray-700 mb-2"><strong>Étapes d'Inférence :</strong> {{ image.num_inference_steps }}</p>
                 <p class="text-gray-700 mb-2"><strong>Échelle de Guidance :</strong> {{ image.guidance_scale }}</p>
-                <p class="text-gray-700 mb-2"><strong>Graine :</strong> {{ image.seed }}</p>
                 <p class="text-gray-700 text-sm mt-4">{{ image.date }}</p>
             </div>
         </div>

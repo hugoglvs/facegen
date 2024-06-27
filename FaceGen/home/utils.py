@@ -29,6 +29,7 @@ class FaceGenPipeline:
             self.model_id = model_id
             self.device = self.__define_device()
             self.pipe = self.__load_pipeline()
+            self.process = None
             print(f"FaceGenPipeline initialized on {self.device} device")
 
     def __repr__(self):
@@ -109,10 +110,11 @@ class FaceGenPipeline:
         ]
 
         try:
-            result = subprocess.run(command, env=env, capture_output=True, text=True)
+            process = subprocess.run(command, env=env, capture_output=True, text=True)
+            self.process = process.pid
             print("Training command executed successfully.")
-            logger.info("Command output: %s", result.stdout)
-            logger.error("Command error output: %s", result.stderr)
+            logger.info("Command output: %s", process.stdout)
+            logger.error("Command error output: %s", process.stderr)
             self.model_id = dreambooth_path
             self.pipe = self.__load_pipeline()
             
@@ -150,5 +152,3 @@ def delete_not_saved_files():
                 logger.info("File %s removed successfully", file)
             except Exception as e:
                 logger.exception(f"An error occurred while trying to remove the file {file}")
-    
-
