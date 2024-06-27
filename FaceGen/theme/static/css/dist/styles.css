@@ -1212,6 +1212,11 @@ select {
   background-color: rgb(255 255 255 / 0.6);
 }
 
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(64 88 109 / var(--tw-bg-opacity));
+}
+
 .bg-opacity-90 {
   --tw-bg-opacity: 0.9;
 }

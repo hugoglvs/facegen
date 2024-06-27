@@ -80,7 +80,7 @@ def start_dreambooth_training(request: HttpRequest) -> JsonResponse:
     upload_photos(request)
     print("Photos uploaded")
     pipe.dreambooth()
-    return render(request, 'home/components/prompt.html')
+    return render(request, 'home/components/prompt.html', {"dreambooth": True})
 
 @csrf_exempt
 def upload_photos(request: HttpRequest) -> JsonResponse:
