@@ -111,6 +111,7 @@ if (-not (Test-Path -Path $runFilePath)) {
 Set-Location $Env:ProgramFiles\FaceGen
 & "venv\Scripts\Activate.ps1"
 
+Set-Location FaceGen
 if (Get-Command python -ErrorAction SilentlyContinue) {
     python manage.py migrate
     Start-Process -FilePath python -ArgumentList "manage.py runserver"
